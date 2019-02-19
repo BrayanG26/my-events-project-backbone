@@ -1,8 +1,8 @@
 var app = app || {}
 
-(function ($) {
+(function($) {
 
 })(jQuery);
 app.Eventos = Backbone.Collection.extend({
-        model: app.Evento
-    });
+    model: app.Evento
+});

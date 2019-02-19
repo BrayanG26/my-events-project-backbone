@@ -9,7 +9,7 @@ var indicadores = [
     { nombre: 'Hoy', valor: new Date(), unidad: '' }
 ];
 
-new app.AppView(indicadores);
+// new app.AppView(indicadores);
 
 $(function () {
     $(window).resize(function () {

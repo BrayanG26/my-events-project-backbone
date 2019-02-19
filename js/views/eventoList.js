@@ -3,7 +3,7 @@ var app = app || {};
 (function($) {
     app.EventoListView = Backbone.View.extend({
         tagName: 'div',
-        className: 'lista-eventos container-fluid',
+        className: 'contenedor-eventos lista-eventos container-fluid',
 
         initialize: function() {
             // this.collection = new app.Eventos(initialEvents); // see later

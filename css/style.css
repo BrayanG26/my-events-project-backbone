@@ -884,12 +884,240 @@ Sidebar
 
 /* -------------------------------- 
 
-div Evento
+div para lista de eventos
 
 -------------------------------- */
 
-.evento {
-	border:blue solid 1px;
-	border-radius:5px;
-	margin-bottom:5px;
+/* .evento { */
+	/* border:blue solid 1px; */
+	/* border-radius:5px; */
+	/* margin-bottom:5px; */
+/* } */
+
+/* Etiquetas de los eventos */
+
+.estado {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 24px;
+    bottom: -12px;
+    list-style: none;
+}
+
+.estado__etiqueta {
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    position: relative;
+    font-size: 11px;
+    margin-left: 20px;
+    padding: 0 10px 0 12px;
+    /* background: color; */
+    color: #fff;
+    text-decoration: none;
+    -moz-border-radius-bottomright: 4px;
+    -webkit-border-bottom-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    -moz-border-radius-topright: 4px;
+    -webkit-border-top-right-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.estado__etiqueta--creado {
+    background: #d5ad27;
+}
+
+.estado__etiqueta--eliminado {
+    background: #ef0e0e;
+}
+
+.estado__etiqueta--programado {
+    background: #212ea3;
+}
+
+.estado__etiqueta--ejecutado {
+    background: #2f960e;
+}
+
+.estado__etiqueta--cancelado {
+    background: #888888;
+}
+
+.estado__etiqueta--cerrado {
+    background: #e84a0b;
+}
+
+.estado__etiqueta:before {
+    content: "";
+    float: left;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    width: 0;
+    height: 0;
+    /* border-color: transparent var(--tag-event-background) transparent transparent; */
+    border-style: solid;
+    border-width: 12px 12px 12px 0;
+}
+
+.estado__etiqueta--creado::before {
+    border-color: transparent #d5ad27 transparent transparent;
+}
+
+.estado__etiqueta--eliminado::before {
+    border-color: transparent #ef0e0e transparent transparent;
+}
+
+.estado__etiqueta--programado::before {
+    border-color: transparent #212ea3 transparent transparent;
+}
+
+.estado__etiqueta--ejecutado::before {
+    border-color: transparent #2f960e transparent transparent;
+}
+
+.estado__etiqueta--cancelado::before {
+    border-color: transparent #888888 transparent transparent;
+}
+
+.estado__etiqueta--cerrado::before {
+    border-color: transparent #e84a0b transparent transparent;
+}
+
+.estado__etiqueta:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    float: left;
+    width: 4px;
+    height: 4px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    background: #fff;
+    -moz-box-shadow: -1px -1px 2px #004977;
+    -webkit-box-shadow: -1px -1px 2px #004977;
+    box-shadow: -1px -1px 2px #004977;
+}
+
+.estado__etiqueta:hover {
+    background: #555;
+}
+
+.estado__etiqueta:hover:before {
+    border-color: transparent #555 transparent transparent;
+}
+
+/* estilos provisionales para mostrar eventos en 
+  forma de lista */
+
+.contenedor-eventos {
+    width: 90%;
+    margin: auto;
+}
+
+.evento__card__element {
+    margin: 0 auto 6%;
+    padding: 0.5em;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    position: relative;
+    background: #fff;
+    box-shadow: 0 0.1875rem 1.5rem rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.45em;
+}
+
+.evento__detalles {
+    position: relative;
+    padding: 15px;
+    width: 100%;
+    height: 250px;
+}
+
+.evento__imagen {
+    position: relative;
+    object-fit: cover;
+    height: 150px;
+    width: 100%;
+}
+
+.evento__categoria {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0.0625rem;
+    margin: 0 0 0.75rem 0;
+    padding: 0 0 0.25rem 0;
+    border-bottom: 0.125rem solid #ebebeb;
+    color: #9b9b9b;
+    font-weight: 400;
+    margin: 1.2% 0;
+}
+
+.evento__titulo {
+    transition: color 0.3s ease;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    color: #121212;
+    font-weight: 700;
+    margin: 0 0 0.5rem 0;
+}
+
+.evento__fecha {
+    padding: 5px;
+    border-top: 0.0625em solid #ebebeb;
+}
+
+.evento__link {
+    position: relative;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.bordered {
+    border: 0.13vw dotted #e04f62;
+}
+
+/* media querie para la lista de eventos */
+
+@media screen and (min-width: 600px) {
+    .evento__card__element {
+        height: 14.625rem;
+        max-width: 500px;
+    }
+    .evento__imagen {
+        float: left;
+        height: 100%;
+        width: 40%;
+    }
+    .evento__detalles {
+        float: right;
+        width: 60%;
+        height: 100%;
+    }
+    /*  la dichosa prueba :S */
+    .categoria {
+        height: 15%;
+    }
+    .titulo {
+        height: 30%;
+    }
+    .descripcion {
+        height: 35%;
+    }
+    .costo {
+        height: 10%;
+    }
+    .fecha {
+        height: 15%;
+        position: absolute;
+        bottom: 0;
+    }
 }

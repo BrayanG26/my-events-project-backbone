@@ -1,8 +1,8 @@
 var app = app || {};
 
-(function () {
-    
-})();
-Indicadores = Backbone.Collection.extend({
+(function($) {
+
+})(jQuery);
+app.Indicadores = Backbone.Collection.extend({
     model: app.Indicador
 });
