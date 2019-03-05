@@ -8,12 +8,14 @@ var app = app || {};
         initialize: function() {
             // this.collection = new app.Eventos(initialEvents); // see later
             // this.render();
-            console.log(this.model.models);
+            console.dir(this.model);
         },
 
         // render library by rendering each book in its collection
         render: function() {
+            console.warn("into render EventoListView");
             _.each(this.model.models,function(item) {
+                console.warn(item);
                 this.renderOne(item);
             },this);
             return this;

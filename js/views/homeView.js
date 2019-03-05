@@ -5,22 +5,32 @@ var app = app || {};
         tagName: 'div',
         className: 'home-container-view',
         template: _.template($('#home-template').html()),
-        events: {},
+        events: {
+            '':'',
+            '':'',
+            '':''
+        },
         initialize: function() {
             // this.render();
         },
         render: function() {
             var listaEventos, listaIndicadores, estadisticas, tablas, listaEventosView;
-
-            listaEventos = new app.Eventos(this.getSampleEventsData().eventos);
+            var that = this;
+            // listaEventos = new app.Eventos();
             listaIndicadores = new app.Indicadores(this.getSampleEventsData().indicadores);
-            listaEventosView = new app.EventoListView({ model: listaEventos });
+            listaEventosView = new app.EventoListView({ model: app.eventos });
+            app.eventos.fetch({
+                success:function(){
+                    console.log('success fetch');
+                    that.$el.append(listaEventosView.render().$el);     
+                }
+            });
             listaIndicadoresView = new app.IndicadorListView({ model: listaIndicadores });
             // listaEventos.fetch();
-            console.info('listaEventos');
-            console.log(listaEventos);
-            this.$el.append(listaIndicadoresView.render().el);
-            this.$el.append(listaEventosView.render().el);
+            // console.warn('listaEventos');
+            // console.log(listaEventos);
+            this.$el.append(listaIndicadoresView.render().$el);
+            // this.$el.append(listaEventosView.render().$el);
             return this;
         },
         getSampleEventsData: function() {
@@ -74,7 +84,7 @@ var app = app || {};
                     { nombre: 'Ventas', valor: '400', unidad: 'US' },
                     { nombre: 'Más compartido', valor: '23', unidad: 'compartidos' },
                     { nombre: 'Más me gusta', valor: '10', unidad: 'me gusta' },
-                    { nombre: 'Hoy', valor: $.format.date(new Date(),'ddd MMMM yyyy'), unidad: '' }
+                    { nombre: 'Hoy', valor: $.format.date(new Date(), 'ddd MMMM yyyy'), unidad: '' }
                 ]
             };
         }

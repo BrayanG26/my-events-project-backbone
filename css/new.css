@@ -178,3 +178,24 @@ textarea.new-form__input-element{
 #ui-datepicker-div {
     display: none;
 }
+/**/
+
+/* For image event responsive */
+.event__image{
+    width: 100%;
+    height: auto;
+}
+/*  */
+
+/* For image thumbnails */
+.thumb {
+    height: 85px;
+    width: 95px;
+    border: 1px dashed #000;
+    margin: 10px 5px 0 0;
+    background-repeat:no-repeat;
+    background-size:contain;
+    background-position:center;
+  }
+/**/
+

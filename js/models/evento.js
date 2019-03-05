@@ -1,34 +1,32 @@
 /*global Backbone */
 var app = app || {};
 
-(function () {
-	'use strict';
+(function() {
+    'use strict';
 
-	// Evento Model
-	// ----------
-	
+    // Evento Model
+    // ----------
+    app.Evento = Backbone.Model.extend({
+        url: function() {
+            return "http://localhost:3000/api/eventos/" + this.id;
+        },
+        initialize: function() {
+            console.log('Objeto tipo evento, creado');
+
+        },
+        // Default attributes for the event
+        // and ensure that each event created has `title` and `completed` keys.
+        defaults: {
+            emailOrganizador: '',
+            nombreEvento: '',
+            lugar: '',
+            fecha: '',
+            hora: '',
+            ciudad: '',
+            capacidad: '',
+            costo: '0',
+            descripcion: '',
+            estado: 'creado'
+        }
+    });
 })();
-app.Evento = Backbone.Model.extend({
-	initialize: function () {
-		console.log('a evento object was created');
-	},
-	// Default attributes for the event
-	// and ensure that each event created has `title` and `completed` keys.
-	defaults: {
-		emailOrganizador: '',
-		nombreEvento: '',
-		lugar: '',
-		fecha: '',
-		hora: '',
-		ciudad: '',
-		descripcion: '',
-		estado: 'creado'
-	},
-
-	// Toggle the `completed` state of this todo item.
-	toggle: function () {
-		this.save({
-			completed: !this.get('completed')
-		});
-	}
-});

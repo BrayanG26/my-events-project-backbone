@@ -1,22 +1,23 @@
 var app = app || {};
-(function ($) {
+(function() {
     // js/routers/router.js
     // ----------
     var Workspace = Backbone.Router.extend({
         self: this,
         routes: {
-            '':'home',
-            '*create': 'newEvent'
+            '': 'home',
+            'create': 'newEvent',
+            'eventos/:id': 'editEvent'
         },
-        initialize: function () {
-            this.$main = self.$('.main');
+        initialize: function() {
+            this.$main = $('.main');
             // this.$indicadores = self.$('.indicators');
             // this.$estadisticas = self.$('.statistics');
             // this.$eventos = self.$('.events');
             // this.$tablas = self.$('.tables');
             // this.$nuevoEvento = self.$('.new-event');
         },
-        newEvent: function (param) {
+        newEvent: function(param) {
             // Set the current filter to be used
             // Trigger a collection filter event, causing hiding/unhiding
             // of Todo view items
@@ -31,7 +32,7 @@ var app = app || {};
             // this.$tablas.hide();
             console.log('into new-event route');
         },
-        home: function (param) {
+        home: function(param) {
             console.log('into home route');
             // this.$indicadores.show();
             // this.$estadisticas.show();
@@ -39,9 +40,24 @@ var app = app || {};
             // this.$tablas.show();
             // this.$nuevoEvento.hide();
             // var homeView = new app.HomeView();
-			this.$main.html(new app.HomeView().render().el);
+            this.$main.html(new app.HomeView().render().el);
+        },
+        editEvent: function(id) {
+            console.log("Into view-event route [id: " + id + "]");
+            var evento = new app.Evento({ id: id });
+            var self = this;
+            var editEventView;;
+            evento.fetch({
+                success: function(data) {
+                    console.log(data);
+                    editEventView = new app.EditEventoView({ model: data });
+                    editEventView.bindValidations();
+                    self.$main.html(editEventView.render().$el);
+                }
+            });
+            
         }
     });
     app.Router = new Workspace();
-})(jQuery);
-Backbone.history.start();
+    Backbone.history.start();
+})();

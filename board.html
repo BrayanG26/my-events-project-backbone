@@ -2,212 +2,193 @@
 <html lang="en" class="no-js">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
-
-	<link rel="stylesheet" href="css/reset.css">
-	<!--CSS reset-->
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
-	 crossorigin="anonymous">
-	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
-	<!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/reset.css">
+    <!--CSS reset-->
+    <!-- bootstrap -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	 crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+    <!-- <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
 	 integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous"> -->
-	<!-- bootstrap -->
-	<link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
-		integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="js/lib/modernizr.js"></script> <!-- Modernizr -->
-	<script type="text/javascript">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="js/lib/modernizr.js"></script> <!-- Modernizr -->
+    <script type="text/javascript">
+    // Load the Visualization API and the corechart package.
+    google.charts.load('current', { 'packages': ['corechart', 'table'], 'language': 'es' });
 
-		// Load the Visualization API and the corechart package.
-		google.charts.load('current', { 'packages': ['corechart', 'table'], 'language': 'es' });
-
-		// Set a callback to run when the Google Visualization API is loaded.
-		google.charts.setOnLoadCallback(drawCharts);
-		//google.charts.setOnLoadCallback(drawTableChart);
+    // Set a callback to run when the Google Visualization API is loaded.
+    google.charts.setOnLoadCallback(drawCharts);
+    //google.charts.setOnLoadCallback(drawTableChart);
 
 
-		// Callback that creates and populates a data table,
-		// instantiates the pie chart, passes in the data and
-		// draws it.
-		function drawCharts() {
+    // Callback that creates and populates a data table,
+    // instantiates the pie chart, passes in the data and
+    // draws it.
+    function drawCharts() {
 
-			// Create the data table.
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Topping');
-			data.addColumn('number', 'Slices');
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
 
-			data.addRows([
-				['Mushrooms', 3],
-				['Onions', 2],
-				['Pepperoni', 5]
-			]);
+        data.addRows([
+            ['Mushrooms', 3],
+            ['Onions', 2],
+            ['Pepperoni', 5]
+        ]);
 
-			// Set chart options
-			var options = {
-				legend: 'center',
-				title: 'Height of different characters',
-				colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
-			};
-			var URL = 'https://docs.google.com/spreadsheets/d/1MVERr9tt0ccK60deMIBAcSs-t1B1ZGMZdZFvvf5uUU8/edit#gid=0';
-			var query = new google.visualization.Query(URL);
-			query.send(handleQueryResponse);
-			// Instantiate and draw our chart, passing in some options.
-			// var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			// chart.draw(data, options);
-		}
-		function handleQueryResponse(response) {
-			var options = { 'width': '100%' };
+        // Set chart options
+        var options = {
+            legend: 'center',
+            title: 'Height of different characters',
+            colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+        };
+        var URL = 'https://docs.google.com/spreadsheets/d/1MVERr9tt0ccK60deMIBAcSs-t1B1ZGMZdZFvvf5uUU8/edit#gid=0';
+        var query = new google.visualization.Query(URL);
+        query.send(handleQueryResponse);
+        // Instantiate and draw our chart, passing in some options.
+        // var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        // chart.draw(data, options);
+    }
 
-			var data = response.getDataTable();
-			var lineChart = new google.visualization.LineChart(document.getElementById('chart_div'));
-			var tableChart = new google.visualization.Table(document.getElementById('table_div'));
-			lineChart.draw(data, { showRowNumber: true }, options);
-			tableChart.draw(data, options);
-		}
-		function drawTableChart() {
-			// Create the data table.
-			var data = new google.visualization.DataTable();
-			data.addColumn('string', 'Topping');
-			data.addColumn('number', 'Slices');
+    function handleQueryResponse(response) {
+        var options = { 'width': '100%' };
 
-			data.addRows([
-				['Mushrooms', 3],
-				['Onions', 2],
-				['Pepperoni', 5]
-			]);
+        var data = response.getDataTable();
+        var lineChart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var tableChart = new google.visualization.Table(document.getElementById('table_div'));
+        lineChart.draw(data, { showRowNumber: true }, options);
+        tableChart.draw(data, options);
+    }
 
-			// Set chart options
-			var options = {
-				legend: 'center',
-				title: 'Favorite food',
-				colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
-			};
-			// Instantiate and draw our chart, passing in some options.
-			var chart = new google.visualization.Table(document.getElementById('table_div'));
-			chart.draw(data, options);
-		}
-	</script>
-	<title>Responsive Sidebar Navigation | CodyHouse</title>
+    function drawTableChart() {
+        // Create the data table.
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Topping');
+        data.addColumn('number', 'Slices');
+
+        data.addRows([
+            ['Mushrooms', 3],
+            ['Onions', 2],
+            ['Pepperoni', 5]
+        ]);
+
+        // Set chart options
+        var options = {
+            legend: 'center',
+            title: 'Favorite food',
+            colors: ['#e0440e', '#e6693e', '#ec8f6e', '#f3b49f', '#f6c7b6']
+        };
+        // Instantiate and draw our chart, passing in some options.
+        var chart = new google.visualization.Table(document.getElementById('table_div'));
+        chart.draw(data, options);
+    }
+    </script>
+    <title>Responsive Sidebar Navigation | CodyHouse</title>
 </head>
 
 <body>
-	<main class="main-app">
-		<header class="cd-main-header">
-			<a href="#/" class="cd-logo"><img src="img/cd-logo.svg" alt="Logo"></a>
-
-			<div class="cd-search is-hidden">
-
-				<form action="#0">
-					<input class="input__search" type="search" placeholder="Search...">
-				</form>
-
-			</div> <!-- cd-search -->
-			<a class="search__reset-input visible"></a>
-			<a href="#0" class="cd-nav-trigger">
-				<!--Menu--><span></span></a>
-
-			<nav class="cd-nav">
-				<ul class="cd-top-nav">
-					<li><a href="#0">Tour</a></li>
-					<li><a href="#0">Support</a></li>
-					<li class="has-children account">
-						<a href="#0">
-							<img src="img/cd-avatar.png" alt="avatar">
-							Account
-						</a>
-
-						<ul>
-							<li><a href="#0">My Account</a></li>
-							<li><a href="#0">Edit Account</a></li>
-							<li><a href="#0">Logout</a></li>
-						</ul>
-					</li>
-				</ul>
-			</nav>
-		</header> <!-- .cd-main-header -->
-
-		<aside class="cd-main-content">
-			<nav class="cd-side-nav">
-				<ul>
-					<li class="cd-label">Main</li>
-					<li class="has-children overview">
-						<a class="overview" href="#">Overview</a>
-						<ul>
-							<li><a href="">Todos</a></li>
-							<li><a href="">Recientes</a></li>
-							<li><a href="">Pago</a></li>
-							<li><a href="">Gratis</a></li>
-						</ul>
-					</li>
-					<li class="has-children notifications active">
-						<a href="#0">Notifications<span class="count">3</span></a>
-
-						<ul>
-							<li><a href="#0">All Notifications</a></li>
-							<li><a href="#0">Friends</a></li>
-							<li><a href="#0">Other</a></li>
-						</ul>
-					</li>
-
-					<li class="has-children comments">
-						<a class="comments" href="#0">Comments</a>
-
-						<ul>
-							<li><a href="#0">All Comments</a></li>
-							<li><a href="#0">Edit Comment</a></li>
-							<li><a href="#0">Delete Comment</a></li>
-						</ul>
-					</li>
-				</ul>
-
-				<ul>
-					<li class="cd-label">Secondary</li>
-					<li class="has-children bookmarks">
-						<a href="#0">Bookmarks</a>
-
-						<ul>
-							<li><a href="#0">All Bookmarks</a></li>
-							<li><a href="#0">Edit Bookmark</a></li>
-							<li><a href="#0">Import Bookmark</a></li>
-						</ul>
-					</li>
-					<li class="has-children images">
-						<a href="#0">Images</a>
-
-						<ul>
-							<li><a href="#0">All Images</a></li>
-							<li><a href="#0">Edit Image</a></li>
-						</ul>
-					</li>
-
-					<li class="has-children users">
-						<a href="#0">Users</a>
-
-						<ul>
-							<li><a href="#0">All Users</a></li>
-							<li><a href="#0">Edit User</a></li>
-							<li><a href="#0">Add User</a></li>
-						</ul>
-					</li>
-				</ul>
-
-				<ul>
-					<li class="cd-label">Action</li>
-					<li class="action-btn"><a class="new-event-form" href="#/create">+ Nuevo Evento</a></li>
-				</ul>
-			</nav>
-
-			<div class="content-wrapper">
-				<div class="main content-element">
-					
-				</div>
-				<!-- <h1>Responsive Sidebar Navigation</h1> -->
-				<!-- <div class="indicators content-element container-fluid">
+    <main class="main-app">
+        <header class="cd-main-header">
+            <a href="#/" class="cd-logo"><img src="img/cd-logo.svg" alt="Logo"></a>
+            <div class="cd-search is-hidden">
+                <form action="#0">
+                    <input class="input__search" type="search" placeholder="Search...">
+                </form>
+            </div> <!-- cd-search -->
+            <a class="search__reset-input visible"></a>
+            <a href="#0" class="cd-nav-trigger">
+                <!--Menu--><span></span></a>
+            <nav class="cd-nav">
+                <ul class="cd-top-nav">
+                    <li><a href="#0">Tour</a></li>
+                    <li><a href="#0">Support</a></li>
+                    <li class="has-children account">
+                        <a href="#0">
+                            <img src="img/cd-avatar.png" alt="avatar">
+                            Account
+                        </a>
+                        <ul>
+                            <li><a href="#0">My Account</a></li>
+                            <li><a href="#0">Edit Account</a></li>
+                            <li><a href="#0">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header> <!-- .cd-main-header -->
+        <aside class="cd-main-content">
+            <nav class="cd-side-nav">
+                <ul>
+                    <li class="cd-label">Main</li>
+                    <li class="has-children overview">
+                        <a class="overview" href="#">Overview</a>
+                        <ul>
+                            <li><a href="">Todos</a></li>
+                            <li><a href="">Recientes</a></li>
+                            <li><a href="">Pago</a></li>
+                            <li><a href="">Gratis</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children notifications active">
+                        <a href="#0">Notifications<span class="count">3</span></a>
+                        <ul>
+                            <li><a href="#0">All Notifications</a></li>
+                            <li><a href="#0">Friends</a></li>
+                            <li><a href="#0">Other</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children comments">
+                        <a class="comments" href="#0">Comments</a>
+                        <ul>
+                            <li><a href="#0">All Comments</a></li>
+                            <li><a href="#0">Edit Comment</a></li>
+                            <li><a href="#0">Delete Comment</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="cd-label">Secondary</li>
+                    <li class="has-children bookmarks">
+                        <a href="#0">Bookmarks</a>
+                        <ul>
+                            <li><a href="#0">All Bookmarks</a></li>
+                            <li><a href="#0">Edit Bookmark</a></li>
+                            <li><a href="#0">Import Bookmark</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children images">
+                        <a href="#0">Images</a>
+                        <ul>
+                            <li><a href="#0">All Images</a></li>
+                            <li><a href="#0">Edit Image</a></li>
+                        </ul>
+                    </li>
+                    <li class="has-children users">
+                        <a href="#0">Users</a>
+                        <ul>
+                            <li><a href="#0">All Users</a></li>
+                            <li><a href="#0">Edit User</a></li>
+                            <li><a href="#0">Add User</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul>
+                    <li class="cd-label">Action</li>
+                    <li class="action-btn"><a class="new-event-form" href="#/create">+ Nuevo Evento</a></li>
+                </ul>
+            </nav>
+            <div class="content-wrapper">
+                <div class="main content-element">
+                </div>
+                <!-- <h1>Responsive Sidebar Navigation</h1> -->
+                <!-- <div class="indicators content-element container-fluid">
 					<div class="row">
 						<div class="col-sm-6 col-xl-3">
 							< class="panel panel-default">
@@ -366,12 +347,11 @@
 					</div>
 				</div>
 				<div class="content-element new-event container-fluid"></div> -->
-			</div> <!-- .content-wrapper -->
-		</aside> <!-- .cd-main-content -->
-	</main>
-
-	<script id="evento-template" type="text/template">
-	    <!-- <ul> -->
+            </div> <!-- .content-wrapper -->
+        </aside> <!-- .cd-main-content -->
+    </main>
+    <script id="evento-template" type="text/template">
+        <!-- <ul> -->
 	        <!-- <li><%= nombreEvento %></li> -->
 	        <!-- <li><%= emailOrganizador %></li> -->
 	        <!-- <li><%= lugar %></li> -->
@@ -382,7 +362,7 @@
 	        <!-- <li><%= estado %></li> -->
 	    <!-- </ul> -->
 		
-		<a href="" class="evento__link">
+		<a href="#eventos/<%- id %>" class="evento__link">
 			<div class="evento__card__element">
 				<img src="https://goo.gl/fBQvxw" alt="avatar" class="evento__imagen">
 				<div class="evento__detalles">
@@ -409,8 +389,8 @@
 		</a>
 		
 	</script>
-	<script id="indicador-template" type="text/template">
-		<div class="panel panel-default">
+    <script id="indicador-template" type="text/template">
+        <div class="panel panel-default">
 			<div class="panel-heading"><i class="fas fa-info-circle"></i> <%= nombre.toUpperCase() %></div>
 				<div class="panel-body">
 					<small><%= valor %></small>
@@ -418,19 +398,16 @@
 			</div>
 		</div>	
 	</script>
-	<script id="lista-eventos-template" type="text/template">
-
-	</script>
-	<script id="tabla-template" type="text/template">
-
-	</script>
-	<script id="estadisticas-template" type="text/template">
-
-	</script>
-	<script text="text/template" id="home-template">
-	</script>
-	<script id="nuevo-evento-template" type="text/template">
-			<form action="" id="new-event" class="submit-form">
+    <script id="lista-eventos-template" type="text/template">
+    </script>
+    <script id="tabla-template" type="text/template">
+    </script>
+    <script id="estadisticas-template" type="text/template">
+    </script>
+    <script text="text/template" id="home-template">
+    </script>
+    <script id="nuevo-evento-template" type="text/template">
+        <form action="" id="new-event" class="submit-form">
 				<div class="row">
 					<div class="col-100">
 						<h1 class="form__titulo">Nuevo Evento</h1>
@@ -489,6 +466,15 @@
 				</div>
 				<div class="row">
 					<div class="col-25">
+						<label class="new-form__input-label" for="url">URL</label>
+					</div>
+					<div class="col-75">
+						<input type="text" data-new-event="url" data-validation="url" id="url" class="new-form__input-element"
+										name="url" placeholder="URL..">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
 						<label class="new-form__input-label" for="categoria">Categoria</label>
 					</div>
 					<div class="col-75">
@@ -519,42 +505,150 @@
 					</div>
 				</div>
 				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="images">Cargar fotos</label>
+					</div>
+					<div class="col-25">
+						<input type="file" data-new-event="images" data-validation="mime" data-validation-allowing="jpg, png, gif, jpeg" data-validation-error-msg-mime="You can only upload images" id="images" class="new-form__input-element"
+										name="images" accept="image/*" multiple>
+					</div>
+
+				</div>
+				<div class="row">
+					<div class="col-100" id="images-result"></div>
+				</div>
+				<div class="row">
 				<input type="submit" class="new-form__submit-button" value="Crear evento">
 				<input type="button" class="new-form__submit-button" value="Cancelar">
 				</div>
 		</form>
 	</script>
-	<script src="js/lib/jquery-3.3.1.js"></script>
-	<script src="js/lib/jquery-dateformat.min.js"></script>
-	<script
-		src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-	 crossorigin="anonymous"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-	 crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
-		integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
-		crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js"
-		integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
-		crossorigin="anonymous"></script>
-	<script src="js/lib/underscore.js"></script>
-	<script src="js/lib/backbone.js"></script>
-	<script src="js/lib/jquery.menu-aim.js"></script>
-	<script src="js/main.js"></script> <!-- Resource jQuery -->
-	<script src="js/models/indicador.js"></script>
-	<script src="js/models/evento.js"></script>
-	<script src="js/collections/eventos.js"></script>
-	<script src="js/collections/indicadores.js"></script>
-	<script src="js/views/indicadorView.js"></script>
-	<script src="js/views/indicadorList.js"></script>
-	<script src="js/views/eventoItem.js"></script>
-	<script src="js/views/eventoList.js"></script>
-	<script src="js/views/nuevoEvento.js"></script>
-	<script src="js/views/homeView.js"></script>
-	<script src="js/views/appView.js"></script>
-	<script src="js/routers/router.js"></script>
-	<script src="js/app.js"></script>
+	<script type="text/template" id="image-thumbnail">
+		<span>
+			<img class="thumb" src="<%= url %>" alt="<%= alt %>"/>
+		</span>
+		
+	</script>
+    <script id="event-edit-template" type="text/template">
+        <form action="" id="new-event" class="submit-form">
+			<div class="row">
+				<div class="col-100">
+					<img class="event__image" src="http://1.bp.blogspot.com/-pabyR82U05A/UMlUcJFzEtI/AAAAAAAABhw/8uxaCD7iRKo/s1600/FOREST_SPRING.jpg">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-25">
+					<label class="new-form__input-label" for="nombreEvento">Nombre</label>
+					</div>
+					<div class="col-75">
+						<input type="text" data-new-event="nombreEvento" id="nombreEvento" class="new-form__input-element fields__input" data-validation="required"
+								name="nombre" readonly="readonly" value="<%= nombreEvento%>">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="ciudad">Ciudad</label>
+					</div>
+					<div class="col-75">
+						<input type="text" data-new-event="ciudad" data-validation="required" id="ciudad" class="new-form__input-element fields__input"
+									name="ciudad" readonly="readonly" value="<%= ciudad%>">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="lugar">Lugar</label>
+					</div>
+					<div class="col-75">
+						<input type="text" data-new-event="lugar" data-validation="required" id="lugar" class="new-form__input-element fields__input"
+										name="lugar" readonly="readonly" value="<%= lugar%>">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="fecha">Fecha</label>
+					</div>
+					<div class="col-75">
+						<input type="text" data-new-event="fecha" class="datepicker new-form__input-element fields__input" data-validation="required" id="fecha"
+											name="fecha" readonly="readonly" value="<%= fecha%>">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25"><label class="new-form__input-label" for="hora">Hora</label></div>
+					<div class="col-75"><input type="text" data-new-event="hora" data-validation="required" id="hora" class="timepicker new-form__input-element fields__input" readonly="readonly"
+											value="<%= hora%>">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="descripcion">Descripción</label>
+					</div>
+					<div class="col-75">
+						<textarea id="descripcion" data-new-event="descripcion" class="new-form__input-element fields__input" data-validation="required"
+							name="descripcion" readonly="readonly" style="height:200px"><%= descripcion%></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="categoria">Categoria</label>
+					</div>
+					<div class="col-75">
+						<select id="categoria" data-new-event="categoria" data-validation="required" class="new-form__input-element fields__input" name="categoria">
+							<option value="" selected="selected" disabled>Seleccione</option>
+							<option value="musica">Música</option>
+							<option value="teatro">Teatro</option>
+							<option value="empleo">Empleo</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="capacidad">Capacidad</label>
+					</div>
+					<div class="col-75">
+						<input type="text" data-new-event="capacidad" data-validation="required custom" data-validation-regexp="^[0-9]*$"
+							id="capacidad" class="new-form__input-element fields__input" name="capacidad" readonly="readonly" value="<%= capacidad%>">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-25">
+						<label class="new-form__input-label" for="costo">Costo</label>
+					</div>
+					<div class="col-25">
+						<input type="text" data-new-event="costo" data-validation="required custom" data-validation-regexp="^[0-9]\d*(\.\d+)?$"
+							id="costo" class="new-form__input-element fields__input" name="costo" readonly="readonly" value="<%= costo%>">
+					</div>
+				</div>
+				<div class="row">
+				<input type="submit" class="new-form__submit-button" value="Crear evento">
+				<input type="button" class="new-form__submit-button" value="Cancelar">
+				</div>
+		</form>
+	</script>
+    <script src="js/lib/jquery-3.3.1.js"></script>
+    <script src="js/lib/jquery-dateformat.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+    <script src="js/lib/underscore.js"></script>
+    <script src="js/lib/backbone.js"></script>
+    <script src="js/lib/jquery.menu-aim.js"></script>
+    <script src="js/main.js"></script> <!-- Resource jQuery -->
+    <script src="js/models/indicador.js"></script>
+    <script src="js/models/evento.js"></script>
+    <script src="js/collections/eventos.js"></script>
+    <script src="js/collections/indicadores.js"></script>
+    <script src="js/views/indicadorView.js"></script>
+    <script src="js/views/indicadorList.js"></script>
+    <script src="js/views/eventoItem.js"></script>
+    <script src="js/views/eventoList.js"></script>
+    <script src="js/views/nuevoEvento.js"></script>
+    <script src="js/views/editEventoView.js"></script>
+    <script src="js/views/homeView.js"></script>
+    <script src="js/views/appView.js"></script>
+    <script src="js/routers/router.js"></script>
+    <script src="js/app.js"></script>
 </body>
 
 </html>
