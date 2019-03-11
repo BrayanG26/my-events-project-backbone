@@ -367,7 +367,7 @@
 				<img src="https://goo.gl/fBQvxw" alt="avatar" class="evento__imagen">
 				<div class="evento__detalles">
 					<div class="categoria">
-						<h4 class="evento__categoria">empleo</h4>
+						<h4 class="evento__categoria"><%= categoria %></h4>
 					</div>
 					<div class="titulo">
 						<h3 class="evento__titulo"><%= nombreEvento %></h3>
@@ -460,7 +460,7 @@
 						<label class="new-form__input-label" for="descripcion">Descripción</label>
 					</div>
 					<div class="col-75">
-						<textarea id="descripcion" data-new-event="descripcion" class="new-form__input-element" data-validation="required"
+						<textarea id="descripcion" data-new-event="descripcion" class="new-form__input-element" data-validation=""
 							name="descripcion" placeholder="Información adicional.." style="height:200px"></textarea>
 					</div>
 				</div>
@@ -469,7 +469,7 @@
 						<label class="new-form__input-label" for="url">URL</label>
 					</div>
 					<div class="col-75">
-						<input type="text" data-new-event="url" data-validation="url" id="url" class="new-form__input-element"
+						<input type="text" data-new-event="url" data-validation="" id="url" class="new-form__input-element"
 										name="url" placeholder="URL..">
 					</div>
 				</div>
@@ -491,7 +491,7 @@
 						<label class="new-form__input-label" for="capacidad">Capacidad</label>
 					</div>
 					<div class="col-75">
-						<input type="text" data-new-event="capacidad" data-validation="required custom" data-validation-regexp="^[0-9]*$"
+						<input type="text" data-new-event="capacidad" data-validation="custom" data-validation-regexp="^[0-9]*$"
 							id="capacidad" class="new-form__input-element" name="capacidad" placeholder="Capacidad..">
 					</div>
 				</div>
@@ -508,8 +508,8 @@
 					<div class="col-25">
 						<label class="new-form__input-label" for="images">Cargar fotos</label>
 					</div>
-					<div class="col-25">
-						<input type="file" data-new-event="images" data-validation="mime" data-validation-allowing="jpg, png, gif, jpeg" data-validation-error-msg-mime="You can only upload images" id="images" class="new-form__input-element"
+					<div class="col-75">
+						<input type="file" data-new-event="images" data-validation="mime" data-validation-allowing="jpg, png, gif, jpeg, svg" data-validation-error-msg-mime="You can only upload images" id="images" class="new-form__input-element"
 										name="images" accept="image/*" multiple>
 					</div>
 
@@ -518,8 +518,9 @@
 					<div class="col-100" id="images-result"></div>
 				</div>
 				<div class="row">
-				<input type="submit" class="new-form__submit-button" value="Crear evento">
-				<input type="button" class="new-form__submit-button" value="Cancelar">
+				<input type="submit" class="new-form__submit-button submit-crear" value="Crear">
+				<input type="submit" class="new-form__submit-button submit-publicar" value="Crear y publicar">
+				<input type="button" class="new-form__submit-button submit-cancelar" value="Cancelar">
 				</div>
 		</form>
 	</script>
@@ -537,12 +538,16 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-25">
-					<label class="new-form__input-label" for="nombreEvento">Nombre</label>
+					<div class="col-25">
+						<label class="new-form__input-label" for="nombreEvento">Nombre</label>
 					</div>
 					<div class="col-75">
-						<input type="text" data-new-event="nombreEvento" id="nombreEvento" class="new-form__input-element fields__input" data-validation="required"
-								name="nombre" readonly="readonly" value="<%= nombreEvento%>">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- nombreEvento%></label>
+							<span class="enable-edit"></span>
+						</div>
+						<input type="text" data-new-event="nombreEvento" id="nombreEvento" class="new-form__input-element fields__input edit" data-validation="required"
+								name="nombre" value="<%= nombreEvento%>">
 					</div>
 				</div>
 				<div class="row">
@@ -550,8 +555,12 @@
 						<label class="new-form__input-label" for="ciudad">Ciudad</label>
 					</div>
 					<div class="col-75">
-						<input type="text" data-new-event="ciudad" data-validation="required" id="ciudad" class="new-form__input-element fields__input"
-									name="ciudad" readonly="readonly" value="<%= ciudad%>">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- ciudad %></label>
+							<span class="enable-edit"></span>
+						</div>
+						<input type="text" data-new-event="ciudad" data-validation="required" id="ciudad" class="new-form__input-element fields__input edit"
+									name="ciudad" value="<%= ciudad%>">
 					</div>
 				</div>
 				<div class="row">
@@ -559,8 +568,12 @@
 						<label class="new-form__input-label" for="lugar">Lugar</label>
 					</div>
 					<div class="col-75">
-						<input type="text" data-new-event="lugar" data-validation="required" id="lugar" class="new-form__input-element fields__input"
-										name="lugar" readonly="readonly" value="<%= lugar%>">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- lugar %></label>
+							<span class="enable-edit"></span>
+						</div>
+						<input type="text" data-new-event="lugar" data-validation="required" id="lugar" class="new-form__input-element fields__input edit"
+										name="lugar" value="<%= lugar%>">
 					</div>
 				</div>
 				<div class="row">
@@ -568,13 +581,22 @@
 						<label class="new-form__input-label" for="fecha">Fecha</label>
 					</div>
 					<div class="col-75">
-						<input type="text" data-new-event="fecha" class="datepicker new-form__input-element fields__input" data-validation="required" id="fecha"
-											name="fecha" readonly="readonly" value="<%= fecha%>">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- fecha %></label>
+							<span class="enable-edit"></span>
+						</div>
+						<input type="text" data-new-event="fecha" class="datepicker new-form__input-element fields__input edit" data-validation="required" id="fecha"
+											name="fecha" value="<%= fecha%>">
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-25"><label class="new-form__input-label" for="hora">Hora</label></div>
-					<div class="col-75"><input type="text" data-new-event="hora" data-validation="required" id="hora" class="timepicker new-form__input-element fields__input" readonly="readonly"
+					<div class="col-75">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- hora %></label>
+							<span class="enable-edit"></span>
+						</div>
+						<input type="text" data-new-event="hora" data-validation="required" id="hora" class="timepicker new-form__input-element fields__input edit" 
 											value="<%= hora%>">
 					</div>
 				</div>
@@ -583,8 +605,12 @@
 						<label class="new-form__input-label" for="descripcion">Descripción</label>
 					</div>
 					<div class="col-75">
-						<textarea id="descripcion" data-new-event="descripcion" class="new-form__input-element fields__input" data-validation="required"
-							name="descripcion" readonly="readonly" style="height:200px"><%= descripcion%></textarea>
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- descripcion %></label>
+							<span class="enable-edit"></span>
+						</div>
+						<textarea id="descripcion" data-new-event="descripcion" class="new-form__input-element fields__input edit" data-validation="required"
+							name="descripcion"><%= descripcion%></textarea>
 					</div>
 				</div>
 				<div class="row">
@@ -605,8 +631,12 @@
 						<label class="new-form__input-label" for="capacidad">Capacidad</label>
 					</div>
 					<div class="col-75">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- capacidad %></label>
+							<span class="enable-edit"></span>
+						</div>
 						<input type="text" data-new-event="capacidad" data-validation="required custom" data-validation-regexp="^[0-9]*$"
-							id="capacidad" class="new-form__input-element fields__input" name="capacidad" readonly="readonly" value="<%= capacidad%>">
+							id="capacidad" class="new-form__input-element fields__input edit" name="capacidad"  value="<%= capacidad%>">
 					</div>
 				</div>
 				<div class="row">
@@ -614,12 +644,16 @@
 						<label class="new-form__input-label" for="costo">Costo</label>
 					</div>
 					<div class="col-25">
+						<div class="view new-form__input-element">
+							<label class="view__label"><%- costo %></label>
+							<span class="enable-edit"></span>
+						</div>
 						<input type="text" data-new-event="costo" data-validation="required custom" data-validation-regexp="^[0-9]\d*(\.\d+)?$"
-							id="costo" class="new-form__input-element fields__input" name="costo" readonly="readonly" value="<%= costo%>">
+							id="costo" class="new-form__input-element fields__input edit" name="costo" value="<%= costo%>">
 					</div>
 				</div>
 				<div class="row">
-				<input type="submit" class="new-form__submit-button" value="Crear evento">
+				<input type="submit" class="new-form__submit-button" value="modificar">
 				<input type="button" class="new-form__submit-button" value="Cancelar">
 				</div>
 		</form>

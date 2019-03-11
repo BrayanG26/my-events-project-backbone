@@ -24,6 +24,7 @@ var app = app || {};
             hora: '',
             ciudad: '',
             capacidad: '',
+            categoria:'',
             costo: '0',
             descripcion: '',
             estado: 'creado'

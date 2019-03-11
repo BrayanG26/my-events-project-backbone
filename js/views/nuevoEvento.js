@@ -9,7 +9,8 @@ app.NuevoEventoView = Backbone.View.extend({
     imgTemplate: _.template($('#image-thumbnail').html()),
 
     events: {
-        'change #images': 'handleFileSelect'
+        'change #images': 'handleFileSelect',
+        'submit ':''
     },
 
     initialize: function() {
@@ -28,7 +29,7 @@ app.NuevoEventoView = Backbone.View.extend({
         });
     },
     handleFileSelect: function(e) {
-        console.warn('this changed ocurr');
+        console.warn('a change occurred on selected files!');
         var files = e.target.files;
         var self = this, thumbnails = self.$('#images-result');
         if(thumbnails.children()){

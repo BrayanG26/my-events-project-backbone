@@ -18,10 +18,8 @@ var app = app || {};
 
         // The DOM events specific to an item.
         events: {
-            'dblclick .fields__input': 'enableEdit',
-            'click .destroy': 'clear',
+            'click .enable-edit': 'edit',
             'keypress .edit': 'updateOnEnter',
-            'keydown .edit': 'revertOnEscape',
             'blur .edit': 'close'
         },
 
@@ -39,6 +37,7 @@ var app = app || {};
         // Re-render the titles of the todo item.
         render: function() {
             this.$el.html(this.editTemplate(this.model.attributes));
+            this.$editInput = this.$('.edit');
             return this;
         },
         bindValidations: function() {
@@ -52,36 +51,25 @@ var app = app || {};
 
 
         // Switch this view into `"editing"` mode, displaying the input field.
-        enableEdit: function(e) {
+        edit: function(e) {
             console.log(e.target);
-            this.$(e.target).attr("readonly", false)
+            $(e.target).parents().eq(1).addClass('editing');
+            console.log(this.$editInput);
+            this.$editInput.focus();
+            // this.$(e.target).attr("readonly", false);
             console.log("dblclick detected");
         },
 
         // Close the `"editing"` mode, saving changes to the todo.
-        close: function() {
-            var value = this.$input.val();
-            var trimmedValue = value.trim();
-
-            // We don't want to handle blur events from an item that is no
-            // longer being edited. Relying on the CSS class here has the
-            // benefit of us not having to maintain state in the DOM and the
-            // JavaScript logic.
-            if (!this.$el.hasClass('editing')) {
-                return;
-            }
-
-            if (trimmedValue) {
-                this.model.save({ title: trimmedValue });
-            } else {
-                this.clear();
-            }
-
-            this.$el.removeClass('editing');
+        close: function(e) {
+            console.log(e.target);
+            // $(e.target).removeClass('editing');
+            $(e.target).parents().eq(0).removeClass('editing')
         },
 
         // If you hit `enter`, we're through editing the item.
         updateOnEnter: function(e) {
+            var ENTER_KEY = 13;
             if (e.which === ENTER_KEY) {
                 this.close();
             }
