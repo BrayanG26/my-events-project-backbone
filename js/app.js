@@ -1,18 +1,17 @@
-// site/js/app.js
-
 var app = app || {};
 
-var indicadores = [
-    { nombre: 'Ventas', valor: '400', unidad: 'US' },
-    { nombre: 'Más compartido', valor: '23', unidad: 'compartidos' },
-    { nombre: 'Más me gusta', valor: '10', unidad: 'me gusta' },
-    { nombre: 'Hoy', valor: new Date(), unidad: '' }
-];
+app.urlAPI = 'http://localhost:3000/api/';
+app.init = function() {
+    // Crear modelo tipo organizador
+    // con la informacion del usuario
+    // app.organizador = new app.Organizador(usuario);
+    var idUser = localStorage.getItem("idUser");
+    console.warn(`idUser ${idUser}`);
+    this.usuario = idUser;
+}
 
-// new app.AppView(indicadores);
-
-$(function () {
-    $(window).resize(function () {
+$(function() {
+    $(window).resize(function() {
         drawCharts();
     });
 });

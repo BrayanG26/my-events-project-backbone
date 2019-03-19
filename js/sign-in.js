@@ -9,21 +9,6 @@ $(function() {
         $('.forms > form').hide();
         $(href).fadeIn(500);
     });
-    
-    /*$('input[type=submit]').on('click', function(e) {
-        var parentClass = $(e.target).parent().attr('class');
-        var userToJSON = {};
-        var dataString = '';
-        if (parentClass.includes("login")) {
-            dataString = 'data-login'
-        } else if (parentClass.includes("signup")) {
-            dataString = 'data-signup'
-        }
-        $('input[' + dataString + ']').each(function() {
-            userToJSON[$(this).attr(dataString)] = $(this).val();
-        });
-        console.log(userToJSON);
-    });*/
 });
 
 /* $.validate({
@@ -31,24 +16,6 @@ $(function() {
     lang: 'en',
     errorMessagePosition: 'top',
 }); */
-
-/*$(".forms__form-element").submit(function(event) {
-    var idForm = $(event.target).attr('id');
-    var dataToJSON = {};
-    var dataString = '';
-    event.preventDefault();
-
-    if (idForm.includes("login")) {
-        dataString = 'data-login'
-    } else if (idForm.includes("signup")) {
-        dataString = 'data-signup'
-    }
-    $('input[' + dataString + ']').each(function() {
-        dataToJSON[$(this).attr(dataString)] = $(this).val();
-    });
-    $(this)[0].reset();
-    console.log(dataToJSON);
-});*/
 
 /**
  * Take input's information and send as parameters to enviarDatos function
@@ -75,16 +42,8 @@ function recogerDatosOrganizador() {
 
 }
 
-/**
- * Save login information using localStorage
- * @param  {string} userMail Validation string for each user
- */
-function saveUserLogin(userMail) {
-    if (typeof(Storage) !== undefined) {
-        localStorage.setItem("user.mail", userMail)
-    } else {
-        console.error('You must enable third party cookies..')
-    }
+function redirectUser(isValidUser){
+    window.location.replace("./board.html");
 }
 
 /**

@@ -2,31 +2,6 @@ $(function() {
     Utils.validateForm();
     // Attach submit function to submit event to forms
     $(".submit-form").submit(Utils.submitForms);
-    /* $('.tab-link').on('click', function(e) {
-        e.preventDefault();
-
-        $(this).parent().addClass('active');
-        $(this).parent().siblings().removeClass('active');
-
-        var href = $(this).attr('href');
-        $('.forms > form').hide();
-        $(href).fadeIn(500);
-    }); */
-
-    /*$('input[type=submit]').on('click', function(e) {
-        var parentClass = $(e.target).parent().attr('class');
-        var userToJSON = {};
-        var dataString = '';
-        if (parentClass.includes("login")) {
-            dataString = 'data-login'
-        } else if (parentClass.includes("signup")) {
-            dataString = 'data-signup'
-        }
-        $('input[' + dataString + ']').each(function() {
-            userToJSON[$(this).attr(dataString)] = $(this).val();
-        });
-        console.log(userToJSON);
-    });*/
 });
 
 var Utils = (function($, request) {
@@ -39,40 +14,40 @@ var Utils = (function($, request) {
         });
     };
 
-    var getEventosByUser = function(email) {
-        var data = {};
-
-    }
-
     var submitForms = function(event) {
-        var idForm = $(event.target).attr('id');
-        var dataObject = {},dataString = '',verb = 'GET';
         event.preventDefault();
-        console.log(idForm);
-        switch (idForm) {
-            case "login":
-                dataString = 'data-login';
-                dataObject.action = 'login';
-                break;
-            case "signup":
-                dataString = 'data-signup';
-                dataObject.action = 'signup';
-                verb = 'POST';
-                break;
-            case "new-event":
-                dataString = 'data-new-event';
-                dataObject.action = 'addEvent';
-                verb = 'POST';
-                break;
-            default:
-                break;
-        }
-        $('input[' + dataString + ']').each(function() {
-            dataObject[$(this).attr(dataString)] = $(this).val();
+        var idForm = $(event.target).attr('id'), formData = {};
+        $(':input',this).each(function(index,input){
+            var inputData = $(input); 
+            if(inputData.is('input:not(:submit)')){
+                formData[inputData.attr('name')] = inputData.val();
+            }
         });
+        console.log(formData);
         $(this)[0].reset();
-        console.log(dataObject);
+        _sendFormData(formData);
         // controller.logInUSer(request.send(verb, dataObject));
+    };
+
+    var _sendFormData = function(data){
+        console.log(app.urlAPI);
+        $.ajax({
+        type: 'GET',
+        url: app.urlAPI+'organizadores',
+        data: data,
+        processData: true,
+        success: function(data, status, jqXHR) {
+            console.log(data);
+            localStorage.setItem("idUser", data.idUser);
+            redirectUser(true);
+            console.log(jqXHR);
+        },
+        error: function(error) {
+            console.error('An error ocurr');
+            console.log(error);
+        }
+
+    });
     }
     return {
         submitForms: submitForms,

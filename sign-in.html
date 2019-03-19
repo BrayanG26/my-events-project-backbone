@@ -36,13 +36,12 @@
             <h1 class="form__header">Login on QuickEvents</h1>
             <div class="login-input-field">
 
-                <label class="form__label-element" for="email">Email or UserName</label>
-                <input class="form__input-element" type="email" name="email" required="email" data-login="email"
-                    data-validation="email" />
+                <label class="form__label-element" for="usuario">UserName</label>
+                <input class="form__input-element" type="text" name="usuario" required data-validation="alphanumeric" data-validation-error-msg="Only use letters and numbers"/>
 
                 <label class="form__label-element" for="password">Password</label>
                 <input class="form__input-element" type="password" name="password" data-validation="length"
-                    data-validation-length="min6" data-validation-error-msg="Password must be 6 character at least"
+                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"
                     required data-login="password" />
 
                 <input class="form__input-element form__button-element" id="iniciarSesion" type="submit" value="Login" />
@@ -56,18 +55,18 @@
             <h1 class="form__header">Sign Up on QuickEvents</h1>
             <div class="signup-input-field">
                 <label class="form__label-element" for="email">Email</label>
-                <input class="form__input-element" type="email" name="email" required="email" data-signup="email"
+                <input class="form__input-element" type="text" name="usuario" required data-signup="email"
                     data-validation="email" />
-                <label class="form__label-element" for="email">User name</label>
-                <input class="form__input-element" type="text" name="user" data-validation="letternumeric"
+                <label class="form__label-element" for="usuario">User name</label>
+                <input class="form__input-element" type="text" name="usuario" data-validation="alphanumeric"
                     data-validation-error-msg="Only use letters and numbers" required="user" data-signup="usuario" />
                 <label class="form__label-element" for="password">Password</label>
                 <input class="form__input-element" type="password" name="pass_confirmation" data-validation="length"
-                    data-validation-length="min6" data-validation-error-msg="Password must be 6 character at least"
+                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"
                     required data-signup="password" />
                 <label class="form__label-element" for="cpassword">Confirm Password</label>
                 <input class="form__input-element" type="password" name="pass" data-validation="confirmation"
-                    data-validation-length="min6" data-validation-error-msg="Password must be 6 character at least"
+                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"
                     required data-signup="cpassword" />
                 <input class="form__input-element form__button-element" id="crearCuenta" type="submit" value="Sign up" />
             </div>
@@ -81,6 +80,7 @@
     <script type="text/javascript" src="js/sign-in.js"></script>
     <script src="js/mvc.js"></script>
     <script type="text/javascript" src="js/requests.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
     <script type="text/javascript" src="js/Utils.js"></script>
 </body>
 

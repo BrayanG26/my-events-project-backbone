@@ -40,6 +40,7 @@ var app = app || {};
             // this.$tablas.show();
             // this.$nuevoEvento.hide();
             // var homeView = new app.HomeView();
+            app.init();
             this.$main.html(new app.HomeView().render().el);
         },
         editEvent: function(id) {

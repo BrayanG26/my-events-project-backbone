@@ -7,24 +7,25 @@ var app = app || {};
     // Evento Model
     // ----------
     app.Evento = Backbone.Model.extend({
+        // _organizador:'',
         url: function() {
-            return "http://localhost:3000/api/eventos/" + this.id;
+            return app.urlAPI + 'eventos/' + this.id;
         },
+        idAttribute: 'id',
         initialize: function() {
             console.log('Objeto tipo evento, creado');
-
         },
         // Default attributes for the event
-        // and ensure that each event created has `title` and `completed` keys.
+        // and ensure that each event created has `title`.
         defaults: {
-            emailOrganizador: '',
+            organizador: '',
             nombreEvento: '',
             lugar: '',
             fecha: '',
             hora: '',
             ciudad: '',
             capacidad: '',
-            categoria:'',
+            categoria: '',
             costo: '0',
             descripcion: '',
             estado: 'creado'

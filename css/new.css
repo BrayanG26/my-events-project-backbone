@@ -208,11 +208,11 @@ textarea.new-form__input-element{
 .editing .view {
     display: none;
 }
-input.edit,textarea.edit {
+input.edit,textarea.edit,select.edit {
     display: none;
 }
 
-span{
+.enable-edit{
     display: none;
     position: absolute;
     top: 0;
@@ -225,11 +225,11 @@ span{
     margin-bottom: 0px;
     transition: color 0.2s ease-out;
 }
-.view span:after {
+.view .enable-edit:after {
     content: url('../img/cd-pencil.svg');
 }
 
- .view:hover span {
+ .view:hover .enable-edit {
     display: block;
     cursor: pointer;
 } 

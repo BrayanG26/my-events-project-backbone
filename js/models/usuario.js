@@ -1,23 +1,30 @@
-/*global Backbone */
 var app = app || {};
 
-(function () {
-	'use strict';
 
-	// Todo Model
-	// ----------
+app.Organizador = Backbone.Model.extend({
+	url: function(){
+		return app.urlAPI+'organizadores/'+this.id;
+	},
+	idAttribute:'id',
+    initialize: function() {
+        console.log('a usuario object was created');
+    },
+    // Default attributes for the todo
+    // and ensure that each todo created has `title` and `completed` keys.
+    defaults: {
+        email: '',
+        usuario: '',
+        password: '',
+        nombres: '',
+        apellidos: '',
+        organizacion: ''
+    }
+});
 
-	// Our basic **Todo** model has `title`, `order`, and `completed` attributes.
-	app.Usuario = Backbone.Model.extend({
-		initialize:function(){
-			console.log('a usuario object was created');
-		},
-		// Default attributes for the todo
-		// and ensure that each todo created has `title` and `completed` keys.
-		defaults: {
-			email:'',
-			password:'',
-			imgUser:''
-		}
-	});
+(function() {
+    'use strict';
+
+    // Organizador Model
+    // ----------
+
 })();
