@@ -19,7 +19,6 @@ var app = app || {};
             var that = this;
             // listaEventos = new app.Eventos();
             listaIndicadores = new app.Indicadores(this.getSampleEventsData().indicadores);
-            app.organizador = new app.Organizador({ id: app.usuario });
             app.organizador.fetch({
                 success: function(data) {
                     console.log("datos del organizador recibidos");

@@ -3,7 +3,6 @@ var app = app || {};
     // js/routers/router.js
     // ----------
     var Workspace = Backbone.Router.extend({
-        self: this,
         routes: {
             '': 'home',
             'create': 'newEvent',
@@ -11,6 +10,8 @@ var app = app || {};
         },
         initialize: function() {
             this.$main = $('.main');
+            app.init();
+            app.organizador = new app.Organizador({ id: app.usuario });
             // this.$indicadores = self.$('.indicators');
             // this.$estadisticas = self.$('.statistics');
             // this.$eventos = self.$('.events');
@@ -18,11 +19,7 @@ var app = app || {};
             // this.$nuevoEvento = self.$('.new-event');
         },
         newEvent: function(param) {
-            // Set the current filter to be used
-            // Trigger a collection filter event, causing hiding/unhiding
-            // of Todo view items
-            // window.app.Todos.trigger('filter');
-            var eventFormView = new app.NuevoEventoView({ model: new app.Evento() });
+            var eventFormView = new app.NuevoEventoView();
             this.$main.html(eventFormView.render().$el);
             eventFormView.bindValidations();
             // this.$nuevoEvento.show();
@@ -40,14 +37,13 @@ var app = app || {};
             // this.$tablas.show();
             // this.$nuevoEvento.hide();
             // var homeView = new app.HomeView();
-            app.init();
             this.$main.html(new app.HomeView().render().el);
         },
         editEvent: function(id) {
             console.log("Into view-event route [id: " + id + "]");
             var evento = new app.Evento({ id: id });
             var self = this;
-            var editEventView;;
+            var editEventView;
             evento.fetch({
                 success: function(data) {
                     console.log(data);
