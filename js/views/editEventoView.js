@@ -22,7 +22,7 @@ var app = app || {};
             'keypress .edit': 'updateOnEnter',
             'blur .edit': 'close',
             'submit #edit-event': 'save',
-            'click input[type=button]': 'returnHome'
+            'click .cancelar': 'returnHome'
         },
 
         // The TodoView listens for changes to its model, re-rendering. Since

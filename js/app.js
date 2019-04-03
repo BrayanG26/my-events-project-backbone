@@ -14,7 +14,7 @@ app.init = function() {
 }
 
 $(function() {
-    $(window).resize(function() {
+    /*$(window).resize(function() {
         drawCharts();
-    });
+    });*/
 });

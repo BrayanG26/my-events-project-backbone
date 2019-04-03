@@ -29,8 +29,12 @@ var app = app || {};
             capacidad: '',
             categoria: '',
             url: '',
-            costo: '0',
+            costo: 0,
             descripcion: '',
+            asistentes: 0,
+            meinteresa: 0,
+            compartido: 0,
+            megusta: 0,
             estado: 'creado'
         }
     });

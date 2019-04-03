@@ -19,6 +19,8 @@ var app = app || {};
             var that = this;
             // listaEventos = new app.Eventos();
             listaIndicadores = new app.Indicadores(this.getSampleEventsData().indicadores);
+            listaIndicadoresView = new app.IndicadorListView({ model: listaIndicadores });
+            this.$el.append(listaIndicadoresView.render().$el);
             app.organizador.fetch({
                 success: function(data) {
                     console.log("datos del organizador recibidos");
@@ -28,19 +30,15 @@ var app = app || {};
                         data: $.param({ organizador: app.organizador.get('usuario') }),
                         success: function(data) {
                             console.log('eventos recibidos');
-                            console.info(data)
+                            console.info(data);
                             that.$el.append(listaEventosView.render().$el);
+                            that.renderDashboard(data);
                         }
                     });
                 }
             });
 
-            listaIndicadoresView = new app.IndicadorListView({ model: listaIndicadores });
-            // listaEventos.fetch();
-            // console.warn('listaEventos');
-            // console.log(listaEventos);
-            this.$el.append(listaIndicadoresView.render().$el);
-            // this.$el.append(listaEventosView.render().$el);
+
             return this;
         },
         getSampleEventsData: function() {
@@ -52,6 +50,10 @@ var app = app || {};
                     { nombre: 'Hoy', valor: $.format.date(new Date(), 'ddd MMMM yyyy'), unidad: '' }
                 ]
             };
+        },
+        renderDashboard: function(eventos) {
+            console.log("into render dashboard method");
+            this.$el.append(new app.EstadisticasView({ model: eventos }).render().$el);
         }
     });
 })(jQuery);

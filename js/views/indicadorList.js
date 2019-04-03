@@ -5,7 +5,7 @@ var app = app || {};
 		tagName:'div',
 		className:'lista-indicadores row',
 		initialize:function(){
-
+			
 		},
 		render:function(){
 			_.each(this.model.models,function(item) {
