@@ -9,6 +9,9 @@ app.Organizador = Backbone.Model.extend({
     initialize: function() {
         console.log('a usuario object was created');
     },
+    parse:function(response){
+        return response.organizador;
+    },
     // Default attributes for the todo
     // and ensure that each todo created has `title` and `completed` keys.
     defaults: {

@@ -1,47 +1,26 @@
-/*global Backbone, jQuery, _, ENTER_KEY, ESC_KEY */
 var app = app || {};
 
-(function($) {
-    'use strict';
-
-    // Vista para editar evento
-    // --------------
-
-
-    app.EditEventoView = Backbone.View.extend({
-        //... is a list tag.
+(function() {
+    app.ProfileView = Backbone.View.extend({
         tagName: 'div',
         className: 'contenedor-formulario',
-
-        editTemplate: _.template($("#event-edit-template").html()),
-
+        template: _.template($('#user-template').html()),
         events: {
             'click .enable-edit': 'edit',
             'keypress .edit': 'updateOnEnter',
             'blur .edit': 'close',
-            'submit #edit-event': 'save',
+            'submit #edit-user': 'save',
             'click .cancelar': 'returnHome'
         },
-
         initialize: function() {
-            console.log(this.model.toJSON());
+            console.log('initialize profile view');
             this.listenTo(this.model, 'change', this.render);
-            // this.listenTo(this.model, 'destroy', this.remove);
         },
-
         render: function() {
-            this.$el.html(this.editTemplate(this.model.attributes));
+            this.$el.html(this.template(this.model.toJSON()));
             this.$editInput = this.$('.edit');
             return this;
         },
-        bindValidations: function() {
-            $.validate({
-                modules: 'security, toggleDisabled',
-                lang: 'en',
-                errorMessagePosition: 'top',
-            });
-        },
-
         // Switch this view into `"editing"` mode, displaying the input field.
         edit: function(e) {
             console.log("click on edit event");
@@ -55,25 +34,13 @@ var app = app || {};
 
         // Close the `"editing"` mode, saving changes to the todo.
         close: function(e) {
+            // console.warn(e.target);
             console.log("blur event");
-            var element = $(e.target),
-                propiedad = element.attr("name"),
-                previous = this.model.get(propiedad),
-                current;
-            if (element.is(":checkbox")) {
-                if (element.is(":checked")) {
-                    current = 'true';
-                } else {
-                    current = 'false';
-                }
-            } else {
-                current = element.val() || previous;
-            }
-
-            current = typeof(previous) == 'string' ? current.trim() : JSON.parse(current);
-            console.log(`${propiedad} : ${current}`);
-            this.model.set(propiedad, current);
-            console.log(this.model.toJSON());
+            console.warn($(e.target));
+            var propiedad = $(e.target).attr("name"),
+                valor = $(e.target).val().trim();
+            console.log(`${propiedad} : ${valor}`);
+            this.model.set(propiedad, valor);
             $(e.target).parents().eq(0).removeClass('editing');
         },
 
@@ -99,15 +66,12 @@ var app = app || {};
             e.preventDefault();
             var self = this;
             console.log("submit form event");
-            console.log(e.target);
             this.model.save().done(function() {
                 console.log("successfull update");
                 self.returnHome();
             }).fail(function() {
                 console.log("failed update");
             });
-
-            // new app.Evento(result).save();
         },
         returnHome: function() {
             app.Router.navigate("", {
@@ -117,10 +81,10 @@ var app = app || {};
         },
         bindValidations: function() { //revisar las validaciones, para aplicarlas de otra manera
             $.validate({
-                modules: 'security, toggleDisabled, file, date',
+                modules: 'security, toggleDisabled, file',
                 lang: 'en',
                 errorMessagePosition: 'top',
             });
         }
     });
-})(jQuery);
+})();

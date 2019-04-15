@@ -5,7 +5,7 @@ $(function() {
 });
 
 var Utils = (function($, request) {
-    
+
     var validateForm = function() {
         $.validate({
             modules: 'security, toggleDisabled',
@@ -16,10 +16,11 @@ var Utils = (function($, request) {
 
     var submitForms = function(event) {
         event.preventDefault();
-        var idForm = $(event.target).attr('id'), formData = {};
-        $(':input',this).each(function(index,input){
-            var inputData = $(input); 
-            if(inputData.is('input:not(:submit)')){
+        var idForm = $(event.target).attr('id'),
+            formData = {};
+        $(':input', this).each(function(index, input) {
+            var inputData = $(input);
+            if (inputData.is('input:not(:submit)')) {
                 formData[inputData.attr('name')] = inputData.val();
             }
         });
@@ -29,28 +30,31 @@ var Utils = (function($, request) {
         // controller.logInUSer(request.send(verb, dataObject));
     };
 
-    var _sendFormData = function(data){
-        console.log(app.urlAPI);
+    var _sendFormData = function(data) {
         $.ajax({
-        type: 'GET',
-        url: app.urlAPI+'organizadores',
-        data: data,
-        processData: true,
-        success: function(data, status, jqXHR) {
-            console.log(data);
-            localStorage.setItem("idUser", data.idUser);
-            redirectUser(true);
-            console.log(jqXHR);
-        },
-        error: function(error) {
-            console.error('An error ocurr');
-            console.log(error);
-        }
+            type: 'GET',
+            url: app.urlAPI + 'organizadores',
+            data: data,
+            processData: true,
+            success: function(data, status, jqXHR) {
+                console.log(data);
+                if (data.validation) {
+                    localStorage.setItem("idUser", data.idUser);
+                    redirectUser(true);
+                } else {
+                    console.log("usuario no encontrado");
+                }
+                console.log(jqXHR);
+            },
+            error: function(error) {
+                console.error('An error ocurr');
+                console.log(error);
+            }
 
-    });
+        });
     }
     return {
         submitForms: submitForms,
-        validateForm:validateForm
+        validateForm: validateForm
     };
 })(window.jQuery, Requests);

@@ -13,9 +13,8 @@ var app = app || {};
 
         // render library by rendering each book in its collection
         render: function() {
-            console.warn("into render EventoListView");
+            console.info("into render EventoListView");
             _.each(this.model.models,function(item) {
-                console.warn(item);
                 this.renderOne(item);
             },this);
             return this;

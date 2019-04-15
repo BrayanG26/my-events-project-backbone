@@ -1,5 +1,4 @@
 @import url("new.css");
-
 /* -------------------------------- 
 
 Primary style
@@ -877,247 +876,482 @@ Sidebar
 }
 
 @media only screen and (max-width: 767px) {
-  .content-element{
-	margin: 10px 0px 10px 0px;
+  .content-element {
+    margin: 10px 0px 10px 0px;
   }
-}
-
-/* -------------------------------- 
-
-div para lista de eventos
-
--------------------------------- */
-
-/* .evento { */
-	/* border:blue solid 1px; */
-	/* border-radius:5px; */
-	/* margin-bottom:5px; */
-/* } */
-
-/* Etiquetas de los eventos */
-
-.estado {
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    right: 24px;
-    bottom: -12px;
-    list-style: none;
-}
-
-.estado__etiqueta {
-    float: left;
-    height: 24px;
-    line-height: 24px;
-    position: relative;
-    font-size: 11px;
-    margin-left: 20px;
-    padding: 0 10px 0 12px;
-    /* background: color; */
-    color: #fff;
-    text-decoration: none;
-    -moz-border-radius-bottomright: 4px;
-    -webkit-border-bottom-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    -moz-border-radius-topright: 4px;
-    -webkit-border-top-right-radius: 4px;
-    border-top-right-radius: 4px;
-}
-
-.estado__etiqueta--creado {
-    background: #d5ad27;
-}
-
-.estado__etiqueta--eliminado {
-    background: #ef0e0e;
-}
-
-.estado__etiqueta--programado {
-    background: #212ea3;
-}
-
-.estado__etiqueta--ejecutado {
-    background: #2f960e;
-}
-
-.estado__etiqueta--cancelado {
-    background: #888888;
-}
-
-.estado__etiqueta--cerrado {
-    background: #e84a0b;
-}
-
-.estado__etiqueta:before {
-    content: "";
-    float: left;
-    position: absolute;
-    top: 0;
-    left: -12px;
-    width: 0;
-    height: 0;
-    /* border-color: transparent var(--tag-event-background) transparent transparent; */
-    border-style: solid;
-    border-width: 12px 12px 12px 0;
-}
-
-.estado__etiqueta--creado::before {
-    border-color: transparent #d5ad27 transparent transparent;
-}
-
-.estado__etiqueta--eliminado::before {
-    border-color: transparent #ef0e0e transparent transparent;
-}
-
-.estado__etiqueta--programado::before {
-    border-color: transparent #212ea3 transparent transparent;
-}
-
-.estado__etiqueta--ejecutado::before {
-    border-color: transparent #2f960e transparent transparent;
-}
-
-.estado__etiqueta--cancelado::before {
-    border-color: transparent #888888 transparent transparent;
-}
-
-.estado__etiqueta--cerrado::before {
-    border-color: transparent #e84a0b transparent transparent;
-}
-
-.estado__etiqueta:after {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 0;
-    float: left;
-    width: 4px;
-    height: 4px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    background: #fff;
-    -moz-box-shadow: -1px -1px 2px #004977;
-    -webkit-box-shadow: -1px -1px 2px #004977;
-    box-shadow: -1px -1px 2px #004977;
-}
-
-.estado__etiqueta:hover {
-    background: #555;
-}
-
-.estado__etiqueta:hover:before {
-    border-color: transparent #555 transparent transparent;
 }
 
 /* estilos provisionales para mostrar eventos en 
   forma de lista */
 
 .contenedor-eventos {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
+  background-color: #a1d3f1;
 }
 
+/*=========================================
+=            tarjeta de evento            =
+=========================================*/
 .evento__card__element {
-    margin: 0 auto 6%;
-    padding: 0.5em;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    position: relative;
-    background: #fff;
-    box-shadow: 0 0.1875rem 1.5rem rgba(0, 0, 0, 0.2);
-    border-radius: 3px;
-    overflow: hidden;
-    font-size: 14px;
-    line-height: 1.45em;
+  margin: 0 auto 6%;
+  padding: 0.5em;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  background: #fff;
+  box-shadow: 0 0.1875rem 1.5rem rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.45em;
 }
 
 .evento__detalles {
-    position: relative;
-    padding: 15px;
-    width: 100%;
-    height: 250px;
+  position: relative;
+  padding: 15px;
+  width: 100%;
+  height: 250px;
 }
 
 .evento__imagen {
-    position: relative;
-    object-fit: cover;
-    height: 150px;
-    width: 100%;
+  position: relative;
+  object-fit: cover;
+  height: 150px;
+  width: 100%;
 }
 
 .evento__categoria {
-    display: inline-block;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: 0.0625rem;
-    margin: 0 0 0.75rem 0;
-    padding: 0 0 0.25rem 0;
-    border-bottom: 0.125rem solid #ebebeb;
-    color: #9b9b9b;
-    font-weight: 400;
-    margin: 1.2% 0;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0.0625rem;
+  margin: 0 0 0.75rem 0;
+  padding: 0 0 0.25rem 0;
+  border-bottom: 0.125rem solid #ebebeb;
+  color: #9b9b9b;
+  font-weight: 400;
+  margin: 1.2% 0;
 }
 
 .evento__titulo {
-    transition: color 0.3s ease;
-    font-size: 1.125rem;
-    line-height: 1.4;
-    color: #121212;
-    font-weight: 700;
-    margin: 0 0 0.5rem 0;
+  transition: color 0.3s ease;
+  font-size: 1.125rem;
+  line-height: 1.4;
+  color: #121212;
+  font-weight: 700;
+  margin: 0 0 0.5rem 0;
 }
 
 .evento__fecha {
-    padding: 5px;
-    border-top: 0.0625em solid #ebebeb;
+  padding: 5px;
+  border-top: 0.0625em solid #ebebeb;
 }
 
 .evento__link {
-    position: relative;
-    display: block;
-    color: inherit;
-    text-decoration: none;
+  position: relative;
+  display: block;
+  color: inherit;
+  text-decoration: none;
 }
 
-.bordered {
-    border: 0.13vw dotted #e04f62;
+/*----------  etiqueta de evento  ----------*/
+
+.estado {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 24px;
+  bottom: -12px;
+  list-style: none;
 }
+
+.estado__etiqueta {
+  float: left;
+  height: 24px;
+  line-height: 24px;
+  position: relative;
+  font-size: 11px;
+  margin-left: 20px;
+  padding: 0 10px 0 12px;
+  /* background: color; */
+  color: #fff;
+  text-decoration: none;
+  -moz-border-radius-bottomright: 4px;
+  -webkit-border-bottom-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+  -moz-border-radius-topright: 4px;
+  -webkit-border-top-right-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.estado__etiqueta--creado {
+  background: #d5ad27;
+}
+
+.estado__etiqueta--eliminado {
+  background: #ef0e0e;
+}
+
+.estado__etiqueta--programado {
+  background: #212ea3;
+}
+
+.estado__etiqueta--ejecutado {
+  background: #2f960e;
+}
+
+.estado__etiqueta--cancelado {
+  background: #888888;
+}
+
+.estado__etiqueta--cerrado {
+  background: #e84a0b;
+}
+
+.estado__etiqueta:before {
+  content: "";
+  float: left;
+  position: absolute;
+  top: 0;
+  left: -12px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 12px 12px 12px 0;
+}
+
+.estado__etiqueta--creado::before {
+  border-color: transparent #d5ad27 transparent transparent;
+}
+
+.estado__etiqueta--eliminado::before {
+  border-color: transparent #ef0e0e transparent transparent;
+}
+
+.estado__etiqueta--programado::before {
+  border-color: transparent #212ea3 transparent transparent;
+}
+
+.estado__etiqueta--ejecutado::before {
+  border-color: transparent #2f960e transparent transparent;
+}
+
+.estado__etiqueta--cancelado::before {
+  border-color: transparent #888888 transparent transparent;
+}
+
+.estado__etiqueta--cerrado::before {
+  border-color: transparent #e84a0b transparent transparent;
+}
+
+.estado__etiqueta:after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 0;
+  float: left;
+  width: 4px;
+  height: 4px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  background: #fff;
+  -moz-box-shadow: -1px -1px 2px #004977;
+  -webkit-box-shadow: -1px -1px 2px #004977;
+  box-shadow: -1px -1px 2px #004977;
+}
+
+.estado__etiqueta:hover {
+  background: #555;
+}
+
+.estado__etiqueta:hover:before {
+  border-color: transparent #555 transparent transparent;
+}
+
+
+/*=====  End of tarjeta de evento  ======*/
+
 
 /* media querie para la lista de eventos */
 
 @media screen and (min-width: 600px) {
-    .evento__card__element {
-        height: 14.625rem;
-        max-width: 500px;
-    }
-    .evento__imagen {
-        float: left;
-        height: 100%;
-        width: 40%;
-    }
-    .evento__detalles {
-        float: right;
-        width: 60%;
-        height: 100%;
-    }
-    /*  la dichosa prueba :S */
-    .categoria {
-        height: 15%;
-    }
-    .titulo {
-        height: 30%;
-    }
-    .descripcion {
-        height: 35%;
-    }
-    .costo {
-        height: 10%;
-    }
-    .fecha {
-        height: 15%;
-        position: absolute;
-        bottom: 0;
-    }
+  .evento__card__element {
+    height: 14.625rem;
+    max-width: 500px;
+  }
+  .evento__imagen {
+    float: left;
+    height: 100%;
+    width: 40%;
+  }
+  .evento__detalles {
+    float: right;
+    width: 60%;
+    height: 100%;
+  }
+  /*  la dichosa prueba :S */
+  .categoria {
+    height: 15%;
+  }
+  .titulo {
+    height: 30%;
+  }
+  .descripcion {
+    height: 35%;
+  }
+  .costo {
+    height: 10%;
+  }
+  .fecha {
+    height: 15%;
+    position: absolute;
+    bottom: 0;
+  }
 }
+
+/*================================================
+=            para google charts table            =
+================================================*/
+.table{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.table-font {
+  font-family: Roboto;
+  line-height: 2;
+}
+
+.header-row {
+  font-variant: small-caps;
+  font-weight: bold;
+  text-align: center;
+  margin: 0 auto;
+  background-color: #c9c8c8;
+  padding: 10px 10px;
+}
+
+.hover-table-row {
+  background-color: #E0E0E0FF;
+  cursor: pointer;
+}
+
+.row-number-cell {
+  color: #1b1a1a;
+  font-size: 10px;
+}
+
+.selected-row-table {
+  background-color: #abd2eb;
+  -webkit-transition: background-color 500ms linear;
+  -ms-transition: background-color 500ms linear;
+  transition: background-color 500ms linear;
+}
+
+/*=====  End of para google charts table  ======*/
+
+/*===========================================
+=            para categoryfilter            =
+===========================================*/
+
+.category-filter-select {
+  padding: 5px 8px;
+}
+
+/*=====  End of para categoryfilter  ======*/
+
+/*=============================================
+=            nueva tarjeta eventos            =
+=============================================*/
+img {
+  
+}
+
+.recipe-card {
+  background: #fff;
+  margin: 4em auto;
+  width: 90%;
+  max-width: 490px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+.recipe-card aside {
+  position: relative;
+}
+.card__img-element {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  max-width: 100%;
+  height: auto;
+  /*vertical-align: bottom; */
+}
+.recipe-card aside .button {
+  background: #57abf2;
+  display: inline-block;
+  position: absolute;
+  top: 80%;
+  right: 3%;
+  width: 4.0625em;
+  height: 4.0625em;
+  border-radius: 4.0625em;
+  line-height: 4.0625em;
+  text-align: center;
+}
+.recipe-card aside .button .icon {
+  vertical-align: middle;
+}
+.recipe-card article {
+  padding: 1.25em 1.5em;
+}
+.recipe-card article ul {
+  list-style: none;
+  margin: 0.5em 0 0;
+  padding: 0;
+}
+.recipe-card article ul li {
+  display: inline-block;
+  margin-left: 1em;
+  line-height: 1.5em;
+}
+.recipe-card article ul li:first-child {
+  margin-left: 0;
+}
+.recipe-card article ul li .icon {
+  vertical-align: bottom;
+}
+.recipe-card article ul li span:nth-of-type(2) {
+  margin-left: 0.5em;
+  font-size: 1.3em;
+  font-weight: 300;
+  /* vertical-align: middle; */
+  color: #838689;
+}
+.recipe-card article h2, .recipe-card article h3 {
+  margin: 0;
+  font-weight: 300;
+}
+.recipe-card article h2 {
+  font-size: 1.75em;
+  color: #222222;
+}
+.recipe-card article h3 {
+  font-size: 0.9375em;
+  color: #838689;
+}
+.recipe-card article p {
+  margin: 1.25em 0;
+  font-size: 1.5em;
+  font-weight: 400;
+  color: #222222;
+}
+.recipe-card article p span {
+  font-weight: 700;
+  /* color: #000000; */
+}
+.card-tag-box {
+  margin: 2em 0 0.5em;
+}
+.icon__img {
+  display: inline;
+  /* display: inline-block; */
+  /* background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/recipe-card-icons.svg); */
+  background-repeat: no-repeat;
+}
+.recipe-card .icon-calories, .recipe-card .icon-calories\:regular {
+  background-position: 0 0;
+  width: 16px;
+  height: 19px;
+}
+.recipe-card .icon-clock, .recipe-card .icon-clock\:regular {
+  background-position: 0 -19px;
+  width: 20px;
+  height: 20px;
+}
+.recipe-card .icon-level, .recipe-card .icon-level\:regular {
+  background-position: 0 -39px;
+  width: 16px;
+  height: 19px;
+}
+.recipe-card .icon-play, .recipe-card .icon-play\:regular {
+  background-position: 0 -58px;
+  width: 21px;
+  height: 26px;
+}
+.recipe-card .icon-users, .recipe-card .icon-users\:regular {
+  background-position: 0 -84px;
+  width: 18px;
+  height: 18px;
+}
+
+.card__img-tag{
+  margin: 0.5em;
+}
+
+.card__img{
+  width: 1.5em;
+  height: 1.5em;
+}
+
+.info-list__title{
+  font-size: 1.2em;
+  text-transform: uppercase;
+  color: #444444;
+}
+
+.card-category{
+  text-transform: uppercase;
+}
+
+.tag-element{
+  background: #E0E0E0;
+    color: #777;
+    border-radius: 5px;
+    line-height: 26px;
+    padding: 5px;
+    position: relative;
+    margin-right: 5px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s;
+  font-size: 0.8em;
+}
+
+.card-bar{
+  background-color: #0088FF;
+    /* position: relative; */
+    left: -2px;
+    width: 50px;
+    height: 5px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.bar__estado--creado {
+  background: #d5ad27;
+}
+
+.bar__estado--eliminado {
+  background: #ef0e0e;
+}
+
+.bar__estado--programado {
+  background: #212ea3;
+}
+
+.bar__estado--ejecutado {
+  background: #2f960e;
+}
+
+.bar__estado--cancelado {
+  background: #888888;
+}
+
+.bar__estado--cerrado {
+  background: #e84a0b;
+}
+/*=====  End of nueva tarjeta eventos  ======*/

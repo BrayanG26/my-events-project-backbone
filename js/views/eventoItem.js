@@ -1,8 +1,6 @@
 var app = app || {}
 
-(function($) {
-
-})(jQuery);
+(function($) {})(jQuery);
 
 app.EventoView = Backbone.View.extend({
     tagName: 'div',
@@ -10,7 +8,7 @@ app.EventoView = Backbone.View.extend({
     template: _.template($('#evento-template').html()),
 
     initialize: function() {
-        console.info('EventoView');
+        console.info('initialize EventoView object');
         console.log(this.model);
     },
 

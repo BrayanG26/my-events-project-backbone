@@ -1,58 +1,65 @@
 var app = app || {};
-(function() {
+(function () {
     // js/routers/router.js
     // ----------
     var Workspace = Backbone.Router.extend({
         routes: {
             '': 'home',
             'create': 'newEvent',
-            'eventos/:id': 'editEvent'
+            'eventos/:id': 'editEvent',
+            'mi': 'myAccount',
+            'close':'closeSesion'
         },
-        initialize: function() {
+        initialize: function () {
             this.$main = $('.main');
-            app.init();
-            app.organizador = new app.Organizador({ id: app.usuario });
-            // this.$indicadores = self.$('.indicators');
-            // this.$estadisticas = self.$('.statistics');
-            // this.$eventos = self.$('.events');
-            // this.$tablas = self.$('.tables');
-            // this.$nuevoEvento = self.$('.new-event');
+            var id = localStorage.getItem("idUser");
+            app.organizador = new app.Organizador({ id: id });
         },
-        newEvent: function(param) {
+        newEvent: function (param) {
             var eventFormView = new app.NuevoEventoView();
             this.$main.html(eventFormView.render().$el);
             eventFormView.bindValidations();
-            // this.$nuevoEvento.show();
-            // this.$indicadores.hide();
-            // this.$estadisticas.hide();
-            // this.$eventos.hide();
-            // this.$tablas.hide();
             console.log('into new-event route');
         },
-        home: function(param) {
+        home: function (param) {
             console.log('into home route');
-            // this.$indicadores.show();
-            // this.$estadisticas.show();
-            // this.$eventos.show();
-            // this.$tablas.show();
-            // this.$nuevoEvento.hide();
-            // var homeView = new app.HomeView();
             this.$main.html(new app.HomeView().render().el);
         },
-        editEvent: function(id) {
+        editEvent: function (id) {
             console.log("Into view-event route [id: " + id + "]");
             var evento = new app.Evento({ id: id });
             var self = this;
             var editEventView;
             evento.fetch({
-                success: function(data) {
-                    console.log(data);
+                success: function (data) {
+                    // console.log(data);
                     editEventView = new app.EditEventoView({ model: data });
-                    editEventView.bindValidations();
                     self.$main.html(editEventView.render().$el);
+                    editEventView.bindValidations();
                 }
             });
-            
+
+        },
+        myAccount: function () {
+            console.log('into myAccount route');
+            var id = localStorage.getItem("idUser");
+            var self = this;
+            var profileView = new app.ProfileView({ model: app.organizador });
+            if (!app.organizador) {
+                app.organizador = new app.Organizador({ id: id });
+            }
+            app.organizador.fetch({
+                success: function (data) {
+                    console.log("datos del organizador recibidos");
+                    self.$main.html(profileView.render().el);
+                    profileView.bindValidations();
+                    // console.log(new app.ProfileView({ model: app.organizador }).render().el);
+                }
+            });
+        },
+        closeSesion:function () {
+            localStorage.clear();
+            window.location.href = './index.html';
         }
     });
     app.Router = new Workspace();

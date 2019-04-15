@@ -29,7 +29,7 @@ var app = app || {};
             capacidad: '',
             categoria: '',
             url: '',
-            costo: 0,
+            sePaga: '',
             descripcion: '',
             asistentes: 0,
             meinteresa: 0,

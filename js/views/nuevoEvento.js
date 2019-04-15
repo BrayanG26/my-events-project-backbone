@@ -1,6 +1,6 @@
 var app = app || {};
 
-(function($) {})(jQuery);
+(function ($) { })(jQuery);
 
 app.NuevoEventoView = Backbone.View.extend({
     tagName: 'div',
@@ -14,22 +14,22 @@ app.NuevoEventoView = Backbone.View.extend({
         'click .cancelar': 'returnHome'
     },
 
-    initialize: function() {},
+    initialize: function () { },
 
-    render: function() {
+    render: function () {
         //this.el is what we defined in tagName. use $el to get access to jQuery html() function
         this.$el.html(this.template());
         $('.datepicker', this.el).datepicker({
             minDate: new Date(),
             monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
             dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
-            dateFormat: "MM dd, yy",
+            dateFormat: "mm/dd/yy",
             showButtonPanel: true,
             currentText: "HOY",
             closeText: "x",
             duration: "normal",
             showAnim: "fold",
-            onSelect: function(dateText, inst) {
+            onSelect: function (dateText, inst) {
                 console.log(dateText);
                 console.log($(this).datepicker("getDate"));
             }
@@ -37,22 +37,18 @@ app.NuevoEventoView = Backbone.View.extend({
         $('.timepicker', this.el).mdtimepicker({
             format: "hh:mm",
             theme: "blue",
-            readOnly: true,
-            timechanged: function(e) {
-                console.log(e.value); // gets the input value
-                console.log(e.time); // gets the data-time value
-            }
+            readOnly: true
         });
         return this;
     },
-    bindValidations: function() { //revisar las validaciones, para aplicarlas de otra manera
+    bindValidations: function () { //revisar las validaciones, para aplicarlas de otra manera
         $.validate({
             modules: 'security, toggleDisabled, file, date',
             lang: 'en',
             errorMessagePosition: 'top',
         });
     },
-    handleFileSelect: function(e) {
+    handleFileSelect: function (e) {
         console.warn('a change occurred on file select!');
         var files = e.target.files;
         var self = this,
@@ -71,8 +67,8 @@ app.NuevoEventoView = Backbone.View.extend({
             var reader = new FileReader();
 
             // Closure to capture the file information.
-            reader.onload = (function(theFile) {
-                return function(e) {
+            reader.onload = (function (theFile) {
+                return function (e) {
                     thumbnails.append(self.imgTemplate({
                         url: e.target.result,
                         alt: theFile.name
@@ -84,12 +80,12 @@ app.NuevoEventoView = Backbone.View.extend({
             reader.readAsDataURL(f);
         }
     },
-    createEvent: function(e) {
+    createEvent: function (e) {
         e.preventDefault();
         console.log(e.target);
         var result = {};
 
-        $.each($(e.target).serializeArray(), function() {
+        $.each($(e.target).serializeArray(), function () {
             console.log(this);
             result[this.name] = this.value;
         });
@@ -100,7 +96,7 @@ app.NuevoEventoView = Backbone.View.extend({
         app.eventos.create(result);
         // new app.Evento(result).save();
     },
-    returnHome: function() {
+    returnHome: function () {
         app.Router.navigate("", {
             trigger: true,
             replace: true

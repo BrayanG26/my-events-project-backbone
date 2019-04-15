@@ -24,13 +24,11 @@ var app = app || {};
             app.organizador.fetch({
                 success: function(data) {
                     console.log("datos del organizador recibidos");
-                    console.info(data);
                     listaEventosView = new app.EventoListView({ model: app.eventos });
                     app.eventos.fetch({
                         data: $.param({ organizador: app.organizador.get('usuario') }),
                         success: function(data) {
                             console.log('eventos recibidos');
-                            console.info(data);
                             that.$el.append(listaEventosView.render().$el);
                             that.renderDashboard(data);
                         }
