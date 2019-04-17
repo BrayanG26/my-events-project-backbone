@@ -130,6 +130,12 @@ textarea.new-form__input-element{
     margin-top: 6px;
 }
 
+.col-20 {
+    float: left;
+    width: 20%;
+    margin-top: 6px;
+}
+
 .col-75 {
     float: left;
     width: 75%;

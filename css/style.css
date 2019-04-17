@@ -887,12 +887,12 @@ Sidebar
 .contenedor-eventos {
   width: 90%;
   margin: auto;
-  background-color: #a1d3f1;
 }
 
 /*=========================================
 =            tarjeta de evento            =
 =========================================*/
+
 .evento__card__element {
   margin: 0 auto 6%;
   padding: 0.5em;
@@ -1071,9 +1071,7 @@ Sidebar
   border-color: transparent #555 transparent transparent;
 }
 
-
 /*=====  End of tarjeta de evento  ======*/
-
 
 /* media querie para la lista de eventos */
 
@@ -1115,7 +1113,8 @@ Sidebar
 /*================================================
 =            para google charts table            =
 ================================================*/
-.table{
+
+.table {
   text-align: center;
   text-transform: uppercase;
 }
@@ -1166,11 +1165,8 @@ Sidebar
 /*=============================================
 =            nueva tarjeta eventos            =
 =============================================*/
-img {
-  
-}
 
-.recipe-card {
+.card-container {
   background: #fff;
   margin: 4em auto;
   width: 90%;
@@ -1179,10 +1175,13 @@ img {
   border-top-right-radius: 5px;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  box-shadow: 0 0.1875rem 1.5rem rgba(0, 0, 0, 0.2);
 }
-.recipe-card aside {
+
+.card__img-container {
   position: relative;
 }
+
 .card__img-element {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
@@ -1190,6 +1189,7 @@ img {
   height: auto;
   /*vertical-align: bottom; */
 }
+
 .recipe-card aside .button {
   background: #57abf2;
   display: inline-block;
@@ -1202,28 +1202,35 @@ img {
   line-height: 4.0625em;
   text-align: center;
 }
+
 .recipe-card aside .button .icon {
   vertical-align: middle;
 }
+
 .recipe-card article {
   padding: 1.25em 1.5em;
 }
+
 .recipe-card article ul {
   list-style: none;
   margin: 0.5em 0 0;
   padding: 0;
 }
+
 .recipe-card article ul li {
   display: inline-block;
   margin-left: 1em;
   line-height: 1.5em;
 }
+
 .recipe-card article ul li:first-child {
   margin-left: 0;
 }
+
 .recipe-card article ul li .icon {
   vertical-align: bottom;
 }
+
 .recipe-card article ul li span:nth-of-type(2) {
   margin-left: 0.5em;
   font-size: 1.3em;
@@ -1231,104 +1238,120 @@ img {
   /* vertical-align: middle; */
   color: #838689;
 }
-.recipe-card article h2, .recipe-card article h3 {
-  margin: 0;
+
+.card-category, .card-title, .info-list__title {
+  /* margin: 0; */
   font-weight: 300;
 }
-.recipe-card article h2 {
+
+.card-title {
   font-size: 1.75em;
   color: #222222;
+  margin: 0.5em 0;
 }
-.recipe-card article h3 {
-  font-size: 0.9375em;
-  color: #838689;
-}
-.recipe-card article p {
-  margin: 1.25em 0;
+
+.event__descripcion {
+  margin: 1.15em 0;
   font-size: 1.5em;
   font-weight: 400;
   color: #222222;
 }
+
 .recipe-card article p span {
   font-weight: 700;
   /* color: #000000; */
 }
+
 .card-tag-box {
   margin: 2em 0 0.5em;
 }
+
 .icon__img {
   display: inline;
   /* display: inline-block; */
   /* background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/203277/recipe-card-icons.svg); */
   background-repeat: no-repeat;
 }
+
 .recipe-card .icon-calories, .recipe-card .icon-calories\:regular {
   background-position: 0 0;
   width: 16px;
   height: 19px;
 }
+
 .recipe-card .icon-clock, .recipe-card .icon-clock\:regular {
   background-position: 0 -19px;
   width: 20px;
   height: 20px;
 }
+
 .recipe-card .icon-level, .recipe-card .icon-level\:regular {
   background-position: 0 -39px;
   width: 16px;
   height: 19px;
 }
+
 .recipe-card .icon-play, .recipe-card .icon-play\:regular {
   background-position: 0 -58px;
   width: 21px;
   height: 26px;
 }
+
 .recipe-card .icon-users, .recipe-card .icon-users\:regular {
   background-position: 0 -84px;
   width: 18px;
   height: 18px;
 }
 
-.card__img-tag{
+.card__img-tag {
   margin: 0.5em;
 }
 
-.card__img{
+.card__img {
   width: 1.5em;
   height: 1.5em;
 }
 
-.info-list__title{
+.info-list__title {
   font-size: 1.2em;
   text-transform: uppercase;
   color: #444444;
 }
 
-.card-category{
+.card-category {
+  font-size: 0.935em;
+  color: #838689;
   text-transform: uppercase;
+  margin: 0.9em 0;
 }
 
-.tag-element{
+.card__event-date {
+  padding: 3px 4px;
+}
+
+.tag-element {
   background: #E0E0E0;
-    color: #777;
-    border-radius: 5px;
-    line-height: 26px;
-    padding: 5px;
-    position: relative;
-    margin-right: 5px;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.2s;
-  font-size: 0.8em;
+  color: #777;
+  border-radius: 5px;
+  line-height: 26px;
+  padding: 5px;
+  position: relative;
+  margin-right: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+  font-size: 0.9em;
 }
 
-.card-bar{
+.card-bar {
   background-color: #0088FF;
-    /* position: relative; */
-    left: -2px;
-    width: 50px;
-    height: 5px;
-    margin: 10px 0;
-    border-radius: 5px;
+  /* position: relative; */
+  left: -2px;
+  width: 50px;
+  height: 5px;
+  margin: 10px 0;
+  border-radius: 5px;
+  margin-bottom: 0.65em;
 }
 
 .bar__estado--creado {
@@ -1354,4 +1377,51 @@ img {
 .bar__estado--cerrado {
   background: #e84a0b;
 }
+
 /*=====  End of nueva tarjeta eventos  ======*/
+
+/*================================================
+=            formulario editar evento            =
+================================================*/
+.form-divider{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.form-icon{
+  width: 2.7rem;
+  height: 2.7rem;
+}
+
+.icon-container{
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+.tooltip-icon{
+  display: none;
+  width: 120px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+  
+  /* Fade in tooltip - takes 1 second to go from 0% to 100% opac: */
+  opacity: 0;
+  transition: opacity 1s;
+}
+
+.icon-container:hover + .tooltip-icon {
+  display : inline;
+  opacity: 1;
+}
+
+/*=====  End of formulario editar evento  ======*/

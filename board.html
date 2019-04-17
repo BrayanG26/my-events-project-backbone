@@ -280,8 +280,8 @@
     </main>
     <script id="evento-template" type="text/template">
         <a href="#eventos/<%- id %>"" class="card-link">
-        <div class="recipe-card">
-        <aside>
+        <div class="recipe-card card-container">
+        <aside class="card__img-container">
             <img class="card__img-element" src="https://goo.gl/fBQvxw" alt="event-avatar" />
     </aside>
 
@@ -289,13 +289,17 @@
         <h3 class="card-category"><%= categoria %></h3>
         <h2 class="card-title"><%= nombre %></h2>
         
-        <h6 class="card-bar bar__estado--<%- estado %>"><h6>
+        <h6 class="card-bar bar__estado--<%- estado %>"></h6>
         <ul class="info-list">
-            <li><span><img class="card__img" src="img/cd-calendar.svg"></span><span class="icon__info"><%= fecha %></span></li>
-            <li><span class="info-list__title">paga</span><span class="icon__info"><%= sePaga ?"&#x2714;":"&#x2718;" %></span></li>
+            <li>
+                <span class="card__event-date"><img class="card__img" src="img/cd-calendar.svg"></span><span class="icon__info"><%= fecha %></span>
+            </li>
+            <li>
+                <span class="info-list__title">paga</span><span class="icon__info"><%= sePaga ?"&#x2714;":"&#x2718;" %></span>
+            </li>
         </ul>
 
-        <p><%= descripcion.length>100?descripcion.substring(0,85)+'...':descripcion+'.' %></p>
+        <p class="event__descripcion"><%= descripcion.length>100?descripcion.substring(0,85)+'...':descripcion+'.' %></p>
 
         <p class="card-tag-box"> <span class="card__img-tag"><img src="img/cd-tag.png" class="card__img"></span> <span class="tag-element">tag 1</span><span class="tag-element">tag 2</span><span class="tag-element">tag 3</span></p>
 
@@ -592,6 +596,29 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-100">
+                        <hr class="form-divider" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-20">
+                        <span class="icon-container"><img class="form-icon" src="img/cd-like.svg"></span><%= megusta %>
+                        <span class="tooltip-icon">Tooltip text</span>
+                    </div>
+                    <div class="col-20">
+                        <span class="icon-container"><img class="form-icon" src="img/cd-star.svg"></span><%= meinteresa %>
+                        <span class="tooltip-icon">Tooltip text</span>
+                    </div>
+                    <div class="col-20">
+                        <span class="icon-container"><img class="form-icon" src="img/cd-share.svg"></span><%= compartido %>
+                        <span class="tooltip-icon">Tooltip text</span>
+                    </div>
+                    <div class="col-20">
+                        <span class="icon-container"><img class="form-icon" src="img/cd-attendant.svg"></span><%= asistentes %>
+                        <span class="tooltip-icon">Tooltip text</span>
+                    </div>
+                </div>
+                <div class="row">
                 <input type="submit" class="new-form__submit-button" value="modificar">
                 <input type="button" class="new-form__submit-button cancelar" value="Cancelar">
                 </div>
@@ -609,11 +636,8 @@
                         <label class="new-form__input-label" for="nombres">Nombres</label>
                     </div>
                     <div class="col-75">
-                        <div class="view new-form__input-element">
-                            <label class="view__label"><%- nombres %></label>
-                            <span class="enable-edit"></span>
-                        </div>
-                        <input type="text" id="nombres" class="new-form__input-element fields__input edit" data-validation="required" name="nombres" value="<%= nombres %>">
+                        
+                        <input type="text" id="nombres" class="new-form__input-element fields__input " data-validation="required" name="nombres" value="<%= nombres %>">
                     </div>
                 </div>
                 <div class="row">
@@ -621,11 +645,8 @@
                         <label class="new-form__input-label" for="apellidos">Apellidos</label>
                     </div>
                     <div class="col-75">
-                        <div class="view new-form__input-element">
-                            <label class="view__label"><%- apellidos %></label>
-                            <span class="enable-edit"></span>
-                        </div>
-                        <input type="text" data-validation="required" id="apellidos" class="new-form__input-element fields__input edit" name="apellidos" value="<%= apellidos %>">
+                        
+                        <input type="text" data-validation="required" id="apellidos" class="new-form__input-element fields__input " name="apellidos" value="<%= apellidos %>">
                     </div>
                 </div>
                 <div class="row">
@@ -633,11 +654,8 @@
                         <label class="new-form__input-label" for="organizacion">Organizacion</label>
                     </div>
                     <div class="col-75">
-                        <div class="view new-form__input-element">
-                            <label class="view__label"><%- organizacion %></label>
-                            <span class="enable-edit"></span>
-                        </div>
-                        <input type="text" data-validation="required" id="organizacion" class="new-form__input-element fields__input edit" name="organizacion" value="<%= organizacion %>">
+                        
+                        <input type="text" data-validation="required" id="organizacion" class="new-form__input-element fields__input " name="organizacion" value="<%= organizacion %>">
                     </div>
                 </div>
                 <div class="row">
@@ -645,11 +663,8 @@
                         <label class="new-form__input-label" for="email">Email</label>
                     </div>
                     <div class="col-75">
-                        <div class="view new-form__input-element">
-                            <label class="view__label"><%- email %></label>
-                            <span class="enable-edit"></span>
-                        </div>
-                        <input type="text" class="new-form__input-element fields__input edit" data-validation="required" id="email" name="email" value="<%= email %>">
+                        
+                        <input type="text" class="new-form__input-element fields__input " data-validation="required" id="email" name="email" value="<%= email %>">
                     </div>
                 </div>
                 <div class="row">

@@ -99,7 +99,6 @@ var app = app || {};
             e.preventDefault();
             var self = this;
             console.log("submit form event");
-            console.log(e.target);
             this.model.save().done(function() {
                 console.log("successfull update");
                 self.returnHome();
@@ -119,7 +118,11 @@ var app = app || {};
             $.validate({
                 modules: 'security, toggleDisabled, file, date',
                 lang: 'en',
+                validateOnBlur : false,
                 errorMessagePosition: 'top',
+                onError: function($form) {
+                    alert('Validation of form ' + $form.attr('id') + ' failed!');
+                }
             });
         }
     });

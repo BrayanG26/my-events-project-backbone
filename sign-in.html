@@ -26,49 +26,48 @@
     <div class="forms">
         <ul class="forms-tab-group">
             <li class="form__tab-element active">
-                <a class="tab-link" href="#login">Log In</a>
+                <a class="tab-link" href="#login">Iniciar Sesión</a>
             </li>
             <li class="form__tab-element">
-                <a class="tab-link" href="#signup">Sign Up</a>
+                <a class="tab-link" href="#signup">Registrarse</a>
             </li>
         </ul>
         <form class="forms__form-element submit-form" action="" method="POST" id="login">
-            <h1 class="form__header">Login on QuickEvents</h1>
+            <h1 class="form__header">Inicie sesion en QuickEvents</h1>
             <div class="login-input-field">
 
-                <label class="form__label-element" for="usuario">UserName</label>
+                <label class="form__label-element" for="usuario">Usuario</label>
                 <input class="form__input-element" type="text" name="usuario" required data-validation="alphanumeric" data-validation-error-msg="Only use letters and numbers"/>
 
-                <label class="form__label-element" for="password">Password</label>
-                <input class="form__input-element" type="password" name="password" data-validation="length"
-                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"
-                    required data-login="password" />
+                <label class="form__label-element" for="password">Contraseña</label>
+                <input class="form__input-element" type="password" name="password" data-validation="length" data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least" required />
 
-                <input class="form__input-element form__button-element" id="iniciarSesion" type="submit" value="Login" />
+                <input class="form__input-element form__button-element" id="iniciarSesion" name="submit" type="submit" value="Inicio" />
 
                 <p class="form__forgot-text">
-                    <a class="form__forgot-link" href="#">Forgot password?</a>
+                    <a class="form__forgot-link" href="">Olvide mi contraseña</a>
                 </p>
             </div>
         </form>
         <form class="forms__form-element signup-form submit-form" action="" id="signup">
-            <h1 class="form__header">Sign Up on QuickEvents</h1>
+            <h1 class="form__header">Regístrese en  QuickEvents</h1>
             <div class="signup-input-field">
                 <label class="form__label-element" for="email">Email</label>
-                <input class="form__input-element" type="text" name="usuario" required data-signup="email"
-                    data-validation="email" />
-                <label class="form__label-element" for="usuario">User name</label>
-                <input class="form__input-element" type="text" name="usuario" data-validation="alphanumeric"
-                    data-validation-error-msg="Only use letters and numbers" required="user" data-signup="usuario" />
-                <label class="form__label-element" for="password">Password</label>
-                <input class="form__input-element" type="password" name="pass_confirmation" data-validation="length"
-                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"
-                    required data-signup="password" />
-                <label class="form__label-element" for="cpassword">Confirm Password</label>
-                <input class="form__input-element" type="password" name="pass" data-validation="confirmation"
-                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"
-                    required data-signup="cpassword" />
-                <input class="form__input-element form__button-element" id="crearCuenta" type="submit" value="Sign up" />
+                <input class="form__input-element" type="text" name="email" required data-validation="email" />
+				<label class="form__label-element" for="nombres">Nombres</label>
+                <input class="form__input-element" type="text" name="nombres" required data-validation="" />
+                <label class="form__label-element" for="apellidos">Apellidos</label>
+                <input class="form__input-element" type="text" name="apellidos" required data-validation="" />
+				<label class="form__label-element" for="usuario">Usuario</label>
+                <input class="form__input-element" type="text" name="usuario" data-validation="alphanumeric" data-validation-error-msg="Only use letters and numbers" required="user" />
+                <label class="form__label-element" for="organizacion">Organizacion</label>
+                <input class="form__input-element" type="text" name="organizacion" required data-validation="" />
+				<label class="form__label-element" for="password">Contraseña</label>
+                <input class="form__input-element" type="password" name="password" data-validation="length"
+                    data-validation-length="min5" data-validation-error-msg="Password must be 5 character at least"/>
+                <label class="form__label-element" for="cpassword">Confirmar Contraseña</label>
+                <input class="form__input-element" type="password" name="npassword" data-validation="confirmation" data-validation-confirm="password" data-validation-error-msg="" />
+                <input class="form__input-element form__button-element" id="crearCuenta" type="submit" value="Registro" />
             </div>
         </form>
     </div>
