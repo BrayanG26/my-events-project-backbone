@@ -24,7 +24,7 @@ var Utils = (function ($, request) {
 			// console.log(inputData.attr('name') + " "+expass.toString());
 			if (inputData.is('input:not(:submit)')) {
 				if (idForm == 'signup') {
-					var expass = inputData.attr('name').includes("npassword");
+					var expass = inputData.attr('name').includes("npassword"); // excluye el envío del campo para confirmar contraseña
 					if (!expass) {
 						formData[inputData.attr('name')] = inputData.val();
 					}

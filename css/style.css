@@ -1264,6 +1264,7 @@ Sidebar
 
 .card-tag-box {
   margin: 2em 0 0.5em;
+  border-top: solid #e0e0e0 1px;
 }
 
 .icon__img {

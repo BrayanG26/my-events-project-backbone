@@ -96,6 +96,7 @@ var app = app || {};
             google.visualization.events.addListener(table, 'select', function () {
                 console.log('a table row was selected');
                 var row = table.getChart().getSelection()[0].row || null;
+				console.log(table.getChart().getSelection()[0]);
                 console.log(table.getDataTable().getValue(row, 0));
             });
             var dashboard = new google.visualization.Dashboard($('#dashboard-table'));

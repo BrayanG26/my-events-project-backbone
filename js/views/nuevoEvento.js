@@ -1,6 +1,6 @@
 var app = app || {};
 
-(function ($) { })(jQuery);
+(function($) {})(jQuery);
 
 app.NuevoEventoView = Backbone.View.extend({
     tagName: 'div',
@@ -14,9 +14,9 @@ app.NuevoEventoView = Backbone.View.extend({
         'click .cancelar': 'returnHome'
     },
 
-    initialize: function () { },
+    initialize: function() {},
 
-    render: function () {
+    render: function() {
         //this.el is what we defined in tagName. use $el to get access to jQuery html() function
         this.$el.html(this.template());
         $('.datepicker', this.el).datepicker({
@@ -29,7 +29,7 @@ app.NuevoEventoView = Backbone.View.extend({
             closeText: "x",
             duration: "normal",
             showAnim: "fold",
-            onSelect: function (dateText, inst) {
+            onSelect: function(dateText, inst) {
                 console.log(dateText);
                 console.log($(this).datepicker("getDate"));
             }
@@ -41,24 +41,26 @@ app.NuevoEventoView = Backbone.View.extend({
         });
         return this;
     },
-    bindValidations: function () { //revisar las validaciones, para aplicarlas de otra manera
+    bindValidations: function() { //revisar las validaciones, para aplicarlas de otra manera
         $.validate({
             modules: 'security, toggleDisabled, file, date',
             lang: 'en',
             errorMessagePosition: 'top',
         });
     },
-    handleFileSelect: function (e) {
+    handleFileSelect: function(e) {
         console.warn('a change occurred on file select!');
         var files = e.target.files;
         var self = this,
-            thumbnails = self.$('#images-result');
+            thumbnails = self.$('#images-result'),
+            imgList = new app.Imagenes();
         if (thumbnails.children()) {
             thumbnails.empty();
             console.log('status of files: ' + files.length + ' in cache...');
         }
-        for (var i = 0, f; f = files[i]; i++) {
 
+        for (var i = 0, f; f = files[i]; i++) {
+            var img = new app.Imagen();
             // Only process image files.
             if (!f.type.match('image.*')) {
                 continue;
@@ -66,40 +68,82 @@ app.NuevoEventoView = Backbone.View.extend({
 
             var reader = new FileReader();
 
+
             // Closure to capture the file information.
-            reader.onload = (function (theFile) {
-                return function (e) {
-                    thumbnails.append(self.imgTemplate({
-                        url: e.target.result,
-                        alt: theFile.name
-                    }));
+            reader.onload = (function(theFile) {
+                return function(e) {
+                    thumbnails.html(new app.imgListView({ model: imgList }).render().$el);
+                    imgList.add(new app.Imagen({ url: e.target.result, alt: theFile.name }));
                 };
             })(f);
 
             // Read in the image file as a data URL.
             reader.readAsDataURL(f);
         }
+        
     },
-    createEvent: function (e) {
+    createEvent: function(e) {
         e.preventDefault();
         console.log(e.target);
-        var result = {};
+        var result = {},
+            images = $('input:file', this.el)[0].files,
+            nImages = images.length,
+            imgData = new FormData(),
+            self = this;
+        console.log(images);
+        if (nImages > 0) {
+            console.log("hay imagenes para cargar...");
+            // Append the files to the formData.
+            for (var i = 0; i < nImages; i++) {
+                var file = images[i];
+                // imgData.append('images', file, file.name);
+                imgData.append('images', file);
+            }
+            var request = this.uploadImages(imgData);
+            request.done(function(data) {
+                console.log(data);
+                $.each($(e.target).find(":input"), function() {
+                    if (!($(this).is('input:file') || $(this).is('input:submit') || $(this).is('input:button'))) {
+                        console.log(this.id);
+                        result[this.name] = (this.id != 'sePaga') ? this.value : $(this).is(':checked');
+                    }
+                });
+                result["estado"] = "creado";
+                result["imagenes"] = data;
+                result["organizador"] = app.organizador.get("usuario");
+                console.log(result);
+                app.eventos.create(result);
+                // self.returnHome(); // volver a pagina principal cuando confirme que guardó el evento
+            }).fail(function(error) {
+                console.error('An error ocurr');
+                console.log(error);
+            });
+        }
 
-        $.each($(e.target).serializeArray(), function () {
-            console.log(this);
-            result[this.name] = this.value;
-        });
-        result["estado"] = "creado";
-        // console.warn(app.organizador.get("usuario"));
-        result["organizador"] = app.organizador.get("usuario");
-        console.log(result);
-        app.eventos.create(result);
-        // new app.Evento(result).save();
     },
-    returnHome: function () {
+    returnHome: function() {
         app.Router.navigate("", {
             trigger: true,
             replace: true
+        });
+    },
+    uploadImages: function(images) {
+
+        /* imprimir formData */
+        for (var pair of images.entries()) {
+            console.log("*** *** *** *** *** ***");
+            console.log(typeof pair[0] + ' - ' + typeof pair[1]);
+            console.log(pair[0]);
+            console.log(pair[1]);
+        }
+        console.log("*** *** *** *** *** ***");
+        return $.ajax({
+            type: "POST",
+            url: app.urlAPI + 'upload',
+            data: images,
+            processData: false,
+            contentType: false,
+            dataType: 'json'
         });
     }
 });

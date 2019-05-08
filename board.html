@@ -333,7 +333,7 @@
     <script text="text/template" id="home-template">
     </script>
     <script id="nuevo-evento-template" type="text/template">
-        <form action="" id="new-event" class="submit-form">
+        <form action="" id="new-event" class="submit-form" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col-100">
                         <h1 class="form__titulo">Nuevo Evento</h1>
@@ -373,7 +373,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25"><label class="new-form__input-label" for="hora">Hora</label></div>
-                    <div class="col-75"><input type="text" data-validation="required" id="hora" class="timepicker new-form__input-element" placeholder="Hora..">
+                    <div class="col-75"><input type="text" data-validation="required" id="hora" name="hora" class="timepicker new-form__input-element" placeholder="Hora..">
                     </div>
                 </div>
                 <div class="row">
@@ -417,10 +417,10 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="costo">Costo</label>
+                        <label class="new-form__input-label" for="sePaga">Paga</label>
                     </div>
                     <div class="col-25">
-                        <input type="text" data-validation="required custom" data-validation-regexp="^[0-9]\d*(\.\d+)?$" id="costo" class="new-form__input-element" name="costo" placeholder="Valor..">
+                        <input type="checkbox" id="sePaga" class="new-form__input-element" name="sePaga">
                     </div>
                 </div>
                 <div class="row">
@@ -431,8 +431,8 @@
                         <input type="file" data-validation="mime" data-validation-allowing="jpg, png, gif, jpeg, svg" data-validation-error-msg-mime="You can only upload images" id="images" class="new-form__input-element" name="images" accept="image/*" multiple>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-100" id="images-result"></div>
+                <div class="row" id="images-result">
+                    
                 </div>
                 <div class="row">
                 <input type="submit" class="new-form__submit-button submit-crear" value="Crear">
@@ -440,9 +440,11 @@
         </form>
     </script>
     <script type="text/template" id="image-thumbnail">
-        <span>
-            <img class="thumb" src="<%= url %>" alt="<%= alt %>"/>
-        </span> 
+            <label class="image-checkbox">
+                <img class="thumb" src="<%= url %>" alt="<%= alt %>"/>
+                <input type="radio" name="images" value="" />
+                <i class="fa fa-check hidden"></i>
+            </label>
     </script>
     <script id="event-edit-template" type="text/template">
         <form action="" id="edit-event" class="submit-form">
@@ -617,6 +619,10 @@
                         <span class="icon-container"><img class="form-icon" src="img/cd-attendant.svg"></span><%= asistentes %>
                         <span class="tooltip-icon">Tooltip text</span>
                     </div>
+                    <div class="col-20">
+                        <span class="icon-container"><img class="form-icon" src="img/cd-n-attendants.svg"></span><%= capacidad %>
+                        <span class="tooltip-icon">Tooltip text</span>
+                    </div>
                 </div>
                 <div class="row">
                 <input type="submit" class="new-form__submit-button" value="modificar">
@@ -706,10 +712,14 @@
     <script src="js/models/usuario.js"></script>
     <script src="js/models/indicador.js"></script>
     <script src="js/models/evento.js"></script>
+    <script src="js/models/imagen.js"></script>
     <script src="js/collections/eventos.js"></script>
     <script src="js/collections/indicadores.js"></script>
+    <script src="js/collections/imagenes.js"></script>
     <script src="js/views/indicadorView.js"></script>
     <script src="js/views/indicadorList.js"></script>
+    <script src="js/views/imgElementView.js"></script>
+    <script src="js/views/imgListView.js"></script>
     <script src="js/views/eventoItem.js"></script>
     <script src="js/views/eventoList.js"></script>
     <script src="js/views/nuevoEvento.js"></script>

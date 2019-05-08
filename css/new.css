@@ -32,7 +32,7 @@
     padding: 20px;
     background-color: #f2f2f2;
     width: 95%;
-    max-width: 800px;
+    max-width: 1000px;
     padding: 40px;
     margin: auto;
     background: #fff;
@@ -50,7 +50,7 @@
     border-radius: 4px;
     resize: vertical;
 } */
-.new-form__input-element{
+.new-form__input-element {
     width: 100%;
     position: relative;
     /*padding: 12px;*/
@@ -69,8 +69,8 @@
     transition: all 0.2s ease-in-out;
 }
 
-textarea.new-form__input-element{
-	min-height:200px;
+textarea.new-form__input-element {
+    min-height: 200px;
 }
 
 .new-form__submit-button {
@@ -172,7 +172,11 @@ textarea.new-form__input-element{
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 
 @media screen and (max-width: 550px) {
-    .col-25, .col-75, input[type=submit],input[type=button] {
+
+    .col-25,
+    .col-75,
+    input[type=submit],
+    input[type=button] {
         width: 100%;
         margin-top: 0;
     }
@@ -185,26 +189,80 @@ textarea.new-form__input-element{
 #ui-datepicker-div {
     display: none;
 }
+
 /**/
 
 /* For image event responsive */
-.event__image{
+.event__image {
     width: 100%;
     height: auto;
 }
+
 /*  */
 
-/* For image thumbnails */
+/*==========================================
+=            miniatura imagenes            =
+==========================================*/
+
+.img-container {
+    position: relative;
+    margin-right: 1em;
+}
+
 .thumb {
-    height: 85px;
-    width: 95px;
-    border: 1px dashed #000;
-    margin: 10px 5px 0 0;
-    background-repeat:no-repeat;
-    background-size:contain;
-    background-position:center;
-  }
-/**/
+    display: block;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    max-width: 100%;
+    height: auto;
+    /*width: 95px;*/
+    /*border: 1px dashed #000;*/
+    /*margin: 10px 5px 0 0;*/
+}
+
+/*image gallery*/
+.hidden {
+    display: none !important;
+}
+
+.image-checkbox {
+    cursor: pointer;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 4px solid transparent;
+    margin-bottom: 0;
+    outline: 0;
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+
+.image-checkbox input[type="radio"] {
+    display: none;
+}
+
+.image-checkbox-checked {
+    border-color: #4783B0;
+}
+
+.image-checkbox .fa {
+    position: absolute;
+    color: #4A79A3;
+    background-color: #fff;
+    padding: 10px;
+    top: 0;
+    right: 0;
+}
+
+.image-checkbox-checked .fa {
+    display: block !important;
+    border-radius: 50%;
+    background-color: #d7e7de;
+}
+
+/*=====  End of miniatura imagenes  ======*/
 
 /*----------  for switch editing mode  ----------*/
 .editing .edit {
@@ -214,11 +272,14 @@ textarea.new-form__input-element{
 .editing .view {
     display: none;
 }
-input.edit,textarea.edit,select.edit {
+
+input.edit,
+textarea.edit,
+select.edit {
     display: none;
 }
 
-.enable-edit{
+.enable-edit {
     display: none;
     position: absolute;
     top: 0;
@@ -231,11 +292,12 @@ input.edit,textarea.edit,select.edit {
     margin-bottom: 0px;
     transition: color 0.2s ease-out;
 }
+
 .view .enable-edit:after {
     content: url('../img/cd-pencil.svg');
 }
 
- .view:hover .enable-edit {
+.view:hover .enable-edit {
     display: block;
     cursor: pointer;
-} 
+}

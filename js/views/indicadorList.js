@@ -8,6 +8,7 @@ var app = app || {};
 			
 		},
 		render:function(){
+			console.log(this.model.toJSON());
 			_.each(this.model.models,function(item) {
                 this.renderOne(item);
             },this);
