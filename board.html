@@ -440,9 +440,9 @@
         </form>
     </script>
     <script type="text/template" id="image-thumbnail">
-            <label class="image-checkbox">
+            <label class="image-checkbox <%= cover ? 'image-checkbox-checked' : '' %>">
                 <img class="thumb" src="<%= url %>" alt="<%= alt %>"/>
-                <input type="radio" name="images" value="" />
+                <input type="radio" name="images" value="<%= alt %>" <%= cover ? 'checked' : '' %>/>
                 <i class="fa fa-check hidden"></i>
             </label>
     </script>

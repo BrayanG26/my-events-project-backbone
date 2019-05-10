@@ -6,27 +6,36 @@ var app = app || {};
         className: 'lista-imagenes col-100',
 
         initialize: function() {
-        	// this.listenTo(this.model, 'add', this.addOne);
-        	this.listenTo(this.model, 'all', this.render);
+            this.listenTo(this.model, 'add', this.addOne);
+            // this.listenTo(this.model, 'all', this.render);
+            this.listenTo(this.model, 'change:cover', this.setCurrentCover);
+            this.ccover = null, this.pcover;
         },
 
         render: function() {
             console.log('into render imgListView');
-            console.log(this.model.toJSON());
-            this.$el.html('');
-            _.each(this.model.models, function(item) {
-                this.renderOne(item);
-            }, this);
+            this.$el.empty();
+            /*_.each(this.model.models, function(imagen) {
+                this.renderOne(imagen);
+            }, this);*/
             return this;
         },
-
-        renderOne: function(item) {
-            console.log('into renderOne imgListView');
+        addOne: function(imagen) {
+            console.log('se agrego un elemento a la lista');
             var imgView = new app.imgView({
-                model: item
+                model: imagen
             });
             this.$el.append(imgView.render().$el);
             return this;
+        },
+        setCurrentCover: function(imagen) {
+        	console.log('el atributo cover de un elemento, cambio');
+            this.pcover = this.ccover;
+            this.ccover = imagen;
+            if (this.pcover) {
+                this.pcover.removeAsCover();
+            }
+            console.log(this.model.toJSON())
         }
     });
 })(jQuery);

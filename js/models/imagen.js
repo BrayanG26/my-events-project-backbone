@@ -20,9 +20,15 @@ var app = app || {};
         // Default attributes for the event
         // and ensure that each event created has `title`.
         defaults: {
-            url:'',
-            alt:'',
-            cover:false
+            url: '',
+            alt: '',
+            cover: false
+        },
+        setAsCover: function() {
+            this.set({ cover: true });
+        },
+        removeAsCover: function() {
+            this.set({ cover: false });
         }
     });
 })();

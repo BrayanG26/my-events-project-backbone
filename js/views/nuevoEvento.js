@@ -56,6 +56,7 @@ app.NuevoEventoView = Backbone.View.extend({
             imgList = new app.Imagenes();
         if (thumbnails.children()) {
             thumbnails.empty();
+            thumbnails.html(new app.imgListView({ model: imgList }).render().$el);
             console.log('status of files: ' + files.length + ' in cache...');
         }
 
@@ -72,7 +73,6 @@ app.NuevoEventoView = Backbone.View.extend({
             // Closure to capture the file information.
             reader.onload = (function(theFile) {
                 return function(e) {
-                    thumbnails.html(new app.imgListView({ model: imgList }).render().$el);
                     imgList.add(new app.Imagen({ url: e.target.result, alt: theFile.name }));
                 };
             })(f);

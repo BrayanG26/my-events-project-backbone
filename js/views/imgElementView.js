@@ -11,6 +11,7 @@ var app = app || {};
         },
 
         initialize: function() {
+            this.listenTo(this.model, 'change', this.render);
             /*$(".image-checkbox").each(function() {
                 console.log(this);
                 if ($(this).find('input:radio').first().attr("checked")) {
@@ -19,6 +20,7 @@ var app = app || {};
                     $(this).removeClass('image-checkbox-checked');
                 }
             });*/
+            // this.listenTo(this.model, 'change', this.render);
         },
 
         render: function() {
@@ -28,15 +30,12 @@ var app = app || {};
             return this;
         },
         checkImage: function(e) {
-            console.log($(e.target));            
-            if($(e.target).is('label')){
-                console.log("click on label");
-                $(e.target).toggleClass('image-checkbox-checked');
-                var $radio = $(e.target).find('input:radio');
-                
-                $radio.attr("checked", !$radio.attr("checked"));
-            }
-            
+            this.model.setAsCover();
+
+            // $(e.currentTarget).toggleClass('image-checkbox-checked');
+            // var $radio = $(e.currentTarget).find('input:radio');
+            // $radio.attr("checked", !$radio.attr("checked"));
+
             e.preventDefault();
         }
     });
