@@ -8,8 +8,7 @@ var app = app || {};
         initialize: function() {
             this.listenTo(this.model, 'add', this.addOne);
             // this.listenTo(this.model, 'all', this.render);
-            this.listenTo(this.model, 'change:cover', this.setCurrentCover);
-            this.ccover = null, this.pcover;
+            this.listenTo(this.model, 'change:cover', this.showModel);
         },
 
         render: function() {
@@ -28,14 +27,9 @@ var app = app || {};
             this.$el.append(imgView.render().$el);
             return this;
         },
-        setCurrentCover: function(imagen) {
+        showModel: function(imagen) {
         	console.log('el atributo cover de un elemento, cambio');
-            this.pcover = this.ccover;
-            this.ccover = imagen;
-            if (this.pcover) {
-                this.pcover.removeAsCover();
-            }
-            console.log(this.model.toJSON())
+            console.log(this.model.toJSON());
         }
     });
 })(jQuery);

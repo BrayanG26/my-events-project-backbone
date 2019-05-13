@@ -26,9 +26,11 @@ var app = app || {};
         },
         setAsCover: function() {
             this.set({ cover: true });
+            return this.toJSON();
         },
         removeAsCover: function() {
             this.set({ cover: false });
+            return this.toJSON();
         }
     });
 })();

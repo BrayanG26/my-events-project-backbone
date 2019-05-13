@@ -221,6 +221,12 @@ textarea.new-form__input-element {
     /*margin: 10px 5px 0 0;*/
 }
 
+.thumb:hover{
+    opacity: 0.8;
+    /*filter:alpha(opacity=40);*/
+    /*filter: drop-shadow(8px 8px 10px gray);*/
+}
+
 /*image gallery*/
 .hidden {
     display: none !important;
