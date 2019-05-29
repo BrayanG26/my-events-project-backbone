@@ -22,15 +22,15 @@ var app = app || {};
             listaIndicadoresView = new app.IndicadorListView({ model: listaIndicadores });
             this.$el.append(listaIndicadoresView.render().$el);
             app.organizador.fetch({
-                success: function(data) {
-                    console.log("datos del organizador recibidos");
+                success: function(model, response, options) {
                     listaEventosView = new app.EventoListView({ model: app.eventos });
                     app.eventos.fetch({
                         data: $.param({ organizador: app.organizador.get('usuario') }),
                         success: function(data) {
                             console.log('eventos recibidos');
-                            that.$el.append(listaEventosView.render().$el);
                             that.renderDashboard(data);
+                            that.$el.append(listaEventosView.render().$el);
+                            
                         }
                     });
                 }

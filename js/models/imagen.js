@@ -4,7 +4,7 @@ var app = app || {};
 (function() {
     'use strict';
 
-    // Imagen Model
+    // Image Model
     // ----------
     app.Imagen = Backbone.Model.extend({
         // urlRoot: function() {
@@ -22,7 +22,8 @@ var app = app || {};
         defaults: {
             url: '',
             alt: '',
-            cover: false
+            cover: false,
+            file: null
         },
         setAsCover: function() {
             this.set({ cover: true });

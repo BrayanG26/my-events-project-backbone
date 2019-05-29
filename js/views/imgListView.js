@@ -8,7 +8,8 @@ var app = app || {};
         initialize: function() {
             this.listenTo(this.model, 'add', this.addOne);
             // this.listenTo(this.model, 'all', this.render);
-            this.listenTo(this.model, 'change:cover', this.showModel);
+            this.listenTo(this.model, 'change:cover', this.changeCover);
+            this.ccover = null, this.pcover;
         },
 
         render: function() {
@@ -27,9 +28,17 @@ var app = app || {};
             this.$el.append(imgView.render().$el);
             return this;
         },
-        showModel: function(imagen) {
-        	console.log('el atributo cover de un elemento, cambio');
-            console.log(this.model.toJSON());
+        changeCover: function(imagen) {
+            if (imagen.get('cover')) {
+                console.log("la imagen ha sido seleccionada como portada");
+                this.pcover = this.ccover;
+                this.ccover = imagen;
+                if (this.pcover) {
+                    this.pcover.removeAsCover();
+                }
+            } else {
+                console.log("la imagen no ha sido seleccionada como portada");
+            }
         }
     });
 })(jQuery);

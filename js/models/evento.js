@@ -35,7 +35,13 @@ var app = app || {};
             meinteresa: 0,
             compartido: 0,
             megusta: 0,
-            estado: 'creado'
+            estado: 'creado',
+            calificacion: {
+                logistica: 0,
+                comodidad: 0,
+                entretenido: 0,
+                interesante: 0
+            }
         }
     });
 })();
