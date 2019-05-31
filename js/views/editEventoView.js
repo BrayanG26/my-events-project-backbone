@@ -9,7 +9,7 @@ var app = app || {};
 
 
     app.EditEventoView = Backbone.View.extend({
-        //... is a list tag.
+
         tagName: 'div',
         className: 'contenedor-formulario',
 
@@ -30,7 +30,14 @@ var app = app || {};
         },
 
         render: function() {
+            var slideshow = new app.SlideshowView({model: new app.ImagenesServidor(this.model.get('imagenes'))});
             this.$el.html(this.editTemplate(this.model.attributes));
+            this.$slideContainer = this.$('.row > .col-100', this.$el)[0]; // Es el primer div.col-100 que es hijo directo de div.row
+            console.log(this.$slideContainer);
+            // console.log(new app.SlideshowView({model: new app.ImagenesServidor(this.model.get('imagenes'))}).render().$el[0]);
+            this.$slideContainer.append(slideshow.render().el);  // Inicializar vista Slideshow Manager
+            // console.log(new app.ImagenesServidor(this.model.get('imagenes')));
+            console.log(this.$el[0]);
             this.$editInput = this.$('.edit');
             return this;
         },
@@ -118,7 +125,7 @@ var app = app || {};
             $.validate({
                 modules: 'security, toggleDisabled, file, date',
                 lang: 'en',
-                validateOnBlur : false,
+                validateOnBlur: false,
                 errorMessagePosition: 'top',
                 onError: function($form) {
                     alert('Validation of form ' + $form.attr('id') + ' failed!');
