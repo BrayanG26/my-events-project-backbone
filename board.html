@@ -463,13 +463,10 @@
         </div>
     </script>
     <script id="slide-element" type="text/template">
-        <!-- slide-element -->
-        <div class="fade<%= !current ? ' no-visible-slide' : '' %>" >
-            <div class="numbertext">x / x</div>
-            <img class="slide-image" src="<%= url %>">
-            <div class="text">Caption vvv</div>
-        </div>
-        <!--  -->
+        <!-- slide content -->
+        <!-- <div class="numbertext">x / x</div> -->
+        <img class="slide-image" src="<%= url %>">
+        <div class="text"><%= alt %></div>
     </script>
     <script id="slideshow-controls" type="text/template">
         <a class="prev">❮</a>

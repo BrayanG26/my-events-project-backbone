@@ -2,8 +2,8 @@ var app = app || {};
 
 (function($) {
     app.SlideShowElement = Backbone.View.extend({
-        // tagName: 'div',
-        // className: 'fade',
+        tagName: 'div',
+        className: 'fade',
         template: _.template($('#slide-element').html()),
 
         events: {
@@ -11,13 +11,13 @@ var app = app || {};
         },
 
         initialize: function() {
-            this.listenTo(this.model, 'change', this.render);
+            // this.listenTo(this.model, 'change', this.render);
             console.log(this.model.toJSON());  
         },
 
         render: function() {
             //this.el is what we defined in tagName. use $el to get access to jQuery html() function
-            this.$el.append(this.template(this.model.attributes)); // posible error al actualizar en el DOM
+            this.$el.html(this.template(this.model.attributes)); // posible error al actualizar en el DOM
             // this.$el.show();
             // console.log(this.$el[0]);
             return this;

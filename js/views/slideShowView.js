@@ -6,8 +6,7 @@ var app = app || {};
         className: 'slideshow-container',
         controls: _.template($("#slideshow-controls").html()),
         slideIndex: 1,
-        pSlideItem: null,
-        nSlideItem:null,
+        currentSlide: null,
 
         events: {
             'click .prev': 'prevSlide',
@@ -17,6 +16,7 @@ var app = app || {};
         initialize: function() {
             // this.listenTo(this.model, 'change', this.render);
             console.log(this.model.toJSON());
+            this.showSlide(this.slideIndex);
         },
 
         render: function() {
@@ -24,11 +24,12 @@ var app = app || {};
             // this.$el.html('<p>la puerca esta en la pocilga</p>');
             // this.$el.prepend('<i>la puerca esta en la pocilga</i>');
             // this.$main = this.$('.slideshow-container');
-            this.$el.html(this.controls());
-            _.each(this.model.models, function(item) {
+            /*_.each(this.model.models, function(item) {
                 this.renderOne(item);
-            }, this);
-            this.showSlide(this.slideIndex);
+            }, this);*/
+            // Crear una vista slideElement
+            this.$el.html(new app.SlideShowElement({ model: this.currentSlide }).render().el);
+            this.$el.append(this.controls());
             return this;
         },
         renderOne: function(item) {
@@ -43,12 +44,8 @@ var app = app || {};
             if (n > this.model.models.length) { this.slideIndex = 1 }
             if (n < 1) { this.slideIndex = this.model.models.length }
 
-            this.pSlideItem = this.nSlideItem;
-            this.nSlideItem = this.model.at(this.slideIndex-1);
-            this.nSlideItem.set({ current: true });
-            if(this.pSlideItem){
-                this.nSlideItem.set({ current: false });
-            }
+            this.currentSlide = this.model.at(this.slideIndex - 1);
+            this.render();
         },
         prevSlide: function() {
             var previous = -1;
