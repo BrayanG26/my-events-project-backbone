@@ -92,49 +92,50 @@ app.NuevoEventoView = Backbone.View.extend({
             self = this,
             idEvent;
         console.log(images);
-        if (nImages > 0) {
-
-            $.each($(e.target).find(":input"), function() {
-                if (!($(this).is('input:file') || $(this).is('input:submit') || $(this).is('input:button'))) {
-                    // console.log(this.id);
-                    result[this.name] = (this.id != 'sePaga') ? this.value : $(this).is(':checked');
-                }
-            });
-            result["estado"] = "creado";
-            // result["imagenes"] = data;
-            result["organizador"] = app.organizador.get("usuario");
-            console.log(result);
-            // console.log(app.eventos.create(result));
-            app.eventos.create(result, {
-                success: function(collection, response) {
-                    console.log(collection);
-                    console.log(response);
-                    idEvent = response;
+        $.each($(e.target).find(":input"), function() {
+            if (!($(this).is('input:file') || $(this).is('input:submit') || $(this).is('input:button'))) {
+                // console.log(this.id);
+                result[this.name] = (this.id != 'sePaga') ? this.value : $(this).is(':checked');
+            }
+        });
+        result["estado"] = "creado";
+        // result["imagenes"] = data;
+        result["organizador"] = app.organizador.get("usuario");
+        console.log(result);
+        // console.log(app.eventos.create(result));
+        app.eventos.create(result, {
+            success: function(collection, response) {
+                console.log(collection);
+                console.log(response);
+                idEvent = response;
+                console.log(app.eventos.toJSON());
+                if (nImages > 0) {
                     self.imgList.setEventID(idEvent);
                     self.imgList.upload();
                 }
-            })
-            /*app.eventos.create(result).done(function(data) {
+            }
+        })
+        /*app.eventos.create(result).done(function(data) {
+            console.log(data);
+            console.log("hay imagenes para cargar...");
+            self.imgList.sync('create', self.imgList);
+            // Append the files to the formData.
+            for (var i = 0; i < nImages; i++) {
+                var file = images[i];
+                // imgData.append('images', file, file.name);
+                imgData.append('images', file);
+            }
+            var request = this.uploadImages(imgData);
+            request.done(function(data) {
                 console.log(data);
-                console.log("hay imagenes para cargar...");
-                self.imgList.sync('create', self.imgList);
-                // Append the files to the formData.
-                for (var i = 0; i < nImages; i++) {
-                    var file = images[i];
-                    // imgData.append('images', file, file.name);
-                    imgData.append('images', file);
-                }
-                var request = this.uploadImages(imgData);
-                request.done(function(data) {
-                    console.log(data);
-                    // self.returnHome(); // volver a pagina principal cuando confirme que guardó el evento
-                }).fail(function(error) {
-                    console.error('An error ocurr');
-                    console.log(error);
-                });
-            });*/
+                // self.returnHome(); // volver a pagina principal cuando confirme que guardó el evento
+            }).fail(function(error) {
+                console.error('An error ocurr');
+                console.log(error);
+            });
+        });*/
 
-        }
+
 
     },
     returnHome: function() {

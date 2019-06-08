@@ -42,7 +42,6 @@ var app = app || {};
                 entretenido: 0,
                 interesante: 0
             },
-            portada: "",
             imagenes: []
         }
     });

@@ -18,7 +18,8 @@ var app = app || {};
         // Default attributes for the image
         defaults: {
             url: '',
-            alt: 'imagen de evento'
+            name:'',
+            cover:false
         }
     });
 })();
