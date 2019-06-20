@@ -104,6 +104,12 @@ textarea.new-form__input-element {
     background: #35424a;
 }
 
+.new-form__submit-button:disabled {
+    background-color: #aab1a8;
+    color: #333333;
+    cursor: not-allowed;
+}
+
 .wrap {
     width: 90%;
     max-width: 500px;
@@ -388,7 +394,7 @@ img {
     transition: background-color 0.6s ease;
 }
 
-.active,
+.active-dot,
 .dot:hover {
     background-color: #717171;
 }
@@ -401,8 +407,8 @@ img {
     animation-duration: 1.5s;
 }
 
-.slide-image{
-    width:100%;
+.slide-image {
+    width: 100%;
 }
 
 @-webkit-keyframes fade {

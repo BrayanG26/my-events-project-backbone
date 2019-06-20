@@ -5,10 +5,13 @@ var app = app || {};
     var Workspace = Backbone.Router.extend({
         routes: {
             '': 'home',
+            'all': 'allEvents',
+            'coming': 'comingEvents',
             'create': 'newEvent',
             'eventos/:id': 'editEvent',
-            'mi': 'myAccount',
-            'close': 'closeSesion'
+            'me': 'myAccount',
+            'close': 'closeSesion',
+            'security': 'myPassword'
         },
         initialize: function() {
             this.$main = $('.main');
@@ -16,15 +19,45 @@ var app = app || {};
             console.warn("este es el id del organizador: " + id);
             app.organizador = new app.Organizador({ id: id });
         },
-        newEvent: function(param) {
+        newEvent: function() {
+            if (!app.organizador) {
+                app.organizador = new app.Organizador({ id: id });
+            }
+            app.organizador.fetch({
+                success: function(response, data) {
+                    console.log("datos del organizador recibidos");
+                    console.log(data);
+                    console.log(response);
+                }
+            });
             var eventFormView = new app.NuevoEventoView();
             this.$main.html(eventFormView.render().$el);
             eventFormView.bindValidations();
             console.log('into new-event route');
         },
-        home: function(param) {
+        home: function() {
             console.log('into home route');
             this.$main.html(new app.HomeView().render().el);
+        },
+        allEvents: function() {
+            console.log("into all Events rouote");
+            this.$main.html('<p>Estamos desarrollando este sitio...</p>')
+        },
+        comingEvents: function() {
+            console.log("into coming Events rouote");
+            var id = localStorage.getItem("idUser");
+            var self = this;
+            if (!app.organizador) {
+                app.organizador = new app.Organizador({ id: id });
+            }
+            app.organizador.fetch({
+                success: function(response, data) {
+                    console.log("datos del organizador recibidos");
+                    console.log(data);
+                    console.log(response);
+                    self.$main.html(new app.ComingEventsView().render().el);
+                }
+            });
         },
         editEvent: function(id) {
             console.log("Into view-event route [id: " + id + "]");
@@ -50,12 +83,31 @@ var app = app || {};
                 app.organizador = new app.Organizador({ id: id });
             }
             app.organizador.fetch({
-                success: function(data) {
+                success: function(response, data) {
                     console.log("datos del organizador recibidos");
                     console.log(data);
+                    console.log(response);
                     self.$main.html(profileView.render().el);
                     profileView.bindValidations();
                     // console.log(new app.ProfileView({ model: app.organizador }).render().el);
+                }
+            });
+        },
+        myPassword: function() {
+            console.log('Into passwords management route');
+            var id = localStorage.getItem("idUser");
+            var self = this;
+            var passwordsView = new app.PasswordsView({ model: app.organizador });
+            if (!app.organizador) {
+                app.organizador = new app.Organizador({ id: id });
+            }
+            app.organizador.fetch({
+                success: function(response, data) {
+                    console.log("datos del organizador recibidos");
+                    console.log(data);
+                    console.log(response);
+                    self.$main.html(passwordsView.render().el);
+                    passwordsView.bindValidations();
                 }
             });
         },

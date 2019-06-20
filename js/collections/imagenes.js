@@ -9,8 +9,9 @@ app.Imagenes = Backbone.Collection.extend({
         return app.urlAPI + 'eventos/' + this.id + '/images';
     },
     initialize: function() {
-        // this.listenTo(this, 'change:cover', this.changeCover);
-        // this.ccover = null, this.pcover;
+        this.on('all', function(method) {
+            console.log(method);
+        });
     },
     setEventID: function(id) {
         this.id = id;
@@ -20,7 +21,10 @@ app.Imagenes = Backbone.Collection.extend({
         var fd = new FormData(),
             image;
         _.each(this.models, function(model, i) {
-            // model.set({ url: "" });
+            console.log(model.toJSON());
+            if (model.get('cover')) {
+                fd.append("portada", model.get('file'));
+            }
             image = model.get('file');
             fd.append("images", image, image.name);
         });
@@ -29,10 +33,11 @@ app.Imagenes = Backbone.Collection.extend({
     sync: function(method, model, options) {
         var opts = {
             url: this.url(),
-            success: function(data) {
-                if (options.success) {
+            success: function(response) {
+                /*if (options.success) {
                     options.success(data);
-                }
+                }*/
+                console.log(response);
             }
         };
         switch (method) {

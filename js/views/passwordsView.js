@@ -1,19 +1,19 @@
 var app = app || {};
 
 (function () {
-    app.ProfileView = Backbone.View.extend({
+    app.PasswordsView = Backbone.View.extend({
         tagName: 'div',
         className: 'contenedor-formulario',
-        template: _.template($('#user-data-template').html()),
+        template: _.template($('#user-password-template').html()),
         events: {
             'click .enable-edit': 'edit',
             'keypress .edit': 'updateOnEnter',
             'blur .edit': 'close',
             'submit #edit-user': 'save',
-            'click .cancelar': 'returnHome',
+            'click .cancelar': 'returnHome'
         },
         initialize: function () {
-            console.log('initialize profile view');
+            console.log('initialize password view');
             this.listenTo(this.model, 'change', this.render);
         },
         render: function () {
@@ -67,6 +67,10 @@ var app = app || {};
         save: function (e) {
             e.preventDefault();
             var self = this;
+            var currentPassword = this.$('#cpassword').val();
+            var newPassword = this.$('#apassword').val();
+            this.model.set({ password: currentPassword });
+            this.model.set({ nPassword: newPassword });
             console.log("submit form event");
             this.model.save().done(function () {
                 console.log("successfull update");
@@ -74,6 +78,12 @@ var app = app || {};
             }).fail(function () {
                 console.log("failed update");
             });
+        },
+        disablePassField: function (e) {
+            var $pass_field = $(e.target);
+            if ($pass_field.val().length == 0) {
+                $pass_field.attr('data-validation-length', ''); //Modificar directamente el DOM desde la vista no es una buena practica cuando se usa MVC
+            }
         },
         bindValidations: function () { //revisar las validaciones, para aplicarlas de otra manera
             $.validate({

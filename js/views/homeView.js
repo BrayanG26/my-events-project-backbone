@@ -32,7 +32,6 @@ var app = app || {};
                             console.log('eventos recibidos');
                             that.renderDashboard(data);
                             that.$el.append(new app.EventoContainer().render().el);
-                            
                         }
                     });*/
                 }

@@ -1,6 +1,6 @@
 var app = app || {};
 
-(function($) {
+(function ($) {
     app.EventoListView = Backbone.View.extend({
         tagName: 'div',
         className: 'lista-eventos container-fluid',
@@ -12,20 +12,19 @@ var app = app || {};
             '': ''
         },
 
-        initialize: function() {
+        initialize: function () {
             // this.collection = new app.Eventos(initialEvents); // see later
             // this.render();
-            this.listenTo(this.model, 'sync',this.render);
+            this.listenTo(this.model, 'sync', this.render);
             console.dir(this.model.toJSON());
-            // console.log(this.model.toArray());
         },
 
         // render EventList by rendering each event in its collection
-        render: function() {
+        render: function () {
             console.info("into render EventoListView");
-            // this.$el.html(this.controlTemplate());
             this.$el.html('');
-            _.each(this.model.models, function(item) {
+            _.each(this.model.models, function (item) {
+                console.log(item.toJSON());
                 this.renderOne(item);
             }, this);
             return this;
@@ -33,7 +32,7 @@ var app = app || {};
 
         // render a event by creating a EventoView and appending the
         // element it renders to the EventList element
-        renderOne: function(item) {
+        renderOne: function (item) {
             var eventoView = new app.EventoView({
                 model: item
             });
