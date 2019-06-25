@@ -101,7 +101,6 @@ var app = app || {};
                     that.filterEvents();
                 }
             });
-
             this.$datePicker.open();
         },
 

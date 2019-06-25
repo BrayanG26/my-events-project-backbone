@@ -3,7 +3,7 @@ var app = app || {}
 (function() {
 
 })();
-var Eventos = Backbone.Collection.extend({
+app.Eventos = Backbone.Collection.extend({
     model: app.Evento,
     url: 'http://localhost:3000/api/eventos',
     initialize: function() {
@@ -13,4 +13,4 @@ var Eventos = Backbone.Collection.extend({
     }
 });
 
-app.eventos = new Eventos();
+app.eventos = new app.Eventos();

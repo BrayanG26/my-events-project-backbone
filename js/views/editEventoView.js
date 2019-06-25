@@ -19,6 +19,7 @@ var app = app || {};
             'click .enable-edit': 'edit',
             'keypress .edit': 'updateOnEnter',
             'blur .edit': 'close',
+            'change input.fields__input': 'modify',
             'submit #edit-event': 'save',
             'click .cancelar': 'returnHome'
         },
@@ -26,19 +27,61 @@ var app = app || {};
         initialize: function() {
             console.log(this.model.toJSON());
             this.listenTo(this.model, 'change', this.render);
+            Backbone.Validation.bind(this, {
+                valid: function(view, attr, selector) {
+                    console.warn("--- valid callback ---");
+                    var $input = view.$('[name=' + attr + ']');
+                    $input.removeClass('uk-form-danger');
+                    console.log(view);
+                    console.log(attr);
+                    console.log(selector);
+                    console.log($input);
+                },
+                invalid: function(view, attr, error, selector) {
+                    console.warn("--- invalid callback ---");
+                    var $input = view.$('[name=' + attr + ']');
+                    $input.addClass('uk-form-danger')
+                    console.log(view);
+                    console.log(attr);
+                    console.log(selector);
+                    console.log(error);
+                }
+            });
             // this.listenTo(this.model, 'destroy', this.remove);
         },
 
         render: function() {
-            var slideshow = new app.SlideshowView({model: new app.ImagenesServidor(this.model.get('imagenes'))});
+            var stateOpts = ['creado', 'publicado', 'ejecutado', 'eliminado', 'pausado'],
+                categoryOpts = ['musica', 'teatro', 'empleo', 'educacion'],
+                slideshow = new app.SlideshowView({ model: new app.ImagenesServidor(this.model.get('imagenes')) });
+            console.log("antes del error");
+            // this.editTemplate({ states: stateOpts, categories: categoryOpts });
             this.$el.html(this.editTemplate(this.model.attributes));
+            console.log("despues del error");
             this.$slideContainer = this.$('.row > .col-100', this.$el)[0]; // Es el primer div.col-100 que es hijo directo de div.row
-            // console.log(this.$slideContainer);
-            // console.log(new app.SlideshowView({model: new app.ImagenesServidor(this.model.get('imagenes'))}).render().$el[0]);
-            this.$slideContainer.append(slideshow.render().el);  // Inicializar vista Slideshow Manager
-            // console.log(new app.ImagenesServidor(this.model.get('imagenes')));
-            // console.log(this.$el[0]);
+            this.$slideContainer.append(slideshow.render().el); // Inicializar vista Slideshow Manager
             this.$editInput = this.$('.edit');
+            $('#fecha', this.el).datepicker({
+                theme: 'teal',
+                minDate: new Date(),
+                monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa"],
+                dateFormat: "mm/dd/yy",
+                showButtonPanel: true,
+                currentText: "HOY",
+                closeText: "x",
+                duration: "normal",
+                showAnim: "fold",
+                onSelect: function(dateText, inst) {
+                    console.log(dateText);
+                    console.log($(this).datepicker("getDate"));
+                }
+            });
+            $('#hora', this.el).mdtimepicker({
+                format: "hh:mm",
+                theme: "blue",
+                readOnly: true
+            });
             return this;
         },
         bindValidations: function() {
@@ -54,16 +97,25 @@ var app = app || {};
             console.log("click on edit event");
             console.log(e.target);
             $(e.target).parents().eq(1).addClass('editing');
-            // console.log(this.$editInput);
             this.$editInput.focus();
             // this.$(e.target).attr("readonly", false);
             // console.log("dblclick detected");
         },
 
+        // Modify the corresponding model attribute when user changes that value
+        modify: function(e) {
+            var element = $(e.currentTarget),
+                propiedad = element.attr("name"),
+                valor = element.val();
+            console.log(`${propiedad} : ${valor}`);
+            this.model.set(propiedad, valor);
+            if (this.model.isValid(propiedad)) console.log('valid, ok!');
+        },
+
         // Close the `"editing"` mode, saving changes to the todo.
         close: function(e) {
             console.log("blur event");
-            var element = $(e.target),
+            var element = $(e.currentTarget),
                 propiedad = element.attr("name"),
                 previous = this.model.get(propiedad),
                 current;
@@ -76,12 +128,17 @@ var app = app || {};
             } else {
                 current = element.val() || previous;
             }
-
+            console.log(element);
+            console.log(previous);
+            console.log(typeof previous);
+            console.log(typeof current);
+            console.log(current);
             current = typeof(previous) == 'string' ? current.trim() : JSON.parse(current);
             console.log(`${propiedad} : ${current}`);
             this.model.set(propiedad, current);
             console.log(this.model.toJSON());
-            $(e.target).parents().eq(0).removeClass('editing');
+            console.log(element.parents().eq(0));
+            element.parents().eq(0).removeClass('editing');
         },
 
         // If you hit `enter`, we're through editing the item.
@@ -106,12 +163,20 @@ var app = app || {};
             e.preventDefault();
             var self = this;
             console.log("submit form event");
-            this.model.save().done(function() {
-                console.log("successfull update");
-                self.returnHome();
-            }).fail(function() {
-                console.log("failed update");
-            });
+            if (this.model.isValid(true)) {
+                console.log('El modelo es valido');
+                console.log(this.model.toJSON());
+
+                /*this.model.save().done(function () {
+                    console.log("successfull update");
+                    self.returnHome();
+                }).fail(function () {
+                    console.log("failed update");
+                });*/
+            } else {
+                console.log("El modelo es no valido");
+                console.log(this.model.toJSON());
+            }
 
             // new app.Evento(result).save();
         },

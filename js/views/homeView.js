@@ -20,6 +20,7 @@ var app = app || {};
             listaIndicadores = new app.Indicadores(this.getSampleEventsData().indicadores);
             listaIndicadoresView = new app.IndicadorListView({ model: listaIndicadores });
             this.$el.append(listaIndicadoresView.render().$el);
+            this.renderDashboard();
             app.organizador.fetch({
                 success: function(model, response, options) {
                     console.warn(response);
@@ -37,22 +38,29 @@ var app = app || {};
                 }
             });
 
-
             return this;
         },
         getSampleEventsData: function() {
             return {
                 indicadores: [
-                    { nombre: 'Ventas', valor: '400', unidad: 'US' },
-                    { nombre: 'Más compartido', valor: '23', unidad: 'compartidos' },
-                    { nombre: 'Más me gusta', valor: '10', unidad: 'me gusta' },
-                    { nombre: 'Hoy', valor: $.format.date(new Date(), 'ddd MMMM yyyy'), unidad: '' }
+                    { nombre: 'publicados', valor: '15', unidad: 'eventos', icon: 'hashtag' },
+                    { nombre: '+ compartido', valor: '23', unidad: 'compartidos', icon: 'social' },
+                    { nombre: '+ me gusta', valor: '10', unidad: 'me gusta', icon: 'happy' },
+                    { nombre: 'Hoy', valor: $.format.date(new Date(), 'dd/MM/yyyy'), unidad: '', icon: 'calendar' }
                 ]
             };
         },
-        renderDashboard: function(eventos) {
+        renderDashboard: function() {
+            var dashListEvents = new app.Eventos(),that = this;
+            console.log(dashListEvents);
             console.log("into render dashboard method");
-            this.$el.append(new app.EstadisticasView({ model: eventos }).render().$el);
+            
+            dashListEvents.fetch({
+                success: function(model, response, options) {
+                    console.warn(response);
+                    that.$el.append(new app.EstadisticasView({ model: dashListEvents }).render().$el);
+                }
+            });
         }
     });
 })(jQuery);

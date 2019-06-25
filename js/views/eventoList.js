@@ -24,7 +24,6 @@ var app = app || {};
             console.info("into render EventoListView");
             this.$el.html('');
             _.each(this.model.models, function (item) {
-                console.log(item.toJSON());
                 this.renderOne(item);
             }, this);
             return this;

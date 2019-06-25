@@ -887,6 +887,7 @@ Sidebar
 .contenedor-eventos {
   width: 90%;
   margin: auto;
+  margin-top: 3rem;
 }
 
 /*=========================================
@@ -1113,7 +1114,9 @@ Sidebar
 /*================================================
 =            para google charts table            =
 ================================================*/
-
+.dashboard__events-table{
+  font-size: 1rem;
+}
 .table {
   text-align: center;
   text-transform: uppercase;
@@ -1126,7 +1129,7 @@ Sidebar
 
 .header-row {
   font-variant: small-caps;
-  font-weight: bold;
+  font-size: 1.45rem;
   text-align: center;
   margin: 0 auto;
   background-color: #c9c8c8;
@@ -1157,7 +1160,7 @@ Sidebar
 ===========================================*/
 
 .category-filter-select {
-  padding: 5px 8px;
+  padding: 1rem 1rem;
 }
 
 /*=====  End of para categoryfilter  ======*/

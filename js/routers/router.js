@@ -41,7 +41,7 @@ var app = app || {};
         },
         allEvents: function() {
             console.log("into all Events rouote");
-            this.$main.html('<p>Estamos desarrollando este sitio...</p>')
+            this.$main.html('<p>Disponible muy pronto...</p>')
         },
         comingEvents: function() {
             console.log("into coming Events rouote");
@@ -69,7 +69,7 @@ var app = app || {};
                     // console.log(data);
                     editEventView = new app.EditEventoView({ model: data });
                     self.$main.html(editEventView.render().$el);
-                    editEventView.bindValidations();
+                    // editEventView.bindValidations();
                 }
             });
 

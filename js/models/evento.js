@@ -1,24 +1,23 @@
 /*global Backbone */
 var app = app || {};
 
-(function() {
+(function () {
     'use strict';
 
     // Evento Model
     // ----------
     app.Evento = Backbone.Model.extend({
-        urlRoot: function() {
+        urlRoot: function () {
             return "http://localhost:3000/api/eventos";
         },
         // url: function() {
         //     return this.urlRoot() +'/'+ this.id;
         // },
         idAttribute: 'id',
-        initialize: function() {
+        initialize: function () {
             console.log('Objeto tipo evento, creado');
         },
-        // Default attributes for the event
-        // and ensure that each event created has `title`.
+
         defaults: {
             organizador: '',
             nombre: '',
@@ -36,13 +35,35 @@ var app = app || {};
             compartido: 0,
             megusta: 0,
             estado: 'creado',
-            calificacion: {
-                logistica: 0,
-                comodidad: 0,
-                entretenido: 0,
-                interesante: 0
-            },
             imagenes: []
+        },
+
+        validation: {
+            nombre: {
+                required: true
+            },
+            lugar: {
+                required: true
+            },
+            fecha: {
+                required: true
+            },
+            hora: {
+                required: true
+            },
+            ciudad: {
+                required: true
+            },
+            capacidad: {
+                required: true
+            },
+            categoria: {
+                required: true
+            },
+            url: {
+                pattern: 'url',
+                msg: 'Please enter a valid url'
+            }
         }
     });
 })();
