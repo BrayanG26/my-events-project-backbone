@@ -186,6 +186,10 @@ textarea.new-form__input-element {
         width: 100%;
         margin-top: 0;
     }
+
+    .new-form__submit-button{
+        margin-right: 0;
+    }
 }
 
 /**

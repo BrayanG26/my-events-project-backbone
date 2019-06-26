@@ -25,6 +25,7 @@ var app = app || {};
         },
 
         initialize: function() {
+            var self = this;
             console.log(this.model.toJSON());
             this.listenTo(this.model, 'change', this.render);
             Backbone.Validation.bind(this, {
@@ -47,6 +48,13 @@ var app = app || {};
                     console.log(error);
                 }
             });
+            google.charts.load('current', { 'packages': ['corechart', 'table', 'controls', 'line'], 'language': 'es' });
+            google.setOnLoadCallback(function() {
+                self.renderGraph(self.model.get('calificacion'));
+                $(window).on('resize', function() {
+                    self.renderGraph(self.model.get('calificacion'));
+                });
+            });
             // this.listenTo(this.model, 'destroy', this.remove);
         },
 
@@ -54,10 +62,7 @@ var app = app || {};
             var stateOpts = ['creado', 'publicado', 'ejecutado', 'eliminado', 'pausado'],
                 categoryOpts = ['musica', 'teatro', 'empleo', 'educacion'],
                 slideshow = new app.SlideshowView({ model: new app.ImagenesServidor(this.model.get('imagenes')) });
-            console.log("antes del error");
-            // this.editTemplate({ states: stateOpts, categories: categoryOpts });
             this.$el.html(this.editTemplate(this.model.attributes));
-            console.log("despues del error");
             this.$slideContainer = this.$('.row > .col-100', this.$el)[0]; // Es el primer div.col-100 que es hijo directo de div.row
             this.$slideContainer.append(slideshow.render().el); // Inicializar vista Slideshow Manager
             this.$editInput = this.$('.edit');
@@ -139,6 +144,52 @@ var app = app || {};
             console.log(this.model.toJSON());
             console.log(element.parents().eq(0));
             element.parents().eq(0).removeClass('editing');
+        },
+
+        // Create graphics
+        renderGraph: function(calificacion) {
+            console.log(calificacion);
+            _.each(calificacion, function(value, key) {
+                console.log(key);
+                console.log(value);
+                this.getAttrChart(key, value);
+            }, this);
+        },
+
+        // Get corresponding attribute chart
+        getAttrChart: function(attribute, values) {
+            var headers = ['calificacion', 'valor'];
+            var headersFormated = [
+                    { label: "Calificacion", type: "string" },
+                    { label: "Valor", type: "number" }
+                ],
+                dataTable = [],
+                data, chart;
+            dataTable.push(headersFormated);
+            _.each(values, function(value, key) {
+                dataTable.push([key, value]);
+            }, this);
+            // console.warn(dataTable);
+            data = google.visualization.arrayToDataTable(dataTable);
+            /*chart = new google.visualization.ChartWrapper({
+                'chartType': 'BarChart',
+                'containerId': attribute,
+                'options': {
+                    'width': '100%',
+                    'height': 'auto',
+                    'legend': 'bottom',
+                    'isStacked': false
+                },
+                'view': { 'columns': [0, 1] }
+            });*/
+            var options = {
+                'title': attribute.toUpperCase(),
+                'width': '100%',
+                'height': 'auto'
+            };
+            chart = new google.visualization.BarChart($('#' + attribute, this.$el)[0]);
+            setTimeout(function() { chart.draw(data, options); }, 1000);
+            // chart.draw(data);
         },
 
         // If you hit `enter`, we're through editing the item.

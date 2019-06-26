@@ -551,7 +551,7 @@
                             <label class="view__label"><%- ciudad %></label>
                             <span class="enable-edit"></span>
                         </div> -->
-                        <input type="text" data-validation="required" id="ciudad" name="ciudad" class="new-form__input-element fields__input"  value="<%= ciudad%>">
+                        <input type="text" data-validation="required" id="ciudad" name="ciudad" class="new-form__input-element fields__input"  value="<%= ciudad %>">
                     </div>
                 </div>
                 <div class="row">
@@ -616,7 +616,7 @@
                     <div class="col-25">
                         <label class="new-form__input-label" for="categoria">Categoria</label>
                     </div>
-                    <div class="col-25">
+                    <div class="col-75">
                         <!-- <div class="view new-form__input-element">
                             <label class="view__label"><%- categoria.toUpperCase() %></label>
                             <span class="enable-edit"></span>
@@ -677,7 +677,7 @@
                     <div class="col-25">
                         <label class="new-form__input-label" for="estado">Estado</label>
                     </div>
-                    <div class="col-25">
+                    <div class="col-75">
                         <!-- <div class="view new-form__input-element">
                             <label class="view__label"><%- estado.toUpperCase() %></label>
                             <span class="enable-edit"></span>
@@ -701,33 +701,30 @@
                         </select>
                     </div>
                 </div>
-                <div class="row">
+
+                <!-- <div class="row">
                     <div class="col-100">
                         <hr class="form-divider" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-20">
-                        <span class="icon-container"><img class="form-icon" src="img/cd-like.svg"></span><%= megusta %>
-                        <span class="tooltip-icon">Tooltip text</span>
+                </div> -->
+
+                <% if (estado != 'creado') { %>
+                <hr class="uk-divider-icon">
+                 <div class="row uk-grid-collapse uk-child-width-expand@s uk-text-center" uk-grid>
+                    <div id="comodidad">
+                        <!-- <div class="uk-background-muted uk-padding">1</div> -->
                     </div>
-                    <div class="col-20">
-                        <span class="icon-container"><img class="form-icon" src="img/cd-star.svg"></span><%= meinteresa %>
-                        <span class="tooltip-icon">Tooltip text</span>
+                    <div id="entretenido">
+                        <!-- <div class="uk-background-primary uk-padding">2</div> -->
                     </div>
-                    <div class="col-20">
-                        <span class="icon-container"><img class="form-icon" src="img/cd-share.svg"></span><%= compartido %>
-                        <span class="tooltip-icon">Tooltip text</span>
+                    <div id="interesante">
+                        <!-- <div class="uk-background-secondary uk-padding">3</div> -->
                     </div>
-                    <div class="col-20">
-                        <span class="icon-container"><img class="form-icon" src="img/cd-attendant.svg"></span><%= asistentes %>
-                        <span class="tooltip-icon">Tooltip text</span>
-                    </div>
-                    <div class="col-20">
-                        <span class="icon-container"><img class="form-icon" src="img/cd-n-attendants.svg"></span><%= capacidad %>
-                        <span class="tooltip-icon">Tooltip text</span>
+                    <div id="logistica">
+                        <!-- <div class="uk-background-muted uk-padding">4</div> -->
                     </div>
                 </div>
+                <% } %>
                 <div class="row">
                 <input type="submit" class="new-form__submit-button" value="modificar">
                 <input type="button" class="new-form__submit-button cancelar" value="Cancelar">

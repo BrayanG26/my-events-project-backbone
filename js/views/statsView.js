@@ -1,36 +1,36 @@
 var app = app || {};
 
-(function ($) {
+(function($) {
     app.EstadisticasView = Backbone.View.extend({
         tagName: 'div',
         className: 'row stats-view uk-margin',
         template: _.template($('#stats-template').html()),
 
-        initialize: function () {
+        initialize: function() {
             console.log("initialize stats function");
             console.log(this.model);
         },
-        render: function () {
+        render: function() {
             var self = this;
             this.$el.html(this.template());
             google.charts.load('current', { 'packages': ['corechart', 'table', 'controls', 'line'], 'language': 'es' });
-            google.setOnLoadCallback(function () {
+            google.setOnLoadCallback(function() {
                 self.drawDashBoard();
             });
             return this;
         },
-        drawDashBoard: function () {
+        drawDashBoard: function() {
             var self = this;
             self.loadDashboardTable();
             self.loadColumnChart();
-            $(window).on('resize', function () {
+            $(window).on('resize', function() {
                 self.loadDashboardTable();
                 self.loadColumnChart();
             });
 
             return self;
         },
-        loadDashboardTable: function () {
+        loadDashboardTable: function() {
             var headers = ["nombre", "fecha", "hora", "ciudad", "categoria", "asistentes", "estado"]
             var headersFormated = [
                 { label: "nombre", type: "string" },
@@ -43,9 +43,9 @@ var app = app || {};
             ];
             dataTable = [];
             dataTable.push(headersFormated);
-            $.each(this.model.toArray(), function (i, model) {
+            $.each(this.model.toArray(), function(i, model) {
                 var item = [];
-                $.each(headers, function (i, key) {
+                $.each(headers, function(i, key) {
                     var value = model.toJSON()[key];
 
                     if (value) {
@@ -95,7 +95,7 @@ var app = app || {};
                     'cssClassNames': cssClassNames
                 }
             });
-            google.visualization.events.addListener(table, 'select', function () {
+            google.visualization.events.addListener(table, 'select', function() {
                 console.log('a table row was selected');
                 var row = table.getChart().getSelection()[0].row || null;
                 console.log(table.getChart().getSelection()[0]);
@@ -105,7 +105,7 @@ var app = app || {};
             dashboard.bind(stateFilter, table);
             dashboard.draw(data);
         },
-        loadColumnChart: function () {
+        loadColumnChart: function() {
             var headers = ["categoria", "nombre", "asistentes", "meinteresa", "compartido", "megusta"];
             var headersFormated = [
                 { label: "Categoria", type: "string" },
@@ -118,9 +118,9 @@ var app = app || {};
 
             var dataTable = [];
             dataTable.push(headersFormated);
-            $.each(this.model.toArray(), function (i, model) {
+            $.each(this.model.toArray(), function(i, model) {
                 var item = [];
-                $.each(headers, function (i, key) {
+                $.each(headers, function(i, key) {
                     var value = model.toJSON()[key];
 
                     if (value) {
@@ -179,12 +179,13 @@ var app = app || {};
                 }
             });
             var chart = new google.visualization.ChartWrapper({
-                'chartType': 'ColumnChart',
+                'chartType': 'BarChart',
                 'containerId': 'column',
                 'options': {
                     'width': '100%',
                     'height': 'auto',
-                    'legend': 'bottom'
+                    'legend': 'bottom',
+                    'isStacked': true
                 },
                 'view': { 'columns': [1, 2, 3, 4, 5] }
             });

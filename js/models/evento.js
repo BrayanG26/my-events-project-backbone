@@ -1,20 +1,20 @@
 /*global Backbone */
 var app = app || {};
 
-(function () {
+(function() {
     'use strict';
 
     // Evento Model
     // ----------
     app.Evento = Backbone.Model.extend({
-        urlRoot: function () {
+        urlRoot: function() {
             return "http://localhost:3000/api/eventos";
         },
         // url: function() {
         //     return this.urlRoot() +'/'+ this.id;
         // },
         idAttribute: 'id',
-        initialize: function () {
+        initialize: function() {
             console.log('Objeto tipo evento, creado');
         },
 
@@ -55,12 +55,14 @@ var app = app || {};
                 required: true
             },
             capacidad: {
-                required: true
+                required: true,
+                pattern: /^[1-9]\d*$/
             },
             categoria: {
                 required: true
             },
             url: {
+                required: false,
                 pattern: 'url',
                 msg: 'Please enter a valid url'
             }
