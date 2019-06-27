@@ -2,8 +2,9 @@ var app = app || {};
 
 (function ($) {
     app.SlideshowView = Backbone.View.extend({
-            tagName: 'div',
-            className: 'slideshow-container',
+            // tagName: 'div',
+            // className: 'slideshow-container',
+			// el:'.slideshow-container',
             controls: _.template($("#slideshow-controls").html()),
             slideIndex: 1,
             currentSlide: null,
@@ -19,23 +20,18 @@ var app = app || {};
             initialize: function () {
                 // this.listenTo(this.model, 'change', this.render);
                 console.log('slideshow initialized');
+				console.log(this.el);
                 console.log(this.model.toJSON());
+				this.$slideShowContainer = this.$('.slideshow-view');
+				// this.$newImgContainer = this.$('.event-edit__images');
                 this.showSlide(this.slideIndex);
             },
 
             render: function () {
-                //this.el is what we defined in tagName. use $el to get access to jQuery html() function
-                // this.$el.html('<p>la puerca esta en la pocilga</p>');
-                // this.$el.prepend('<i>la puerca esta en la pocilga</i>');
-                // this.$main = this.$('.slideshow-container');
-                /*_.each(this.model.models, function(item) {
-                this.renderOne(item);
-                }, this);*/
-                // Crear una vista slideElement
-                this.$el.html(new app.SlideShowElement({
+                this.$slideShowContainer.html(new app.SlideShowElement({
                         model: this.currentSlide
                     }).render().el);
-                this.$el.append(this.controls());
+                this.$slideShowContainer.append(this.controls());
                 return this;
             },
             renderOne: function (item) {
@@ -74,9 +70,9 @@ var app = app || {};
             handleFileSelect: function (e) {
                 var files = e.target.files;
                 var self = this,
-                thumbnails = $('.event-edit__images');
+                thumbnails = self.$('.event-edit__images');
                 self.imgList = new app.Imagenes();
-                console.log(thumbnails);
+                // console.log(thumbnails);
                 if (thumbnails.children()) {
                     thumbnails.empty();
                     thumbnails.html(new app.imgListView({

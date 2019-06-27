@@ -322,16 +322,12 @@ select.edit {
 =            Slideshow styles            =
 ========================================*/
 
-.no-visible-slide {
-    display: none
-}
-
 img {
     vertical-align: middle;
 }
 
 /* Slideshow container */
-.slideshow-container {
+.slideshow-view {
     max-width: 1000px;
     position: relative;
     margin: auto;
@@ -370,7 +366,7 @@ img {
 }
 
 /* Show edit button */
-.slideshow-container:hover .edit-images {
+.slideshow-view:hover .edit-images {
   opacity: 1;
 }
 
