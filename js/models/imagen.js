@@ -4,7 +4,7 @@ var app = app || {};
 (function() {
     'use strict';
 
-    // Image Model
+    // Image Model to upload 
     // ----------
     app.Imagen = Backbone.Model.extend({
         // urlRoot: function() {

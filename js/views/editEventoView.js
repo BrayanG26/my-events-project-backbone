@@ -48,13 +48,15 @@ var app = app || {};
                     console.log(error);
                 }
             });
-            google.charts.load('current', { 'packages': ['corechart', 'table', 'controls', 'line'], 'language': 'es' });
-            google.setOnLoadCallback(function() {
-                self.renderGraph(self.model.get('calificacion'));
-                $(window).on('resize', function() {
+            if (this.model.get('estado') != 'creado') {
+                google.charts.load('current', { 'packages': ['corechart', 'table', 'controls', 'line'], 'language': 'es' });
+                google.setOnLoadCallback(function() {
                     self.renderGraph(self.model.get('calificacion'));
+                    $(window).on('resize', function() {
+                        self.renderGraph(self.model.get('calificacion'));
+                    });
                 });
-            });
+            }
             // this.listenTo(this.model, 'destroy', this.remove);
         },
 
@@ -161,31 +163,53 @@ var app = app || {};
             var headers = ['calificacion', 'valor'];
             var headersFormated = [
                     { label: "Calificacion", type: "string" },
-                    { label: "Valor", type: "number" }
+                    { label: "Valor", type: "number" },
+                    { type: 'string', role: 'tooltip', p: { html: true } }
                 ],
                 dataTable = [],
-                data, chart;
+                data, chart, colors = ['blue', 'red', 'green', 'purple'];
             dataTable.push(headersFormated);
+            var customHTMLTooltip = function(value) {
+                var x = '';
+                switch (value) {
+                    case 1:
+                        x = 'Malo';
+                        break;
+                    case 2:
+                        x = 'Regular';
+                        break;
+                    case 3:
+                        x = 'Normal';
+                        break;
+                    case 4:
+                        x = 'Sobresaliente';
+                        break;
+                    case 5:
+                        x = 'Excelente';
+                        break;
+                    default:
+                        // statements_def
+                        break;
+                }
+
+
+                return '<div class="uk-card-badge uk-label uk-padding-small"><span class="uk-text-large uk-text-large" >votos: '+value+'</span></div>';
+            }
             _.each(values, function(value, key) {
-                dataTable.push([key, value]);
+                dataTable.push([key, value, customHTMLTooltip(value)]);
             }, this);
-            // console.warn(dataTable);
+
             data = google.visualization.arrayToDataTable(dataTable);
-            /*chart = new google.visualization.ChartWrapper({
-                'chartType': 'BarChart',
-                'containerId': attribute,
-                'options': {
-                    'width': '100%',
-                    'height': 'auto',
-                    'legend': 'bottom',
-                    'isStacked': false
-                },
-                'view': { 'columns': [0, 1] }
-            });*/
+            // var color = '#' + Math.floor(Math.random() * 16777215).toString(16).substring(0, 3);
+            var color = '#' + (Math.random() * 0xFFFFFF << 0).toString(16).substring(0, 3);
+
             var options = {
-                'title': attribute.toUpperCase(),
-                'width': '100%',
-                'height': 'auto'
+                title: attribute.toUpperCase(),
+                width: '100%',
+                height: 'auto',
+                colors: [color],
+                legend: 'bottom',
+                tooltip: { isHtml: true }
             };
             chart = new google.visualization.BarChart($('#' + attribute, this.$el)[0]);
             setTimeout(function() { chart.draw(data, options); }, 1000);

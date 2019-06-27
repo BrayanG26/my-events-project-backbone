@@ -71,7 +71,6 @@ app.NuevoEventoView = Backbone.View.extend({
 
             var reader = new FileReader();
 
-
             // Closure to capture the file information.
             reader.onload = (function (theFile) {
                 return function (e) {
@@ -82,7 +81,6 @@ app.NuevoEventoView = Backbone.View.extend({
             // Read in the image file as a data URL.
             reader.readAsDataURL(f);
         }
-
     },
     createEvent: function (e) {
         e.preventDefault();
