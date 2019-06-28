@@ -21,7 +21,10 @@ var app = app || {};
                 'blur .edit': 'close',
                 'change input.fields__input': 'modify',
                 'submit #edit-event': 'save',
-                'click .cancelar': 'returnHome'
+                'click .cancelar': 'returnHome',
+                'click .edit-images': 'selectImages',
+                'change #images': 'handleFileSelect',
+                'click .upload-img': 'uploadImages'
             },
 
             initialize: function () {
@@ -41,7 +44,7 @@ var app = app || {};
                     invalid: function (view, attr, error, selector) {
                         console.warn("--- invalid callback ---");
                         var $input = view.$('[name=' + attr + ']');
-                        $input.addClass('uk-form-danger')
+                        $input.addClass('uk-form-danger');
                         console.log(view);
                         console.log(attr);
                         console.log(selector);
@@ -67,10 +70,25 @@ var app = app || {};
                 this.$el.html(this.editTemplate(this.model.attributes));
                 var slideshow = new app.SlideshowView({
                         model: new app.ImagenesServidor(this.model.get('imagenes')),
-                        el: this.$('.slideshow-container')
+                        el: this.$('.slideshow-container'),
+                        id: this.model.get('id'),
+						estado: this.model.get('estado')
                     });
                 this.$slideContainer = this.$('.row > .col-100', this.$el)[0]; // Es el primer div.col-100 que es hijo directo de div.row
                 this.$slideContainer.append(slideshow.render().el); // Inicializar vista Slideshow Manager
+                this.$uploadButton = this.$('.upload-container');
+                this.$uploadButton.hide();
+				console.log(this.$('.event-edit__images'));
+                if (this.model.get('estado') == 'eliminado') {
+                    $.each($(this.$el).find(":input"), function () {
+                        if (!($(this).is('input:file') || $(this).is('input:submit') || $(this).is('input:button'))) {
+                            // console.log(this);
+                            // result[this.name] = (this.id != 'sePaga') ? this.value : $(this).is(':checked');
+                            $(this).attr('disabled', '');
+                        }
+                    });
+                    this.$('.edit-images').css('display', 'none');
+                }
                 this.$editInput = this.$('.edit');
                 $('#fecha', this.el).datepicker({
                     theme: 'teal',
@@ -186,7 +204,7 @@ var app = app || {};
                 colors = ['blue', 'red', 'green', 'purple'];
                 dataTable.push(headersFormated);
                 var customHTMLTooltip = function (value) {
-                    var x = '';
+                    var x;
                     switch (value) {
                     case 1:
                         x = 'Malo';
@@ -280,6 +298,74 @@ var app = app || {};
                     replace: true
                 });
             },
+
+            // for testing purposes
+            selectImages: function (e) {
+                this.$('#images', this.$el).trigger('click');
+            },
+            handleFileSelect: function (e) {
+                var files = e.target.files,
+                nImages = files.length;
+                var self = this,
+                thumbnails = self.$('.event-edit__images');
+                self.imgList = new app.Imagenes();
+                console.log(thumbnails);
+                if (thumbnails.children()) {
+                    thumbnails.empty();
+                    thumbnails.html(new app.imgListView({
+                            model: self.imgList
+                        }).render().$el);
+                    console.log('status of files: ' + files.length + ' in cache...');
+
+                } else {
+                    console.log('no tiene hijos');
+                }
+
+                for (var i = 0, f; f = files[i]; i++) {
+                    var img = new app.Imagen();
+                    // Only process image files.
+                    if (!f.type.match('image.*')) {
+                        continue;
+                    }
+
+                    var reader = new FileReader();
+
+                    // Closure to capture the file information.
+                    reader.onload = (function (theFile) {
+                        return function (e) {
+                            self.imgList.add(new app.Imagen({
+                                    url: e.target.result,
+                                    alt: theFile.name,
+                                    cover: false,
+                                    file: theFile
+                                }));
+                        };
+                    })(f);
+
+                    // Read in the image file as a data URL.
+                    reader.readAsDataURL(f);
+                }
+                if (nImages > 0) {
+                    this.$uploadButton.show();
+                } else {
+                    this.$uploadButton.hide();
+                }
+            },
+
+            // Upload images to server
+            uploadImages: function (e) {
+                e.preventDefault();
+                console.log('uploading images to the server...');
+                this.imgList.setEventID(this.idEvent);
+                this.imgList.upload().then(function () {
+                    console.log('success');
+                }, function () {
+                    console.log('error');
+                }, function () {
+                    console.log('processing...');
+                });
+            },
+
             bindValidations: function () { //revisar las validaciones, para aplicarlas de otra manera
                 $.validate({
                     modules: 'security, toggleDisabled, file, date',

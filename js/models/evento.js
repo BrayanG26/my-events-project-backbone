@@ -30,12 +30,13 @@ var app = app || {};
             url: '',
             sePaga: '',
             descripcion: '',
+			estado: 'creado',
+            imagenes: [],
             asistentes: 0,
             meinteresa: 0,
             compartido: 0,
-            megusta: 0,
-            estado: 'creado',
-            imagenes: []
+            megusta: 0
+            
         },
 
         validation: {

@@ -4,7 +4,7 @@ var app = app || {};
     app.SlideshowView = Backbone.View.extend({
             // tagName: 'div',
             // className: 'slideshow-container',
-			// el:'.slideshow-container',
+            // el:'.slideshow-container',
             controls: _.template($("#slideshow-controls").html()),
             slideIndex: 1,
             currentSlide: null,
@@ -13,36 +13,30 @@ var app = app || {};
             events: {
                 'click .prev': 'prevSlide',
                 'click .next': 'nextSlide',
-                'click .edit-images': 'selectImages',
-                'change #images': 'handleFileSelect'
+                // 'click .edit-images': 'selectImages',
+                // 'change #images': 'handleFileSelect',
+                // 'click .upload-img': 'uploadImages'
             },
 
-            initialize: function () {
+            initialize: function (options) {
                 // this.listenTo(this.model, 'change', this.render);
                 console.log('slideshow initialized');
-				console.log(this.el);
+                this.idEvent = this.idEvent || options['id'];
+                this.estado = this.estado || options['estado'];
                 console.log(this.model.toJSON());
-				this.$slideShowContainer = this.$('.slideshow-view');
-				// this.$newImgContainer = this.$('.event-edit__images');
+                this.$slideShowContainer = this.$('.slideshow-view');
+                // this.$uploadButton = this.$('.upload-img');
+                // this.$uploadButton.hide();
+                // this.$newImgContainer = this.$('.event-edit__images');
                 this.showSlide(this.slideIndex);
+
             },
 
             render: function () {
                 this.$slideShowContainer.html(new app.SlideShowElement({
                         model: this.currentSlide
                     }).render().el);
-                this.$slideShowContainer.append(this.controls());
-                return this;
-            },
-            renderOne: function (item) {
-                var slideElement = new app.SlideShowElement({
-                        model: item,
-                        el: this.$el
-                    });
-                // console.log(slideElement.render().$el[0]);
-                this.$el.append(slideElement.render().el);
-                // this.$el.show();
-                // console.log(this.$el[0]);
+                this.$slideShowContainer.append(this.controls({estado:this.estado}));
                 return this;
             },
             showSlide: function (n) {
@@ -68,7 +62,8 @@ var app = app || {};
                 this.$('#images', this.$el).trigger('click');
             },
             handleFileSelect: function (e) {
-                var files = e.target.files;
+                var files = e.target.files,
+                nImages = files.length;
                 var self = this,
                 thumbnails = self.$('.event-edit__images');
                 self.imgList = new app.Imagenes();
@@ -79,6 +74,11 @@ var app = app || {};
                             model: self.imgList
                         }).render().$el);
                     console.log('status of files: ' + files.length + ' in cache...');
+                    if (nImages > 0) {
+                        this.$uploadButton.show();
+                    } else {
+                        this.$uploadButton.hide();
+                    }
                 } else {
                     console.log('no tiene hijos');
                 }
@@ -107,6 +107,20 @@ var app = app || {};
                     // Read in the image file as a data URL.
                     reader.readAsDataURL(f);
                 }
+            },
+
+            // Upload images to server
+            uploadImages: function (e) {
+                e.preventDefault();
+                console.log('uploading images to the server...');
+                this.imgList.setEventID(this.idEvent);
+                this.imgList.upload().then(function () {
+                    console.log('success');
+                }, function () {
+                    console.log('error');
+                }, function () {
+                    console.log('processing...');
+                });
             }
         });
 })(jQuery);

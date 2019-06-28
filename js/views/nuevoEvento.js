@@ -104,11 +104,13 @@ app.NuevoEventoView = Backbone.View.extend({
         // console.log(app.eventos.create(result));
         app.eventos.create(result, {
             success: function (collection, response) {
+				console.log('into success callback');
                 console.log(collection);
                 console.log(response);
                 idEvent = response;
                 console.log(app.eventos.toJSON());
                 if (nImages > 0) {
+					console.log("There are some images to upload");
                     self.imgList.setEventID(idEvent);
                     self.imgList.upload();
                 }

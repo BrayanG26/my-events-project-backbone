@@ -1,8 +1,6 @@
 var app = app || {};
 
-(function($) {
-
-})(jQuery);
+(function($) {})(jQuery);
 app.Imagenes = Backbone.Collection.extend({
     model: app.Imagen,
     url: function() {
@@ -23,6 +21,8 @@ app.Imagenes = Backbone.Collection.extend({
         _.each(this.models, function(model, i) {
             console.log(model.toJSON());
             if (model.get('cover')) {
+				console.log('ud seleccionó una imagen como portada para su evento');
+				console.log(model.get('file').name);
                 fd.append("portada", model.get('file'));
             }
             image = model.get('file');
@@ -34,10 +34,11 @@ app.Imagenes = Backbone.Collection.extend({
         var opts = {
             url: this.url(),
             success: function(response) {
-                /*if (options.success) {
+                /* if (options.success || false) {
                     options.success(data);
-                }*/
+                } */
                 console.log(response);
+                return response;
             }
         };
         switch (method) {
@@ -55,6 +56,12 @@ app.Imagenes = Backbone.Collection.extend({
         return $.ajax(opts);
     },
     upload: function() {
-        this.sync('create', this);
+        /* var o = {
+            success: function(response) {
+				console.log(response);
+                return response;
+            }
+        } */
+        return this.sync('create', this);
     }
 });
