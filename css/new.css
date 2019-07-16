@@ -163,6 +163,17 @@ textarea.new-form__input-element {
     text-align: center;
 }
 
+/*==================================================
+=            For required input element            =
+==================================================*/
+.required::after{
+    content: ' *';
+    color:red;
+}
+
+/*=====  End of required input element  ======*/
+
+
 /* Clear floats after the columns */
 
 .row {
@@ -213,6 +224,10 @@ textarea.new-form__input-element {
 /*==========================================
 =            miniatura imagenes            =
 ==========================================*/
+.event-edit__images{
+    margin-top: 0.5rem;
+}
+
 
 .img-container {
     position: relative;

@@ -399,7 +399,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="nombreEvento">Nombre</label>
+                        <label class="new-form__input-label required" for="nombreEvento">Nombre</label>
                     </div>
                     <div class="col-75">
                         <input type="text" id="nombreEvento" class="new-form__input-element" data-validation="required" name="nombre" placeholder="Nombre del evento..">
@@ -407,7 +407,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="ciudad">Ciudad</label>
+                        <label class="new-form__input-label required" for="ciudad">Ciudad</label>
                     </div>
                     <div class="col-75">
                         <input type="text" data-validation="required" id="ciudad" class="new-form__input-element" name="ciudad" placeholder="Ciudad..">
@@ -415,7 +415,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="lugar">Lugar</label>
+                        <label class="new-form__input-label required" for="lugar">Lugar</label>
                     </div>
                     <div class="col-75">
                         <input type="text" data-validation="required" id="lugar" class="new-form__input-element" name="lugar" placeholder="Lugar..">
@@ -423,14 +423,14 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="fecha">Fecha</label>
+                        <label class="new-form__input-label required" for="fecha">Fecha</label>
                     </div>
                     <div class="col-75">
                         <input type="text" readonly class="datepicker new-form__input-element" data-validation="required" id="fecha" name="fecha" placeholder="Fecha..">
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-25"><label class="new-form__input-label" for="hora">Hora</label></div>
+                    <div class="col-25"><label class="new-form__input-label required" for="hora">Hora</label></div>
                     <div class="col-75"><input type="text" data-validation="required" id="hora" name="hora" class="timepicker new-form__input-element" placeholder="Hora..">
                     </div>
                 </div>
@@ -452,7 +452,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="categoria">Categoria</label>
+                        <label class="new-form__input-label required" for="categoria">Categoria</label>
                     </div>
                     <div class="col-75">
                         <select id="categoria" data-validation="required" class="new-form__input-element" name="categoria">
@@ -466,7 +466,7 @@
                 </div>
                 <div class="row">
                     <div class="col-25">
-                        <label class="new-form__input-label" for="capacidad">Capacidad</label>
+                        <label class="new-form__input-label required" for="capacidad">Capacidad</label>
                     </div>
                     <div class="col-25">
                         <input type="text" data-validation="required custom" data-validation-regexp="^[0-9]*$" data-validation="required" id="capacidad" class="new-form__input-element" name="capacidad" placeholder="Capacidad..">
@@ -494,6 +494,10 @@
                 <div class="row">
                 <input type="submit" class="new-form__submit-button submit-crear" value="Crear">
                 <input type="button" class="new-form__submit-button cancelar" value="Cancelar">
+                </div>
+                <div class="row">
+                    <div class="uk-text-medium uk-text-uppercase"><span class="uk-text-danger">*</span> campos obligatorios</div>
+                </div>
         </form>
     </script>
     <script type="text/template" id="image-thumbnail">
@@ -854,6 +858,11 @@
                 </div>
         </form>
     </script>
+    <script id="thumbs-image-element" type="text/template">
+		<a class="image-checkbox <%= cover ? 'image-checkbox-checked' : 'no-cover' %>" uk-tooltip="title: <%= cover ? 'Seleccionada ' : 'Seleccionar' %> como portada; delay: 300">
+            <img class="image_element" src="<%- url %>" width="100" alt="<%= alt %>">
+        </a>
+	</script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="js/uikit.min.js"></script>
     <script src="js/uikit-icons.min.js"></script>
@@ -889,6 +898,8 @@
     <script src="js/views/indicadorList.js"></script>
     <script src="js/views/imgElementView.js"></script>
     <script src="js/views/imgListView.js"></script>
+    <script src="js/views/thumbsImageUploadElementView.js"></script>
+    <script src="js/views/thumbsImageUploadListView.js"></script>
     <script src="js/views/eventoItem.js"></script>
     <script src="js/views/eventoList.js"></script>
     <script src="js/views/eventosContainer.js" type="text/javascript"></script>

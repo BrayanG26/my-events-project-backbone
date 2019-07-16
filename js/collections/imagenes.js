@@ -1,28 +1,28 @@
 var app = app || {};
 
-(function($) {})(jQuery);
+(function ($) { })(jQuery);
 app.Imagenes = Backbone.Collection.extend({
     model: app.Imagen,
-    url: function() {
+    url: function () {
         return app.urlAPI + 'eventos/' + this.id + '/images';
     },
-    initialize: function() {
-        this.on('all', function(method) {
-            console.log(method);
+    initialize: function () {
+        this.on('all', function (method) {
+            console.log("imagenes collection status: " + method);
         });
     },
-    setEventID: function(id) {
+    setEventID: function (id) {
         this.id = id;
     },
-    wrapData: function() {
+    wrapData: function () {
         console.log("into upload method");
         var fd = new FormData(),
             image;
-        _.each(this.models, function(model, i) {
+        _.each(this.models, function (model, i) {
             console.log(model.toJSON());
             if (model.get('cover')) {
-				console.log('ud seleccionó una imagen como portada para su evento');
-				console.log(model.get('file').name);
+                console.log('ud seleccionó una imagen como portada para su evento');
+                console.log(model.get('file').name);
                 fd.append("portada", model.get('file'));
             }
             image = model.get('file');
@@ -30,10 +30,10 @@ app.Imagenes = Backbone.Collection.extend({
         });
         return fd;
     },
-    sync: function(method, model, options) {
+    sync: function (method, model, options) {
         var opts = {
             url: this.url(),
-            success: function(response) {
+            success: function (response) {
                 /* if (options.success || false) {
                     options.success(data);
                 } */
@@ -55,7 +55,7 @@ app.Imagenes = Backbone.Collection.extend({
         }
         return $.ajax(opts);
     },
-    upload: function() {
+    upload: function () {
         /* var o = {
             success: function(response) {
 				console.log(response);

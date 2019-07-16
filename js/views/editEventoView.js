@@ -312,7 +312,7 @@ var app = app || {};
                 console.log(thumbnails);
                 if (thumbnails.children()) {
                     thumbnails.empty();
-                    thumbnails.html(new app.imgListView({
+                    thumbnails.html(new app.thumbsImageContainer({
                             model: self.imgList
                         }).render().$el);
                     console.log('status of files: ' + files.length + ' in cache...');
