@@ -3,7 +3,7 @@ var app = app || {};
 (function($) {
     app.thumbsImageContainer = Backbone.View.extend({
         tagName: 'ul',
-        className: 'uk-thumbnav',
+        className: 'uk-thumbnav list-thumbs-images',
 
         initialize: function() {
             this.listenTo(this.model, 'add', this.addOne);

@@ -9,7 +9,7 @@ app.EventoView = Backbone.View.extend({
 
     initialize: function() {
         console.info('initialize EventoView object');
-        // console.log(this.model);
+        console.warn(this.model.toJSON());
     },
 
     render: function() {

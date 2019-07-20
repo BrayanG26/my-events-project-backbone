@@ -19,7 +19,7 @@ var app = app || {};
             },
 
             initialize: function (options) {
-                // this.listenTo(this.model, 'change', this.render);
+                this.listenTo(this.model, 'change', this.render);
                 console.log('slideshow initialized');
                 this.idEvent = this.idEvent || options['id'];
                 this.estado = this.estado || options['estado'];
