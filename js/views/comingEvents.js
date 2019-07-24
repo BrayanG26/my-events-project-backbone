@@ -10,7 +10,7 @@ var app = app || {};
     app.ComingEventsView = Backbone.View.extend({
 
         tagName: 'div',
-        className: 'row',
+        className: 'row comming-events',
         template: _.template($("#coming-events-template").html()),
 
         events: {
@@ -20,6 +20,7 @@ var app = app || {};
             'blur .edit': 'close',
             'submit #edit-event': 'save',
             'change .paid-state': 'handleStatePaid',
+            'change .event-state':'handleEventState',
             'click .cancelar': 'returnHome'
         },
 
@@ -31,7 +32,7 @@ var app = app || {};
             var from = this.getFormattedDateFromToday(0),
                 to = this.dateStr || this.getFormattedDateFromToday(7),
                 paid = this.paid || false,
-                state = 'publicado',
+                state = this.state || 'creado',
                 that = this,
                 days = this.getDifferenceDateInDays(from, to);
             this.$el.html(this.template());
@@ -113,12 +114,17 @@ var app = app || {};
             this.paid = $(e.target).is(':checked');
             this.filterEvents();
         },
+        handleEventState:function(e){
+            console.log($(e.target).val());
+            this.state = $(e.target).val();
+            this.filterEvents();
+        },
 
         filterEvents: function () {
             var from = this.getFormattedDateFromToday(0),
                 to = this.dateStr || this.getFormattedDateFromToday(7),
                 paid = this.paid || false,
-                state = 'publicado',
+                state = this.state || 'creado',
                 days = this.getDifferenceDateInDays(from, to);
 
             this.$('#n-days').html((days > 1) ? days + ' días' : days + ' día');

@@ -317,14 +317,14 @@
     </a>
     </script>
     <script type="text/template" id="all-events-template">
-        <div class="row">
+        <div class="">
             
         </div>
     </script>
     <script type="text/template" id="coming-events-template">
         <!--  -->
         <div class="uk-margin">
-            <h1 class="uk-heading-medium" >Eventos que ocurrirán dentro de <a class="uk-link-heading" id="n-days"></a></h1>
+            <h1 class="uk-heading-medium" >Eventos programados para los próximos <a class="uk-link-heading" id="n-days"></a></h1>
         </div>
         <div class="uk-grid-small uk-child-width-expand@s uk-text-center" uk-grid>
             <div>
@@ -346,7 +346,6 @@
             </div>
             <div>
                 <div class="uk-margin">
-
                     <label class="label">
                         <div class="toggle">
                             <input class="toggle-state paid-state" type="checkbox" name="check" value="" />
@@ -359,6 +358,14 @@
                     </label>
 
                     <!-- <label><input type="checkbox" class="uk-checkbox" id="sePaga" name="sePaga"> Pagar?</label> -->
+                </div>
+            </div>
+            <div>
+                <div class="uk-form-controls">
+                    <select  class="uk-select event-state" name="estado">
+                        <option value="creado" selected>Creado</option>
+                        <option value="publicado">Publicado</option>
+                    </select>
                 </div>
             </div>
         </div>
