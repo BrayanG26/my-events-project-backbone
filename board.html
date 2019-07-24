@@ -463,6 +463,7 @@
                             <option value="teatro">Teatro</option>
                             <option value="empleo">Empleo</option>
                             <option value="educacion">Educacion</option>
+                            <option value="deporte">Deporte</option>
                         </select>
                     </div>
                 </div>
@@ -533,7 +534,7 @@
     <script id="slideshow-controls" type="text/template">
         <a class="prev">❮</a>
         <a class="next">❯</a>
-		<% if (estado !="eliminado"){ %>
+		<% if (estado !="eliminado" || estado !="ejecutado"){ %>
 		<span class="edit-images" uk-icon="icon: pencil; ratio: 1.3" uk-tooltip="title: EDITAR; pos: left; delay: 350"></span>
 		<input type="file" id="images" name="images" class="slideshow_input-images"  accept="image/*" multiple>
 		<% } %>
@@ -657,7 +658,7 @@
                         <select id="categoria" name="categoria" data-validation="required" class="new-form__input-element fields__input">
 
                             <!-- Nested for into this select -->
-                            <% var cats = ['musica', 'teatro', 'empleo', 'educacion']; %>
+                            <% var cats = ['musica', 'teatro', 'empleo', 'educacion','deporte']; %>
                             <% for (var i = 0; i < cats.length; i++) { %>
                                 <option value="<%= cats[i] %>" <%= (cats[i] == categoria)?'selected="selected"':'' %> ><%= cats[i].toUpperCase() %></option>
                             <% } %>
@@ -759,7 +760,7 @@
                 </div>
                 <% } %>
                 <div class="row">
-                <input type="submit" class="new-form__submit-button guardar" <%= (estado=="eliminado")? "disabled":"" %> value="modificar">
+                <input type="submit" class="new-form__submit-button guardar" value="modificar">
                 <input type="button" class="new-form__submit-button cancelar" value="Cancelar">
                 </div>
         </form>

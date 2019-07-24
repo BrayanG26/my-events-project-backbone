@@ -7,8 +7,8 @@ var app = app || {};
         template: _.template($('#stats-template').html()),
 
         initialize: function() {
-            console.log("initialize stats function");
-            console.log(this.model);
+            console.log("initializing stats");
+            console.log(this.model.toJSON());
         },
         render: function() {
             var self = this;
@@ -47,8 +47,8 @@ var app = app || {};
                 var item = [];
                 $.each(headers, function(i, key) {
                     var value = model.toJSON()[key];
-
-                    if (value) {
+                    // console.warn(`${key} : ${value}`);
+                    if (!(value === undefined)) {
                         if (key == 'fecha') {
                             value = new Date(value);
                         }
@@ -57,6 +57,7 @@ var app = app || {};
                 });
                 dataTable.push(item);
             });
+            console.warn(dataTable);
             var data = google.visualization.arrayToDataTable(dataTable);
 
             // categoryfilter control
@@ -123,11 +124,11 @@ var app = app || {};
                 $.each(headers, function(i, key) {
                     var value = model.toJSON()[key];
 
-                    if (value) {
+                    if (!(value === undefined)) {
                         if (key == 'fecha') {
-                            console.log(value);
+                            // console.log(value);
                             value = new Date(value);
-                            console.log(value);
+                            // console.log(value);
                         }
                         item.push(value);
                     }

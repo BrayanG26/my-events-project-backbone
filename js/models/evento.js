@@ -17,7 +17,16 @@ var app = app || {};
         initialize: function() {
             console.log('Objeto tipo evento, creado');
         },
-
+        parse: function(response) {
+            // console.log(response);
+            var e;
+            if (response.evento) {
+                e = response.evento;
+            } else {
+                e = response;
+            }
+            return e;
+        },
         defaults: {
             organizador: '',
             nombre: '',
@@ -30,13 +39,13 @@ var app = app || {};
             url: '',
             sePaga: '',
             descripcion: '',
-			estado: 'creado',
+            estado: 'creado',
             asistentes: 0,
             meinteresa: 0,
             compartido: 0,
             megusta: 0,
             imagenes: []
-            
+
         },
 
         validation: {

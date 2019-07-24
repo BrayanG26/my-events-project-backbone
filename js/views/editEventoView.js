@@ -255,7 +255,7 @@ var app = app || {};
             chart = new google.visualization.BarChart($('#' + attribute, this.$el)[0]);
             setTimeout(function () {
                 chart.draw(data, options);
-            }, 1000);
+            }, 1500);
             // chart.draw(data);
         },
 

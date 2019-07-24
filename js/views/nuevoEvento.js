@@ -115,14 +115,16 @@ app.NuevoEventoView = Backbone.View.extend({
                     self.imgList.upload().then(function (response) {
                         console.log('success');
                         console.log(response);
-                        self.returnHome();
+						setTimeout(self.returnHome(), 1500);
                     }, function (response) {
                         console.log('error');
                         console.log(response);
                     }, function () {
                         console.log('processing...');
                     });
-                }
+                }else{
+					self.returnHome();
+				}
             }
         });
         /*app.eventos.create(result).done(function(data) {
