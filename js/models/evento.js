@@ -31,11 +31,11 @@ var app = app || {};
             sePaga: '',
             descripcion: '',
 			estado: 'creado',
-            imagenes: [],
             asistentes: 0,
             meinteresa: 0,
             compartido: 0,
-            megusta: 0
+            megusta: 0,
+            imagenes: []
             
         },
 

@@ -18,7 +18,7 @@ var app = app || {};
             'click .enable-edit': 'edit',
             'keypress .edit': 'updateOnEnter',
             'blur .edit': 'close',
-            'change input.fields__input': 'modify',
+            'change .fields__input': 'modify',
             'submit #edit-event': 'save',
             'click .cancelar': 'returnHome',
             'click .edit-images': 'selectImages',
@@ -35,19 +35,19 @@ var app = app || {};
                     console.warn("--- valid callback ---");
                     var $input = view.$('[name=' + attr + ']');
                     $input.removeClass('uk-form-danger');
-                    console.log(view);
-                    console.log(attr);
-                    console.log(selector);
-                    console.log($input);
+                    // console.log(view);
+                    // console.log(attr);
+                    // console.log(selector);
+                    // console.log($input);
                 },
                 invalid: function (view, attr, error, selector) {
                     console.warn("--- invalid callback ---");
                     var $input = view.$('[name=' + attr + ']');
                     $input.addClass('uk-form-danger');
-                    console.log(view);
-                    console.log(attr);
-                    console.log(selector);
-                    console.log(error);
+                    // console.log(view);
+                    // console.log(attr);
+                    // console.log(selector);
+                    // console.log(error);
                 }
             });
             if (this.model.get('estado') != 'creado') {
@@ -136,11 +136,13 @@ var app = app || {};
         modify: function (e) {
             var element = $(e.currentTarget),
                 propiedad = element.attr("name"),
-                valor = element.val();
-            console.log(`${propiedad} : ${valor}`);
+                // valor = element.val();
+				valor = (element.is(':checkbox')) ? element.is(':checked') : element.val();
+            console.warn(`${propiedad} : ${valor}`);
             this.model.set(propiedad, valor);
-            if (this.model.isValid(propiedad))
-                console.log('valid, ok!');
+            if (this.model.isValid(propiedad)){
+				console.log('valid, ok!');
+			}
         },
 
         // Close the `"editing"` mode, saving changes to the todo.
@@ -279,13 +281,18 @@ var app = app || {};
             if (this.model.isValid(true)) {
                 console.log('El modelo es valido');
                 console.log(this.model.toJSON());
-
-                /*this.model.save().done(function () {
-                console.log("successfull update");
-                self.returnHome();
-                }).fail(function () {
-                console.log("failed update");
-                });*/
+                this.model.save().then(function (response) {
+                    console.log('success');
+                    console.log(response);
+                    if (response.success) {
+                        self.model.fetch();
+                    }
+                }, function (response) {
+                    console.log('error');
+                    console.log(response);
+                }, function () {
+                    console.log('processing...');
+                })
             } else {
                 console.log("El modelo es no valido");
                 console.log(this.model.toJSON());

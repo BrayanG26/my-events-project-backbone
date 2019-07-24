@@ -305,7 +305,7 @@
             </li>
         </ul>
 
-        <p class="event__descripcion"><%= descripcion.length>100?descripcion.substring(0,85)+'...':descripcion+'.' %></p>
+        <p class="event__descripcion"><%= (descripcion.length == 0)?'[sin descripción]'.toUpperCase():descripcion.length>100?descripcion.substring(0,85)+'...':descripcion+'.' %></p>
 
         <!-- <p class="card-tag-box">
             <span class="card__img-tag"><img src="img/cd-tag.png" class="card__img"></span> <span class="tag-element">tag 1</span><span class="tag-element">tag 2</span><span class="tag-element">tag 3</span>
@@ -759,7 +759,7 @@
                 </div>
                 <% } %>
                 <div class="row">
-                <input type="submit" class="new-form__submit-button" <%= (estado=="eliminado")? "disabled":"" %> value="modificar">
+                <input type="submit" class="new-form__submit-button guardar" <%= (estado=="eliminado")? "disabled":"" %> value="modificar">
                 <input type="button" class="new-form__submit-button cancelar" value="Cancelar">
                 </div>
         </form>

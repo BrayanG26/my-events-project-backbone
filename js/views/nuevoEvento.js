@@ -104,19 +104,27 @@ app.NuevoEventoView = Backbone.View.extend({
         // console.log(app.eventos.create(result));
         app.eventos.create(result, {
             success: function (collection, response) {
-				console.log('into success callback');
+                console.log('into success callback');
                 console.log(collection);
                 console.log(response);
-                idEvent = response;
+                var id = response.id;
                 console.log(app.eventos.toJSON());
                 if (nImages > 0) {
-					console.log("There are some images to upload");
-                    self.imgList.setEventID(idEvent);
-                    self.imgList.upload();
+                    console.log("There are some images to upload");
+                    self.imgList.setEventID(id);
+                    self.imgList.upload().then(function (response) {
+                        console.log('success');
+                        console.log(response);
+                        self.returnHome();
+                    }, function (response) {
+                        console.log('error');
+                        console.log(response);
+                    }, function () {
+                        console.log('processing...');
+                    });
                 }
-                self.returnHome();
             }
-        })
+        });
         /*app.eventos.create(result).done(function(data) {
             console.log(data);
             console.log("hay imagenes para cargar...");
