@@ -66,6 +66,7 @@ var app = app || {};
         },
 
         render: function () {
+			var self = this;
             this.$el.html(this.editTemplate(this.model.attributes));
             var slideshow = new app.SlideshowView({
                 model: new app.ImagenesServidor(this.model.get('imagenes')),
@@ -105,6 +106,8 @@ var app = app || {};
                 onSelect: function (dateText, inst) {
                     console.log(dateText);
                     console.log($(this).datepicker("getDate"));
+					self.$('.datepicker').trigger('change');
+					// console.log(self.$('.datepicker'));
                 }
             });
             $('#hora', this.el).mdtimepicker({
