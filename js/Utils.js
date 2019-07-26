@@ -47,7 +47,7 @@ var Utils = (function ($, request) {
 			processData: true,
 			success: function (data, status, jqXHR) {
 				console.log(data);
-				if (data.validation) {
+				if (data.success) {
 					localStorage.setItem("idUser", data.idUser);
 					_redirectUser(true);
 				} else {

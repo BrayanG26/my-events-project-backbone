@@ -1,7 +1,7 @@
 /*global Backbone, jQuery, _, ENTER_KEY, ESC_KEY */
 var app = app || {};
 
-(function ($) {
+(function($) {
     'use strict';
 
     // Vista para editar evento
@@ -26,12 +26,12 @@ var app = app || {};
             'click .upload-img': 'uploadImages'
         },
 
-        initialize: function () {
+        initialize: function() {
             var self = this;
             console.log(this.model.toJSON());
             this.listenTo(this.model, 'change', this.render);
             Backbone.Validation.bind(this, {
-                valid: function (view, attr, selector) {
+                valid: function(view, attr, selector) {
                     console.warn("--- valid callback ---");
                     var $input = view.$('[name=' + attr + ']');
                     $input.removeClass('uk-form-danger');
@@ -40,7 +40,7 @@ var app = app || {};
                     // console.log(selector);
                     // console.log($input);
                 },
-                invalid: function (view, attr, error, selector) {
+                invalid: function(view, attr, error, selector) {
                     console.warn("--- invalid callback ---");
                     var $input = view.$('[name=' + attr + ']');
                     $input.addClass('uk-form-danger');
@@ -55,9 +55,9 @@ var app = app || {};
                     'packages': ['corechart', 'table', 'controls', 'line'],
                     'language': 'es'
                 });
-                google.setOnLoadCallback(function () {
+                google.setOnLoadCallback(function() {
                     self.renderGraph(self.model.get('calificacion'));
-                    $(window).on('resize', function () {
+                    $(window).on('resize', function() {
                         self.renderGraph(self.model.get('calificacion'));
                     });
                 });
@@ -65,8 +65,8 @@ var app = app || {};
             // this.listenTo(this.model, 'destroy', this.remove);
         },
 
-        render: function () {
-			var self = this;
+        render: function() {
+            var self = this;
             this.$el.html(this.editTemplate(this.model.attributes));
             var slideshow = new app.SlideshowView({
                 model: new app.ImagenesServidor(this.model.get('imagenes')),
@@ -82,7 +82,7 @@ var app = app || {};
 
             // console.log(this.$('.event-edit__images'));
             if (this.model.get('estado') == 'eliminado') {
-                $.each($(this.$el).find(":input"), function () {
+                $.each($(this.$el).find(":input"), function() {
                     if (!($(this).is('input:file') || $(this).is('input:submit') || $(this).is('input:button'))) {
                         // console.log(this);
                         // result[this.name] = (this.id != 'sePaga') ? this.value : $(this).is(':checked');
@@ -103,11 +103,11 @@ var app = app || {};
                 closeText: "x",
                 duration: "normal",
                 showAnim: "fold",
-                onSelect: function (dateText, inst) {
+                onSelect: function(dateText, inst) {
                     console.log(dateText);
                     console.log($(this).datepicker("getDate"));
-					self.$('.datepicker').trigger('change');
-					// console.log(self.$('.datepicker'));
+                    self.$('.datepicker').trigger('change');
+                    // console.log(self.$('.datepicker'));
                 }
             });
             $('#hora', this.el).mdtimepicker({
@@ -117,7 +117,7 @@ var app = app || {};
             });
             return this;
         },
-        bindValidations: function () {
+        bindValidations: function() {
             $.validate({
                 modules: 'security, toggleDisabled',
                 lang: 'en',
@@ -126,7 +126,7 @@ var app = app || {};
         },
 
         // Switch this view into `"editing"` mode, displaying the input field.
-        edit: function (e) {
+        edit: function(e) {
             console.log("click on edit event");
             console.log(e.target);
             $(e.target).parents().eq(1).addClass('editing');
@@ -136,20 +136,20 @@ var app = app || {};
         },
 
         // Modify the corresponding model attribute when user changes that value
-        modify: function (e) {
+        modify: function(e) {
             var element = $(e.currentTarget),
                 propiedad = element.attr("name"),
                 // valor = element.val();
-				valor = (element.is(':checkbox')) ? element.is(':checked') : element.val();
+                valor = (element.is(':checkbox')) ? element.is(':checked') : element.val();
             console.warn(`${propiedad} : ${valor}`);
             this.model.set(propiedad, valor);
-            if (this.model.isValid(propiedad)){
-				console.log('valid, ok!');
-			}
+            if (this.model.isValid(propiedad)) {
+                console.log('valid, ok!');
+            }
         },
 
         // Close the `"editing"` mode, saving changes to the todo.
-        close: function (e) {
+        close: function(e) {
             console.log("blur event");
             var element = $(e.currentTarget),
                 propiedad = element.attr("name"),
@@ -169,7 +169,7 @@ var app = app || {};
             console.log(typeof previous);
             console.log(typeof current);
             console.log(current);
-            current = typeof (previous) == 'string' ? current.trim() : JSON.parse(current);
+            current = typeof(previous) == 'string' ? current.trim() : JSON.parse(current);
             console.log(`${propiedad} : ${current}`);
             this.model.set(propiedad, current);
             console.log(this.model.toJSON());
@@ -178,9 +178,9 @@ var app = app || {};
         },
 
         // Create graphics
-        renderGraph: function (calificacion) {
+        renderGraph: function(calificacion) {
             console.log(calificacion);
-            _.each(calificacion, function (value, key) {
+            _.each(calificacion, function(value, key) {
                 console.log(key);
                 console.log(value);
                 this.getAttrChart(key, value);
@@ -188,28 +188,27 @@ var app = app || {};
         },
 
         // Get corresponding attribute chart
-        getAttrChart: function (attribute, values) {
+        getAttrChart: function(attribute, values) {
             var headers = ['calificacion', 'valor'];
             var headersFormated = [{
-                label: "Calificacion",
-                type: "string"
-            }, {
-                label: "Valor",
-                type: "number"
-            }, {
-                type: 'string',
-                role: 'tooltip',
-                p: {
-                    html: true
-                }
-            }
-            ],
+                    label: "Calificacion",
+                    type: "string"
+                }, {
+                    label: "Valor",
+                    type: "number"
+                }, {
+                    type: 'string',
+                    role: 'tooltip',
+                    p: {
+                        html: true
+                    }
+                }],
                 dataTable = [],
                 data,
                 chart,
                 colors = ['blue', 'red', 'green', 'purple'];
             dataTable.push(headersFormated);
-            var customHTMLTooltip = function (value) {
+            var customHTMLTooltip = function(value) {
                 var x;
                 switch (value) {
                     case 1:
@@ -234,7 +233,7 @@ var app = app || {};
 
                 return '<div class="uk-card-badge uk-label uk-padding-small"><span class="uk-text-large uk-text-large" >votos: ' + value + '</span></div>';
             }
-            _.each(values, function (value, key) {
+            _.each(values, function(value, key) {
                 dataTable.push([key, value, customHTMLTooltip(value)]);
             }, this);
 
@@ -253,14 +252,14 @@ var app = app || {};
                 }
             };
             chart = new google.visualization.BarChart($('#' + attribute, this.$el)[0]);
-            setTimeout(function () {
+            setTimeout(function() {
                 chart.draw(data, options);
             }, 1500);
             // chart.draw(data);
         },
 
         // If you hit `enter`, we're through editing the item.
-        updateOnEnter: function (e) {
+        updateOnEnter: function(e) {
             var ENTER_KEY = 13;
             if (e.which === ENTER_KEY) {
                 this.close();
@@ -269,7 +268,7 @@ var app = app || {};
 
         // If you're pressing `escape` we revert your change by simply leaving
         // the `editing` state.
-        revertOnEscape: function (e) {
+        revertOnEscape: function(e) {
             if (e.which === ESC_KEY) {
                 this.$el.removeClass('editing');
                 // Also reset the hidden input back to the original value.
@@ -277,23 +276,41 @@ var app = app || {};
             }
         },
 
-        save: function (e) {
+        save: function(e) {
+            UIkit.notification({
+                message: "<span uk-icon='icon: info'></span> Modificando evento...",
+                status: 'primary',
+                pos: 'top-center',
+                timeout: 2600
+            });
             e.preventDefault();
             var self = this;
             console.log("submit form event");
             if (this.model.isValid(true)) {
                 console.log('El modelo es valido');
                 console.log(this.model.toJSON());
-                this.model.save().then(function (response) {
+                this.model.save().then(function(response) {
                     console.log('success');
                     console.log(response);
+                    UIkit.notification({
+                        message: "<span uk-icon='icon: check'></span> Modificado!",
+                        status: 'success',
+                        pos: 'top-center',
+                        timeout: 2600
+                    });
                     if (response.success) {
                         self.model.fetch();
                     }
-                }, function (response) {
+                }, function(response) {
                     console.log('error');
+                    UIkit.notification({
+                        message: "<span uk-icon='icon: info'></span> Algo ocurrio, no se pudo..",
+                        status: 'danger',
+                        pos: 'top-center',
+                        timeout: 2600
+                    });
                     console.log(response);
-                }, function () {
+                }, function() {
                     console.log('processing...');
                 })
             } else {
@@ -303,7 +320,7 @@ var app = app || {};
 
             // new app.Evento(result).save();
         },
-        returnHome: function () {
+        returnHome: function() {
             app.Router.navigate("", {
                 trigger: true,
                 replace: true
@@ -311,10 +328,10 @@ var app = app || {};
         },
 
         // for testing purposes
-        selectImages: function (e) {
+        selectImages: function(e) {
             this.$('#images', this.$el).trigger('click');
         },
-        handleFileSelect: function (e) {
+        handleFileSelect: function(e) {
             var files = e.target.files,
                 nImages = files.length;
             var self = this,
@@ -342,8 +359,8 @@ var app = app || {};
                 var reader = new FileReader();
 
                 // Closure to capture the file information.
-                reader.onload = (function (theFile) {
-                    return function (e) {
+                reader.onload = (function(theFile) {
+                    return function(e) {
                         self.imgList.add(new app.Imagen({
                             url: e.target.result,
                             alt: theFile.name,
@@ -364,7 +381,7 @@ var app = app || {};
         },
 
         // Upload images to server
-        uploadImages: function (e) {
+        uploadImages: function(e) {
             e.preventDefault();
             var self = this;
             console.log('uploading images to the server...');
@@ -373,7 +390,7 @@ var app = app || {};
             buttonInput.attr('disabled', '');
             this.$spinner.toggleClass('hidden');
             this.$('.list-thumbs-images').toggleClass('hidden');
-            this.imgList.upload().then(function (response) {
+            this.imgList.upload().then(function(response) {
                 console.log('success');
 
                 console.log(response);
@@ -383,21 +400,21 @@ var app = app || {};
                     self.model.fetch();
 
                 }
-            }, function (response) {
+            }, function(response) {
                 console.log('error');
                 console.log(response);
-            }, function () {
+            }, function() {
                 console.log('processing...');
             });
         },
 
-        bindValidations: function () { //revisar las validaciones, para aplicarlas de otra manera
+        bindValidations: function() { //revisar las validaciones, para aplicarlas de otra manera
             $.validate({
                 modules: 'security, toggleDisabled, file, date',
                 lang: 'en',
                 validateOnBlur: false,
                 errorMessagePosition: 'top',
-                onError: function ($form) {
+                onError: function($form) {
                     alert('Validation of form ' + $form.attr('id') + ' failed!');
                 }
             });
