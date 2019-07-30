@@ -40,11 +40,23 @@ var app = app || {};
             this.$main.html(new app.HomeView().render().el);
         },
         allEvents: function () {
-            console.log("into all Events rouote");
-            this.$main.html('<p>Disponible muy pronto...</p>')
+            console.log("into All Events route");
+            var id = localStorage.getItem("idUser");
+            var self = this;
+            if (!app.organizador) {
+                app.organizador = new app.Organizador({ id: id });
+            }
+            app.organizador.fetch({
+                success: function (response, data) {
+                    console.log("datos del organizador recibidos");
+                    console.log(data);
+                    console.log(response);
+                    self.$main.html(new app.AllEventsView().render().el);
+                }
+            });
         },
         comingEvents: function () {
-            console.log("into coming Events rouote");
+            console.log("into coming Events route");
             var id = localStorage.getItem("idUser");
             var self = this;
             if (!app.organizador) {
@@ -88,7 +100,7 @@ var app = app || {};
                     console.log(data);
                     console.log(response);
                     self.$main.html(profileView.render().el);
-                    profileView.bindValidations();
+                    // profileView.bindValidations();
                     // console.log(new app.ProfileView({ model: app.organizador }).render().el);
                 }
             });

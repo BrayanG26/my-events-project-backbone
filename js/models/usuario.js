@@ -2,15 +2,19 @@ var app = app || {};
 
 
 app.Organizador = Backbone.Model.extend({
-    url: function () {
+    url: function() {
         return app.urlAPI + 'organizadores/' + this.id;
     },
     idAttribute: 'id',
-    initialize: function () {
+    initialize: function() {
         console.log('a usuario object was created');
     },
-    parse: function (response) {
-        return response.organizador;
+    parse: function(response) {
+        var organizador;
+        if(response.organizador){
+            organizador = response.organizador;
+        }
+        return organizador;
     },
     // Default attributes for the todo
     // and ensure that each todo created has `title` and `completed` keys.
@@ -23,37 +27,22 @@ app.Organizador = Backbone.Model.extend({
         organizacion: ''
     },
     validation: {
-        nombre: {
+        email: {
             required: true
         },
-        lugar: {
+        nombres: {
             required: true
         },
-        fecha: {
+        apellidos: {
             required: true
         },
-        hora: {
+        organizacion: {
             required: true
-        },
-        ciudad: {
-            required: true
-        },
-        capacidad: {
-            required: true,
-            pattern: /^[1-9]\d*$/
-        },
-        categoria: {
-            required: true
-        },
-        url: {
-            required: false,
-            pattern: 'url',
-            msg: 'Please enter a valid url'
         }
     }
 });
 
-(function () {
+(function() {
     'use strict';
 
     // Organizador Model

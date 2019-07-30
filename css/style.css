@@ -871,7 +871,7 @@ Sidebar
 /* estadisticas */
 
 .content-element {
-    border: solid 1px;
+    /*border: solid 1px;*/
     overflow: hidden;
     margin: 10px 0px 10px 25px;
     padding: 10px 0px;

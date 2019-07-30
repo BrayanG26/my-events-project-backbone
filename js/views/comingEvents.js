@@ -10,18 +10,14 @@ var app = app || {};
     app.ComingEventsView = Backbone.View.extend({
 
         tagName: 'div',
-        className: 'row comming-events',
+        className: 'contenedor-formulario comming-events',
         template: _.template($("#coming-events-template").html()),
 
         events: {
             'click .button-calendar': 'fireDatePicker',
             'click .button-clear': 'clearDatePicker',
-            'keypress .edit': 'updateOnEnter',
-            'blur .edit': 'close',
-            'submit #edit-event': 'save',
             'change .paid-state': 'handleStatePaid',
-            'change .event-state':'handleEventState',
-            'click .cancelar': 'returnHome'
+            'change .event-state':'handleEventState'
         },
 
         initialize: function () {
@@ -137,47 +133,6 @@ var app = app || {};
                     console.log(data);
                 }
             });
-        },
-        // Close the `"editing"` mode, saving changes to the todo.
-        close: function (e) {
-            console.log("blur event");
-            var element = $(e.target),
-                propiedad = element.attr("name"),
-                previous = this.model.get(propiedad),
-                current;
-            if (element.is(":checkbox")) {
-                if (element.is(":checked")) {
-                    current = 'true';
-                } else {
-                    current = 'false';
-                }
-            } else {
-                current = element.val() || previous;
-            }
-
-            current = typeof (previous) == 'string' ? current.trim() : JSON.parse(current);
-            console.log(`${propiedad} : ${current}`);
-            this.model.set(propiedad, current);
-            console.log(this.model.toJSON());
-            $(e.target).parents().eq(0).removeClass('editing');
-        },
-
-        // If you hit `enter`, we're through editing the item.
-        updateOnEnter: function (e) {
-            var ENTER_KEY = 13;
-            if (e.which === ENTER_KEY) {
-                this.close();
-            }
-        },
-
-        // If you're pressing `escape` we revert your change by simply leaving
-        // the `editing` state.
-        revertOnEscape: function (e) {
-            if (e.which === ESC_KEY) {
-                this.$el.removeClass('editing');
-                // Also reset the hidden input back to the original value.
-                this.$input.val(this.model.get('title'));
-            }
         }
     });
 })(jQuery);
