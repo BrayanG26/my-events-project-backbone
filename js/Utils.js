@@ -48,9 +48,21 @@ var Utils = (function ($, request) {
 			success: function (data, status, jqXHR) {
 				console.log(data);
 				if (data.success) {
+					UIkit.notification({
+                        message: "<span uk-icon='icon: close'></span> Inició sesión!",
+                        status: 'success',
+                        pos: 'top-center',
+                        timeout: 2600
+                    });
 					localStorage.setItem("idUser", data.idUser);
 					_redirectUser(true);
 				} else {
+					UIkit.notification({
+                        message: "<span uk-icon='icon: close'></span> Algo falló, lo sentimos, intenta de nuevo..",
+                        status: 'danger',
+                        pos: 'top-center',
+                        timeout: 2600
+                    });
 					console.log("usuario no encontrado");
 				}
 				console.log(jqXHR);

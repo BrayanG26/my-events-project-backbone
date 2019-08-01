@@ -1,5 +1,5 @@
 var app = app || {};
-(function () {
+(function() {
     // js/routers/router.js
     // ----------
     var Workspace = Backbone.Router.extend({
@@ -13,18 +13,32 @@ var app = app || {};
             'close': 'closeSesion',
             'security': 'myPassword'
         },
-        initialize: function () {
+        initialize: function() {
             this.$main = $('.main');
             var id = localStorage.getItem("idUser");
             console.warn("este es el id del organizador: " + id);
             app.organizador = new app.Organizador({ id: id });
+
+            app.organizador.fetch({
+                success: function(response, data) {
+                    console.log("datos del organizador recibidos");
+                    console.log(data);
+                    console.log(response);
+                    UIkit.notification({
+                        message: "<span uk-icon='icon: check'></span> Ha iniciado sesión como " + data.organizador.usuario,
+                        status: 'success',
+                        pos: 'top-center',
+                        timeout: 2600
+                    });
+                }
+            });
         },
-        newEvent: function () {
+        newEvent: function() {
             if (!app.organizador) {
                 app.organizador = new app.Organizador({ id: id });
             }
             app.organizador.fetch({
-                success: function (response, data) {
+                success: function(response, data) {
                     console.log("datos del organizador recibidos");
                     console.log(data);
                     console.log(response);
@@ -35,11 +49,11 @@ var app = app || {};
             eventFormView.bindValidations();
             console.log('into new-event route');
         },
-        home: function () {
+        home: function() {
             console.log('into home route');
             this.$main.html(new app.HomeView().render().el);
         },
-        allEvents: function () {
+        allEvents: function() {
             console.log("into All Events route");
             var id = localStorage.getItem("idUser");
             var self = this;
@@ -47,7 +61,7 @@ var app = app || {};
                 app.organizador = new app.Organizador({ id: id });
             }
             app.organizador.fetch({
-                success: function (response, data) {
+                success: function(response, data) {
                     console.log("datos del organizador recibidos");
                     console.log(data);
                     console.log(response);
@@ -55,7 +69,7 @@ var app = app || {};
                 }
             });
         },
-        comingEvents: function () {
+        comingEvents: function() {
             console.log("into coming Events route");
             var id = localStorage.getItem("idUser");
             var self = this;
@@ -63,7 +77,7 @@ var app = app || {};
                 app.organizador = new app.Organizador({ id: id });
             }
             app.organizador.fetch({
-                success: function (response, data) {
+                success: function(response, data) {
                     console.log("datos del organizador recibidos");
                     console.log(data);
                     console.log(response);
@@ -71,13 +85,13 @@ var app = app || {};
                 }
             });
         },
-        editEvent: function (id) {
+        editEvent: function(id) {
             console.log("Into view-event route [id: " + id + "]");
             var evento = new app.Evento({ id: id });
             var self = this;
             var editEventView;
             evento.fetch({
-                success: function (data) {
+                success: function(data) {
                     // console.log(data);
                     editEventView = new app.EditEventoView({ model: data, id: id });
                     self.$main.html(editEventView.render().$el);
@@ -86,7 +100,7 @@ var app = app || {};
             });
 
         },
-        myAccount: function () {
+        myAccount: function() {
             console.log('into myAccount route');
             var id = localStorage.getItem("idUser");
             var self = this;
@@ -95,7 +109,7 @@ var app = app || {};
                 app.organizador = new app.Organizador({ id: id });
             }
             app.organizador.fetch({
-                success: function (response, data) {
+                success: function(response, data) {
                     console.log("datos del organizador recibidos");
                     console.log(data);
                     console.log(response);
@@ -105,7 +119,7 @@ var app = app || {};
                 }
             });
         },
-        myPassword: function () {
+        myPassword: function() {
             console.log('Into passwords management route');
             var id = localStorage.getItem("idUser");
             var self = this;
@@ -114,7 +128,7 @@ var app = app || {};
                 app.organizador = new app.Organizador({ id: id });
             }
             app.organizador.fetch({
-                success: function (response, data) {
+                success: function(response, data) {
                     console.log("datos del organizador recibidos");
                     console.log(data);
                     console.log(response);
@@ -123,7 +137,7 @@ var app = app || {};
                 }
             });
         },
-        closeSesion: function () {
+        closeSesion: function() {
             localStorage.clear();
             window.location.href = './index.html';
         }

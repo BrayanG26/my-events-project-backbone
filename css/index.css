@@ -35,7 +35,7 @@ ul {
 /* For ribbons sections */
 
 .ribbon {
-    background: #35424a;
+    background: #002e48;
 }
 
 /* Header */
@@ -79,8 +79,12 @@ header .highlight, header .current a {
 }
 
 header a:hover {
-    color: #cccccc;
-    font-weight: bold;
+    color: #00ffb8;
+    /*font-weight: bold;*/
+}
+
+.branding__header{
+    color: #00ffb8;
 }
 
 /* Showcase */
