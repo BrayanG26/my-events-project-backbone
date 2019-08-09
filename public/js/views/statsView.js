@@ -1,36 +1,38 @@
 var app = app || {};
 
-(function($) {
+(function ($) {
     app.EstadisticasView = Backbone.View.extend({
         tagName: 'div',
         className: 'row stats-view uk-margin',
         template: _.template($('#stats-template').html()),
 
-        initialize: function() {
+        initialize: function () {
             console.log("initializing stats");
             console.log(this.model.toJSON());
         },
-        render: function() {
+        render: function () {
             var self = this;
             this.$el.html(this.template());
             google.charts.load('current', { 'packages': ['corechart', 'table', 'controls', 'line'], 'language': 'es' });
-            google.setOnLoadCallback(function() {
+            google.setOnLoadCallback(function () {
                 self.drawDashBoard();
             });
+
             return this;
         },
-        drawDashBoard: function() {
+        drawDashBoard: function () {
             var self = this;
             self.loadDashboardTable();
             self.loadColumnChart();
-            $(window).on('resize', function() {
+            $(window).on('resize', function () {
                 self.loadDashboardTable();
                 self.loadColumnChart();
             });
 
             return self;
         },
-        loadDashboardTable: function() {
+
+        loadDashboardTable: function () {
             var headers = ["nombre", "fecha", "hora", "ciudad", "categoria", "asistentes", "estado"]
             var headersFormated = [
                 { label: "nombre", type: "string" },
@@ -43,9 +45,9 @@ var app = app || {};
             ];
             dataTable = [];
             dataTable.push(headersFormated);
-            $.each(this.model.toArray(), function(i, model) {
+            $.each(this.model.toArray(), function (i, model) {
                 var item = [];
-                $.each(headers, function(i, key) {
+                $.each(headers, function (i, key) {
                     var value = model.toJSON()[key];
                     // console.warn(`${key} : ${value}`);
                     if (!(value === undefined)) {
@@ -60,7 +62,7 @@ var app = app || {};
             console.warn(dataTable);
             var data = google.visualization.arrayToDataTable(dataTable);
 
-            // categoryfilter control
+            // stateFilter control
             var stateFilter = new google.visualization.ControlWrapper({
                 'controlType': 'CategoryFilter',
                 'containerId': 'filter',
@@ -87,6 +89,7 @@ var app = app || {};
             var table = new google.visualization.ChartWrapper({
                 'chartType': 'Table',
                 'containerId': 'table',
+                'dataTable': data,
                 'options': {
                     'width': '100%',
                     'height': '100%',
@@ -96,17 +99,44 @@ var app = app || {};
                     'cssClassNames': cssClassNames
                 }
             });
-            google.visualization.events.addListener(table, 'select', function() {
+            google.visualization.events.addListener(table, 'select', function () {
                 console.log('a table row was selected');
                 var row = table.getChart().getSelection()[0].row || null;
                 console.log(table.getChart().getSelection()[0]);
                 console.log(table.getDataTable().getValue(row, 0));
             });
+            google.visualization.events.addOneTimeListener(table, 'ready', function () {
+                var filterValues = data.getDistinctValues(6);
+                $.each(filterValues, function (index, value) {
+                    $('#filterName').append(`<option value="${value}">${value.toUpperCase()}</option>`);
+                });
+                $('#filterName').on('change', function (e) {
+                    var tableView = {};
+                    var selectedValues = [], name = $(e.target).val();
+                    console.log('--- --- ---');
+                    console.log('option: ' + name);
+
+                    if (name.length > 0) {
+
+                        tableView.rows = data.getFilteredRows([{
+                            column: 6,
+                            test: function (value) {
+                                return (name == value);
+                            }
+                        }]);
+                        console.log(tableView);
+                    }
+
+                    table.setView(tableView);
+                    table.draw();
+                });
+            });
             var dashboard = new google.visualization.Dashboard($('#dashboard-table'));
-            dashboard.bind(stateFilter, table);
-            dashboard.draw(data);
+            // dashboard.bind(stateFilter, table);
+            // dashboard.draw(data);
+            table.draw();
         },
-        loadColumnChart: function() {
+        loadColumnChart: function () {
             var headers = ["categoria", "nombre", "asistentes", "meinteresa", "compartido", "megusta"];
             var headersFormated = [
                 { label: "Categoria", type: "string" },
@@ -119,9 +149,9 @@ var app = app || {};
 
             var dataTable = [];
             dataTable.push(headersFormated);
-            $.each(this.model.toArray(), function(i, model) {
+            $.each(this.model.toArray(), function (i, model) {
                 var item = [];
-                $.each(headers, function(i, key) {
+                $.each(headers, function (i, key) {
                     var value = model.toJSON()[key];
 
                     if (!(value === undefined)) {
